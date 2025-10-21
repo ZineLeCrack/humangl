@@ -19,7 +19,11 @@ void	display() {
 	glRotatef(rotX, 1.0f, 0.0f, 0.0f);
 	glRotatef(rotY, 0.0f, 1.0f, 0.0f);
 
+	glBegin(GL_QUADS);
+
 	human.draw_legs();
+
+	glEnd();
 
 	glutSwapBuffers();
 	glutPostRedisplay();
