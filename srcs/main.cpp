@@ -26,6 +26,11 @@ void	display() {
 	glEnd();
 }
 
+void	imgui_set_window() {
+	Begin("Settings");
+
+	End();
+}
 
 int main() {
 	if (!glfwInit()) {
@@ -36,31 +41,31 @@ int main() {
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_COMPAT_PROFILE);
-	
+
 	GLFWwindow* window = glfwCreateWindow(2560, 1600, "HumanGL", NULL, NULL);
 	if (!window) {
 		glfwTerminate();
 		cerr << RED "Error: init error" << RESET << endl;
 		return 1;
 	}
-	
+
 	glfwMakeContextCurrent(window);
 	glfwSwapInterval(1);
-	
+
 	glfwSetCursorPosCallback(window, [](GLFWwindow* w, double xpos, double ypos) {
 		(void)w;
 		if(isDragging){
 			int dx = int(xpos) - lastMouseX;
 			int dy = int(ypos) - lastMouseY;
-	
+
 			rotY += dx * 0.5f;
 			rotX += dy * 0.5f;
-	
+
 			lastMouseX = int(xpos);
 			lastMouseY = int(ypos);
 		}
 	});
-	
+
 	glfwSetMouseButtonCallback(window, [](GLFWwindow* w, int button, int action, int mods) {
 		(void)w;
 		(void)mods;
@@ -81,37 +86,39 @@ int main() {
 	CreateContext();
 	ImGuiIO &io = ImGui::GetIO(); (void)io;
 	StyleColorsDark();
-	
+
 	ImGui_ImplGlfw_InitForOpenGL(window, true);
 	ImGui_ImplOpenGL3_Init("#version 460");
-	
+
 	glEnable(GL_DEPTH_TEST);
-	
+
 	int width, height;
 	glfwGetFramebufferSize(window, &width, &height);
 	glViewport(0, 0, width, height);
-	
+
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	gluPerspective(45, width / (float)height, 0.1f, 100.0f);
 	glMatrixMode(GL_MODELVIEW);
-	
-	
+
+
 	while (!glfwWindowShouldClose(window)) {
 		glfwPollEvents();
-		
+
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
 		NewFrame();
-		
+
 		display();
-		
+
+		imgui_set_window();
+
 		Render();
 		ImGui_ImplOpenGL3_RenderDrawData(GetDrawData());
-		
+
 		glfwSwapBuffers(window);
 	}
-	
+
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplGlfw_Shutdown();
 	ImGui::DestroyContext();
