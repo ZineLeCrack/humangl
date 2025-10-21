@@ -31,6 +31,8 @@ using namespace ImGui;
 class Human;
 
 /*------- FUNCTIONS ------ */
+void	set_color(float [3]);
+void	draw_rect(double, double, double, double, double, double, float [3]);
 
 /*----- DEFINE COLORS -----*/
 #define RESET	"\033[0m"

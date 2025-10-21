@@ -9,8 +9,6 @@ class Human
 		float	_foots_color[3]	= { 0.2f, 0.2f, 0.2f };
 		float	_legs_color[3]	= { 0.0f, 0.0f, 1.0f };
 
-		void	set_color(float [3]);
-
 	public:
 
 		Human()		{};
