@@ -14,7 +14,7 @@ void	display() {
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	gluLookAt(0.0f, 1.0f, -10.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f);
+	gluLookAt(0.0f, 0.0f, -8.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
 
 	glRotatef(rotX, 1.0f, 0.0f, 0.0f);
 	glRotatef(rotY, 0.0f, 1.0f, 0.0f);
@@ -22,6 +22,9 @@ void	display() {
 	glBegin(GL_QUADS);
 
 	human.draw_legs();
+	human.draw_body();
+	human.draw_arms();
+	human.draw_head();
 
 	glEnd();
 }
@@ -92,7 +95,7 @@ int main() {
 
 	IMGUI_CHECKVERSION();
 	CreateContext();
-	ImGuiIO &io = ImGui::GetIO();
+	ImGuiIO &io = GetIO();
 	io.Fonts->AddFontFromFileTTF("fonts/Minecraftia.ttf", 24.0f);
 	StyleColorsDark();
 
@@ -132,7 +135,7 @@ int main() {
 
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplGlfw_Shutdown();
-	ImGui::DestroyContext();
+	DestroyContext();
 
 	glfwDestroyWindow(window);
 	glfwTerminate();
