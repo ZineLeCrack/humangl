@@ -2,20 +2,37 @@ NAME = humangl
 
 CC = c++
 CFLAGS = -Wall -Wextra -Werror -g3 -std=c++11 -Iincludes
-GLFLAGS = -lGL -lGLU -lglut -lGLEW
+GLFLAGS = -lGL -lGLU -lglut -lGLEW -lglfw
 
+IMGUI_SRCDIR = includes/imgui
 SRCDIR = srcs
 OBJDIR = objs
 
+IMGUI_SRCS =	imgui.cpp \
+				imgui_draw.cpp \
+				imgui_impl_glfw.cpp \
+				imgui_impl_opengl3.cpp \
+				imgui_tables.cpp \
+				imgui_widgets.cpp
+
+IMGUI_SRCS := $(addprefix $(IMGUI_SRCDIR)/, $(IMGUI_SRCS))
+
+IMGUI_OBJS = $(IMGUI_SRCS:$(IMGUI_SRCDIR)/%.cpp=$(OBJDIR)/%.o)
+
 SRCS = Human.cpp main.cpp
+
 SRCS := $(addprefix $(SRCDIR)/, $(SRCS))
 
-OBJS = $(SRCS:$(SRCDIR)/%.cpp=$(OBJDIR)/%.o)
+OBJS += $(SRCS:$(SRCDIR)/%.cpp=$(OBJDIR)/%.o)
+OBJS += $(IMGUI_SRCS:$(IMGUI_SRCDIR)/%.cpp=$(OBJDIR)/%.o)
 
 all: $(NAME)
 
 $(OBJDIR):
 	@mkdir -p $(OBJDIR)
+
+$(OBJDIR)/%.o: $(IMGUI_SRCDIR)/%.cpp | $(OBJDIR)
+	$(CC) $(CFLAGS) -c $< -o $@
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.cpp | $(OBJDIR)
 	$(CC) $(CFLAGS) -c $< -o $@
