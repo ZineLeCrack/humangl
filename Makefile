@@ -7,7 +7,7 @@ GLFLAGS = -lGL -lGLU -lglut -lGLEW
 SRCDIR = srcs
 OBJDIR = objs
 
-SRCS = main.cpp
+SRCS = Human.cpp main.cpp
 SRCS := $(addprefix $(SRCDIR)/, $(SRCS))
 
 OBJS = $(SRCS:$(SRCDIR)/%.cpp=$(OBJDIR)/%.o)

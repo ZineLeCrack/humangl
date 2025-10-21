@@ -11,7 +11,13 @@
 #include <GL/glut.h>
 #include <GL/freeglut.h>
 
+/*-------- NAMESPACE -------*/
+using namespace std;
+
 /*-------- CLASSES --------*/
+#include "Human.hpp"
+
+class Human;
 
 /*------- FUNCTIONS ------ */
 
@@ -23,9 +29,6 @@
 #define BLUE	"\033[34;1m"
 #define MAGENTA	"\033[35;1m"
 #define CYAN	"\033[36;1m"
-
-/*-------- NAMESPACE -------*/
-using namespace std;
 
 /*--------- DEFINES --------*/
 
