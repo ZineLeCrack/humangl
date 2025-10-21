@@ -42,6 +42,7 @@ $(NAME): $(OBJS)
 	@echo "\033[32m✔ Compilation completed\033[0m"
 
 clean:
+	$(RM) imgui.ini
 	$(RM) -r $(OBJDIR)
 	@echo "\033[33m✔ $(OBJDIR) suppressed\033[0m"
 
