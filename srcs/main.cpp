@@ -1,97 +1,103 @@
 #include "Includes.hpp"
 
+float rotX = 0.0f;
+float rotY = 0.0f;
+int lastMouseX = 0;
+int lastMouseY = 0;
+bool isDragging = false;
+
 void	put_legs() {
 	glBegin(GL_QUADS);
 
-	glColor3d(0.2, 0.2, 0.2); glVertex3d(-0.25, 0.0, -0.1);
-	glColor3d(0.2, 0.2, 0.2); glVertex3d(-0.25, 0.0, 0.1);
-	glColor3d(0.2, 0.2, 0.2); glVertex3d(-0.05, 0.0, 0.1);
-	glColor3d(0.2, 0.2, 0.2); glVertex3d(-0.05, 0.0, -0.1);
+	glColor3d(0.2, 0.2, 0.2); glVertex3d(-0.25, -1.0, -0.1);
+	glColor3d(0.2, 0.2, 0.2); glVertex3d(-0.25, -1.0, 0.1);
+	glColor3d(0.2, 0.2, 0.2); glVertex3d(-0.05, -1.0, 0.1);
+	glColor3d(0.2, 0.2, 0.2); glVertex3d(-0.05, -1.0, -0.1);
 
-	glColor3d(0.2, 0.2, 0.2); glVertex3d(0.25, 0.0, -0.1);
-	glColor3d(0.2, 0.2, 0.2); glVertex3d(0.25, 0.0, 0.1);
-	glColor3d(0.2, 0.2, 0.2); glVertex3d(0.05, 0.0, 0.1);
-	glColor3d(0.2, 0.2, 0.2); glVertex3d(0.05, 0.0, -0.1);
+	glColor3d(0.2, 0.2, 0.2); glVertex3d(0.25, -1.0, -0.1);
+	glColor3d(0.2, 0.2, 0.2); glVertex3d(0.25, -1.0, 0.1);
+	glColor3d(0.2, 0.2, 0.2); glVertex3d(0.05, -1.0, 0.1);
+	glColor3d(0.2, 0.2, 0.2); glVertex3d(0.05, -1.0, -0.1);
 
-	glColor3d(0.0, 0.0, 1.0); glVertex3d(-0.25, 1.0, -0.1);
-	glColor3d(0.0, 0.0, 1.0); glVertex3d(-0.25, 1.0, 0.1);
-	glColor3d(0.0, 0.0, 1.0); glVertex3d(-0.25, 0.2, 0.1);
-	glColor3d(0.0, 0.0, 1.0); glVertex3d(-0.25, 0.2, -0.1);
+	glColor3d(0.0, 0.0, 1.0); glVertex3d(-0.25, 0.0, -0.1);
+	glColor3d(0.0, 0.0, 1.0); glVertex3d(-0.25, 0.0, 0.1);
+	glColor3d(0.0, 0.0, 1.0); glVertex3d(-0.25, -0.8, 0.1);
+	glColor3d(0.0, 0.0, 1.0); glVertex3d(-0.25, -0.8, -0.1);
 
-	glColor3d(0.0, 0.0, 1.0); glVertex3d(-0.05, 1.0, -0.1);
-	glColor3d(0.0, 0.0, 1.0); glVertex3d(-0.05, 1.0, 0.1);
-	glColor3d(0.0, 0.0, 1.0); glVertex3d(-0.05, 0.2, 0.1);
-	glColor3d(0.0, 0.0, 1.0); glVertex3d(-0.05, 0.2, -0.1);
+	glColor3d(0.0, 0.0, 1.0); glVertex3d(-0.05, 0.0, -0.1);
+	glColor3d(0.0, 0.0, 1.0); glVertex3d(-0.05, 0.0, 0.1);
+	glColor3d(0.0, 0.0, 1.0); glVertex3d(-0.05, -0.8, 0.1);
+	glColor3d(0.0, 0.0, 1.0); glVertex3d(-0.05, -0.8, -0.1);
 
-	glColor3d(0.0, 0.0, 1.0); glVertex3d(0.05, 1.0, -0.1);
-	glColor3d(0.0, 0.0, 1.0); glVertex3d(0.05, 1.0, 0.1);
-	glColor3d(0.0, 0.0, 1.0); glVertex3d(0.05, 0.2, 0.1);
-	glColor3d(0.0, 0.0, 1.0); glVertex3d(0.05, 0.2, -0.1);
+	glColor3d(0.0, 0.0, 1.0); glVertex3d(0.05, 0.0, -0.1);
+	glColor3d(0.0, 0.0, 1.0); glVertex3d(0.05, 0.0, 0.1);
+	glColor3d(0.0, 0.0, 1.0); glVertex3d(0.05, -0.8, 0.1);
+	glColor3d(0.0, 0.0, 1.0); glVertex3d(0.05, -0.8, -0.1);
 
-	glColor3d(0.0, 0.0, 1.0); glVertex3d(0.25, 1.0, -0.1);
-	glColor3d(0.0, 0.0, 1.0); glVertex3d(0.25, 1.0, 0.1);
-	glColor3d(0.0, 0.0, 1.0); glVertex3d(0.25, 0.2, 0.1);
-	glColor3d(0.0, 0.0, 1.0); glVertex3d(0.25, 0.2, -0.1);
+	glColor3d(0.0, 0.0, 1.0); glVertex3d(0.25, 0.0, -0.1);
+	glColor3d(0.0, 0.0, 1.0); glVertex3d(0.25, 0.0, 0.1);
+	glColor3d(0.0, 0.0, 1.0); glVertex3d(0.25, -0.8, 0.1);
+	glColor3d(0.0, 0.0, 1.0); glVertex3d(0.25, -0.8, -0.1);
  
-	glColor3d(0.0, 0.0, 0.8); glVertex3d(-0.25, 1.0, 0.1);
-	glColor3d(0.0, 0.0, 0.8); glVertex3d(-0.25, 0.2, 0.1);
-	glColor3d(0.0, 0.0, 0.8); glVertex3d(-0.05, 0.2, 0.1);
-	glColor3d(0.0, 0.0, 0.8); glVertex3d(-0.05, 1.0, 0.1);
+	glColor3d(0.0, 0.0, 0.8); glVertex3d(-0.25, 0.0, 0.1);
+	glColor3d(0.0, 0.0, 0.8); glVertex3d(-0.25, -0.8, 0.1);
+	glColor3d(0.0, 0.0, 0.8); glVertex3d(-0.05, -0.8, 0.1);
+	glColor3d(0.0, 0.0, 0.8); glVertex3d(-0.05, 0.0, 0.1);
 
-	glColor3d(0.0, 0.0, 0.8); glVertex3d(0.25, 1.0, 0.1);
-	glColor3d(0.0, 0.0, 0.8); glVertex3d(0.25, 0.2, 0.1);
-	glColor3d(0.0, 0.0, 0.8); glVertex3d(0.05, 0.2, 0.1);
-	glColor3d(0.0, 0.0, 0.8); glVertex3d(0.05, 1.0, 0.1);
+	glColor3d(0.0, 0.0, 0.8); glVertex3d(0.25, 0.0, 0.1);
+	glColor3d(0.0, 0.0, 0.8); glVertex3d(0.25, -0.8, 0.1);
+	glColor3d(0.0, 0.0, 0.8); glVertex3d(0.05, -0.8, 0.1);
+	glColor3d(0.0, 0.0, 0.8); glVertex3d(0.05, 0.0, 0.1);
 
-	glColor3d(0.0, 0.0, 0.8); glVertex3d(-0.25, 1.0, -0.1);
-	glColor3d(0.0, 0.0, 0.8); glVertex3d(-0.25, 0.2, -0.1);
-	glColor3d(0.0, 0.0, 0.8); glVertex3d(-0.05, 0.2, -0.1);
-	glColor3d(0.0, 0.0, 0.8); glVertex3d(-0.05, 1.0, -0.1);
+	glColor3d(0.0, 0.0, 0.8); glVertex3d(-0.25, 0.0, -0.1);
+	glColor3d(0.0, 0.0, 0.8); glVertex3d(-0.25, -0.8, -0.1);
+	glColor3d(0.0, 0.0, 0.8); glVertex3d(-0.05, -0.8, -0.1);
+	glColor3d(0.0, 0.0, 0.8); glVertex3d(-0.05, 0.0, -0.1);
 
-	glColor3d(0.0, 0.0, 0.8); glVertex3d(0.25, 1.0, -0.1);
-	glColor3d(0.0, 0.0, 0.8); glVertex3d(0.25, 0.2, -0.1);
-	glColor3d(0.0, 0.0, 0.8); glVertex3d(0.05, 0.2, -0.1);
-	glColor3d(0.0, 0.0, 0.8); glVertex3d(0.05, 1.0, -0.1);
+	glColor3d(0.0, 0.0, 0.8); glVertex3d(0.25, 0.0, -0.1);
+	glColor3d(0.0, 0.0, 0.8); glVertex3d(0.25, -0.8, -0.1);
+	glColor3d(0.0, 0.0, 0.8); glVertex3d(0.05, -0.8, -0.1);
+	glColor3d(0.0, 0.0, 0.8); glVertex3d(0.05, 0.0, -0.1);
 
-	glColor3d(0.2, 0.2, 0.2); glVertex3d(-0.25, 1.0, -0.1);
-	glColor3d(0.2, 0.2, 0.2); glVertex3d(-0.25, 1.0, 0.1);
-	glColor3d(0.2, 0.2, 0.2); glVertex3d(-0.25, 0.2, 0.1);
-	glColor3d(0.2, 0.2, 0.2); glVertex3d(-0.25, 0.2, -0.1);
+	glColor3d(0.2, 0.2, 0.2); glVertex3d(-0.25, -1.0, -0.1);
+	glColor3d(0.2, 0.2, 0.2); glVertex3d(-0.25, -1.0, 0.1);
+	glColor3d(0.2, 0.2, 0.2); glVertex3d(-0.25, -0.8, 0.1);
+	glColor3d(0.2, 0.2, 0.2); glVertex3d(-0.25, -0.8, -0.1);
 
-	glColor3d(0.2, 0.2, 0.2); glVertex3d(-0.05, 1.0, -0.1);
-	glColor3d(0.2, 0.2, 0.2); glVertex3d(-0.05, 1.0, 0.1);
-	glColor3d(0.2, 0.2, 0.2); glVertex3d(-0.05, 0.2, 0.1);
-	glColor3d(0.2, 0.2, 0.2); glVertex3d(-0.05, 0.2, -0.1);
+	glColor3d(0.2, 0.2, 0.2); glVertex3d(-0.05, -1.0, -0.1);
+	glColor3d(0.2, 0.2, 0.2); glVertex3d(-0.05, -1.0, 0.1);
+	glColor3d(0.2, 0.2, 0.2); glVertex3d(-0.05, -0.8, 0.1);
+	glColor3d(0.2, 0.2, 0.2); glVertex3d(-0.05, -0.8, -0.1);
 
-	glColor3d(0.2, 0.2, 0.2); glVertex3d(0.05, 1.0, -0.1);
-	glColor3d(0.2, 0.2, 0.2); glVertex3d(0.05, 1.0, 0.1);
-	glColor3d(0.2, 0.2, 0.2); glVertex3d(0.05, 0.2, 0.1);
-	glColor3d(0.2, 0.2, 0.2); glVertex3d(0.05, 0.2, -0.1);
+	glColor3d(0.2, 0.2, 0.2); glVertex3d(0.05, -1.0, -0.1);
+	glColor3d(0.2, 0.2, 0.2); glVertex3d(0.05, -1.0, 0.1);
+	glColor3d(0.2, 0.2, 0.2); glVertex3d(0.05, -0.8, 0.1);
+	glColor3d(0.2, 0.2, 0.2); glVertex3d(0.05, -0.8, -0.1);
 
-	glColor3d(0.2, 0.2, 0.2); glVertex3d(0.25, 1.0, -0.1);
-	glColor3d(0.2, 0.2, 0.2); glVertex3d(0.25, 1.0, 0.1);
-	glColor3d(0.2, 0.2, 0.2); glVertex3d(0.25, 0.2, 0.1);
-	glColor3d(0.2, 0.2, 0.2); glVertex3d(0.25, 0.2, -0.1);
- 
-	glColor3d(0.2, 0.2, 0.2); glVertex3d(-0.25, 0.0, 0.1);
-	glColor3d(0.2, 0.2, 0.2); glVertex3d(-0.25, 0.2, 0.1);
-	glColor3d(0.2, 0.2, 0.2); glVertex3d(-0.05, 0.2, 0.1);
-	glColor3d(0.2, 0.2, 0.2); glVertex3d(-0.05, 0.0, 0.1);
+	glColor3d(0.2, 0.2, 0.2); glVertex3d(0.25, -1.0, -0.1);
+	glColor3d(0.2, 0.2, 0.2); glVertex3d(0.25, -1.0, 0.1);
+	glColor3d(0.2, 0.2, 0.2); glVertex3d(0.25, -0.8, 0.1);
+	glColor3d(0.2, 0.2, 0.2); glVertex3d(0.25, -0.8, -0.1);
 
-	glColor3d(0.2, 0.2, 0.2); glVertex3d(0.25, 0.0, 0.1);
-	glColor3d(0.2, 0.2, 0.2); glVertex3d(0.25, 0.2, 0.1);
-	glColor3d(0.2, 0.2, 0.2); glVertex3d(0.05, 0.2, 0.1);
-	glColor3d(0.2, 0.2, 0.2); glVertex3d(0.05, 0.0, 0.1);
+	glColor3d(0.2, 0.2, 0.2); glVertex3d(-0.25, -1.0, 0.1);
+	glColor3d(0.2, 0.2, 0.2); glVertex3d(-0.25, -0.8, 0.1);
+	glColor3d(0.2, 0.2, 0.2); glVertex3d(-0.05, -0.8, 0.1);
+	glColor3d(0.2, 0.2, 0.2); glVertex3d(-0.05, -1.0, 0.1);
 
-	glColor3d(0.2, 0.2, 0.2); glVertex3d(-0.25, 0.0, -0.1);
-	glColor3d(0.2, 0.2, 0.2); glVertex3d(-0.25, 0.2, -0.1);
-	glColor3d(0.2, 0.2, 0.2); glVertex3d(-0.05, 0.2, -0.1);
-	glColor3d(0.2, 0.2, 0.2); glVertex3d(-0.05, 0.0, -0.1);
+	glColor3d(0.2, 0.2, 0.2); glVertex3d(0.25, -1.0, 0.1);
+	glColor3d(0.2, 0.2, 0.2); glVertex3d(0.25, -0.8, 0.1);
+	glColor3d(0.2, 0.2, 0.2); glVertex3d(0.05, -0.8, 0.1);
+	glColor3d(0.2, 0.2, 0.2); glVertex3d(0.05, -1.0, 0.1);
 
-	glColor3d(0.2, 0.2, 0.2); glVertex3d(0.25, 0.0, -0.1);
-	glColor3d(0.2, 0.2, 0.2); glVertex3d(0.25, 0.2, -0.1);
-	glColor3d(0.2, 0.2, 0.2); glVertex3d(0.05, 0.2, -0.1);
-	glColor3d(0.2, 0.2, 0.2); glVertex3d(0.05, 0.0, -0.1);
+	glColor3d(0.2, 0.2, 0.2); glVertex3d(-0.25, -1.0, -0.1);
+	glColor3d(0.2, 0.2, 0.2); glVertex3d(-0.25, -0.8, -0.1);
+	glColor3d(0.2, 0.2, 0.2); glVertex3d(-0.05, -0.8, -0.1);
+	glColor3d(0.2, 0.2, 0.2); glVertex3d(-0.05, -1.0, -0.1);
+
+	glColor3d(0.2, 0.2, 0.2); glVertex3d(0.25, -1.0, -0.1);
+	glColor3d(0.2, 0.2, 0.2); glVertex3d(0.25, -0.8, -0.1);
+	glColor3d(0.2, 0.2, 0.2); glVertex3d(0.05, -0.8, -0.1);
+	glColor3d(0.2, 0.2, 0.2); glVertex3d(0.05, -1.0, -0.1);
 
 	glEnd();
 }
@@ -103,12 +109,42 @@ void	display() {
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	gluLookAt(0.0f, 1.0f, -5.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f);
+	gluLookAt(0.0f, 1.0f, -10.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f);
+
+	glRotatef(rotX, 1.0f, 0.0f, 0.0f);
+	glRotatef(rotY, 0.0f, 1.0f, 0.0f);
 
 	put_legs();
 
 	glutSwapBuffers();
 	glutPostRedisplay();
+}
+
+void mouseButton(int button, int state, int x, int y) {
+	if (button == GLUT_LEFT_BUTTON) {
+		if (state == GLUT_DOWN) {
+			isDragging = true;
+			lastMouseX = x;
+			lastMouseY = y;
+		} else {
+			isDragging = false;
+		}
+	}
+}
+
+void mouseMotion(int x, int y) {
+	if (isDragging) {
+		int dx = x - lastMouseX;
+		int dy = y - lastMouseY;
+
+		rotY += dx * 0.5f;
+		rotX += dy * 0.5f;
+
+		lastMouseX = x;
+		lastMouseY = y;
+
+		glutPostRedisplay();
+	}
 }
 
 int main(int ac, char **av) {
@@ -122,6 +158,8 @@ int main(int ac, char **av) {
 	glLoadIdentity();
 	gluPerspective(45, 2560.0/1600.0, 0.1, 100.0);
 	glutDisplayFunc(display);
+	glutMouseFunc(mouseButton);
+	glutMotionFunc(mouseMotion);
 	glutMainLoop();
 	return 0;
 }
