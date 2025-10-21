@@ -10,6 +10,7 @@
 #include <GL/gl.h>
 #include <GL/glut.h>
 #include <GL/freeglut.h>
+#include <GLFW/glfw3.h>
 
 #include "imgui/imgui.h"
 #include "imgui/imgui_impl_glfw.h"
@@ -22,6 +23,7 @@
 
 /*-------- NAMESPACE -------*/
 using namespace std;
+using namespace ImGui;
 
 /*-------- CLASSES --------*/
 #include "Human.hpp"
