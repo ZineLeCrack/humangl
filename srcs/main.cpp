@@ -147,6 +147,19 @@ void mouseMotion(int x, int y) {
 	}
 }
 
+void	special_keypress(int key, int x, int y) {
+	(void)key;
+	(void)x;
+	(void)y;
+}
+
+void	keypress(unsigned char key, int x, int y) {
+	(void)x;
+	(void)y;
+
+	if (key == KEY_ESC) glutLeaveMainLoop();
+}
+
 int main(int ac, char **av) {
 	glutInit(&ac, av);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
@@ -158,6 +171,8 @@ int main(int ac, char **av) {
 	glLoadIdentity();
 	gluPerspective(45, 2560.0/1600.0, 0.1, 100.0);
 	glutDisplayFunc(display);
+	glutKeyboardFunc(keypress);
+	glutSpecialFunc(special_keypress);
 	glutMouseFunc(mouseButton);
 	glutMotionFunc(mouseMotion);
 	glutMainLoop();

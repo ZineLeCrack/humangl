@@ -28,3 +28,5 @@
 using namespace std;
 
 /*--------- DEFINES --------*/
+
+#define KEY_ESC	27
