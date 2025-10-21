@@ -26,9 +26,17 @@ void	display() {
 	glEnd();
 }
 
-void	imgui_set_window() {
-	Begin("Settings");
+void	keypress(GLFWwindow* window) {
+	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) glfwSetWindowShouldClose(window, true);
+}
 
+void	imgui_set_window() {
+	ImVec2 size(400, 300);
+	SetNextWindowSize(size, ImGuiCond_FirstUseEver);
+	Begin("Settings");
+	SeparatorText(" Rotation ");
+	Text("Rotation: x = %d, y = %d", (int)rotX, (int)rotY);
+	if (Button("Reset  rotation")) rotX = rotY = 0.0f;
 	End();
 }
 
@@ -84,7 +92,8 @@ int main() {
 
 	IMGUI_CHECKVERSION();
 	CreateContext();
-	ImGuiIO &io = ImGui::GetIO(); (void)io;
+	ImGuiIO &io = ImGui::GetIO();
+	io.Fonts->AddFontFromFileTTF("fonts/Minecraftia.ttf", 24.0f);
 	StyleColorsDark();
 
 	ImGui_ImplGlfw_InitForOpenGL(window, true);
@@ -108,6 +117,8 @@ int main() {
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
 		NewFrame();
+
+		keypress(window);
 
 		display();
 
