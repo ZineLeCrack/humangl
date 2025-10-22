@@ -1,11 +1,54 @@
 #include "Includes.hpp"
 
 static Human	human;
-static float	rotX = 0.0f;
-static float	rotY = 0.0f;
-static int		lastMouseX = 0;
-static int		lastMouseY = 0;
-static bool		isDragging = false;
+
+static int	lastMouseX = 0;
+static int	lastMouseY = 0;
+static bool	isDragging = false;
+
+static bool	cube = false;
+
+static void	draw_cube() {
+	glBegin(GL_LINES);
+
+	glColor3d(1.0, 0.0, 0.0); glVertex3d(0.5, 0.5, 0.5);
+	glColor3d(1.0, 0.0, 0.0); glVertex3d(-0.5, 0.5, 0.5);
+
+	glColor3d(1.0, 0.0, 0.0); glVertex3d(-0.5, 0.5, 0.5);
+	glColor3d(1.0, 0.0, 0.0); glVertex3d(-0.5, 0.5, -0.5);
+
+	glColor3d(1.0, 0.0, 0.0); glVertex3d(-0.5, 0.5, -0.5);
+	glColor3d(1.0, 0.0, 0.0); glVertex3d(0.5, 0.5, -0.5);
+
+	glColor3d(1.0, 0.0, 0.0); glVertex3d(0.5, 0.5, -0.5);
+	glColor3d(1.0, 0.0, 0.0); glVertex3d(0.5, 0.5, 0.5);
+
+	glColor3d(1.0, 0.0, 0.0); glVertex3d(0.5, -0.5, 0.5);
+	glColor3d(1.0, 0.0, 0.0); glVertex3d(-0.5, -0.5, 0.5);
+
+	glColor3d(1.0, 0.0, 0.0); glVertex3d(-0.5, -0.5, 0.5);
+	glColor3d(1.0, 0.0, 0.0); glVertex3d(-0.5, -0.5, -0.5);
+
+	glColor3d(1.0, 0.0, 0.0); glVertex3d(-0.5, -0.5, -0.5);
+	glColor3d(1.0, 0.0, 0.0); glVertex3d(0.5, -0.5, -0.5);
+
+	glColor3d(1.0, 0.0, 0.0); glVertex3d(0.5, -0.5, -0.5);
+	glColor3d(1.0, 0.0, 0.0); glVertex3d(0.5, -0.5, 0.5);
+
+	glColor3d(1.0, 0.0, 0.0); glVertex3d(0.5, 0.5, 0.5);
+	glColor3d(1.0, 0.0, 0.0); glVertex3d(0.5, -0.5, 0.5);
+
+	glColor3d(1.0, 0.0, 0.0); glVertex3d(-0.5, 0.5, 0.5);
+	glColor3d(1.0, 0.0, 0.0); glVertex3d(-0.5, -0.5, 0.5);
+
+	glColor3d(1.0, 0.0, 0.0); glVertex3d(0.5, 0.5, -0.5);
+	glColor3d(1.0, 0.0, 0.0); glVertex3d(0.5, -0.5, -0.5);
+
+	glColor3d(1.0, 0.0, 0.0); glVertex3d(-0.5, 0.5, -0.5);
+	glColor3d(1.0, 0.0, 0.0); glVertex3d(-0.5, -0.5, -0.5);
+
+	glEnd();
+}
 
 void	display() {
 	glClearColor(0.0, 0.0, 0.0, 1);
@@ -14,10 +57,10 @@ void	display() {
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	gluLookAt(0.0f, 0.0f, -8.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
+	gluLookAt(0.0f, 0.0f, 21.0f - human.get_zoom(), 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
 
-	glRotatef(rotX, 1.0f, 0.0f, 0.0f);
-	glRotatef(rotY, 0.0f, 1.0f, 0.0f);
+	glRotatef(human.get_rotX(), 1.0f, 0.0f, 0.0f);
+	glRotatef(human.get_rotY(), 0.0f, 1.0f, 0.0f);
 
 	glBegin(GL_QUADS);
 
@@ -27,6 +70,8 @@ void	display() {
 	human.draw_head();
 
 	glEnd();
+
+	if (cube) draw_cube();
 }
 
 void	keypress(GLFWwindow* window) {
@@ -34,13 +79,39 @@ void	keypress(GLFWwindow* window) {
 }
 
 void	imgui_set_window() {
-	ImVec2 size(400, 300);
-	SetNextWindowSize(size, ImGuiCond_FirstUseEver);
+	ImVec2 size1(400, 300);
+	ImVec2 pos1(20, 20);
+	SetNextWindowSize(size1, ImGuiCond_FirstUseEver);
+	SetNextWindowPos(pos1, ImGuiCond_FirstUseEver);
 	Begin("Settings");
 	SeparatorText(" Rotation ");
-	Text("Rotation: x = %d, y = %d", (int)rotX, (int)rotY);
-	if (Button("Reset  rotation")) rotX = rotY = 0.0f;
+	Text("Rotation: x = %d, y = %d", (int)human.get_rotX(), (int)human.get_rotY());
+	if (Button("Reset  rotation")) human.get_rotX() = human.get_rotY() = 0.0f;
+	SameLine();
+	if (Button("Display  cube")) cube = !cube;
+	SeparatorText(" Size ");
+	SliderFloat("Zoom", &human.get_zoom(), 0.0f, 20.0f);
 	End();
+
+	ImVec2 size2(400, 370);
+	ImVec2 pos2(20, 340);
+	SetNextWindowSize(size2, ImGuiCond_FirstUseEver);
+	SetNextWindowPos(pos2, ImGuiCond_FirstUseEver);
+	Begin(" Colors ");
+	ColorPicker3(" Foots ", human.get_foots_color());
+	ColorPicker3(" Legs ", human.get_legs_color());
+	ColorPicker3(" Body ", human.get_body_color());
+	ColorPicker3(" Arms ", human.get_arms_color());
+	ColorPicker3(" Head ", human.get_head_color());
+	End();
+}
+
+static void	scroll_callback(GLFWwindow* window, double x, double y) {
+	(void)window;
+	(void)x;
+	float	&zoom = human.get_zoom();
+	if (y > 0 && zoom < 20.0f) human.get_zoom() += (zoom < 19.6f ? 0.4f : 20.0f - zoom);
+	if (y < 0 && zoom > 0.0f)  human.get_zoom() -= (zoom > 0.4f ? 0.4f : zoom);
 }
 
 int main() {
@@ -69,8 +140,8 @@ int main() {
 			int dx = int(xpos) - lastMouseX;
 			int dy = int(ypos) - lastMouseY;
 
-			rotY += dx * 0.5f;
-			rotX += dy * 0.5f;
+			human.get_rotY() += dx * 0.5f;
+			human.get_rotX() += dy * 0.5f;
 
 			lastMouseX = int(xpos);
 			lastMouseY = int(ypos);
@@ -121,6 +192,7 @@ int main() {
 		ImGui_ImplGlfw_NewFrame();
 		NewFrame();
 
+		glfwSetScrollCallback(window, scroll_callback);
 		keypress(window);
 
 		display();
