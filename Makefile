@@ -2,7 +2,7 @@ NAME = humangl
 
 CC = c++
 CFLAGS = -Wall -Wextra -Werror -g3 -std=c++11 -Iincludes
-GLFLAGS = -lGL -lGLU -lglut -lGLEW -lglfw
+GLFLAGS = -lGL -lGLU -lGLEW -lglfw
 
 IMGUI_SRCDIR = includes/imgui
 SRCDIR = srcs
