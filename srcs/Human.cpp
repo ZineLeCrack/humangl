@@ -140,13 +140,13 @@ void	Human::draw_arms() {
 			glRotatef(angle, 1.0f, 0.0f, 0.0f);
 			glTranslatef(0.0f, -0.25f, 0.0f);
 		}
-		
+
 		// upper arm
 		draw_rect( 0.225,  0.1, -0.05,  0.225,  0.2,  0.05, _arms_color);
 		draw_rect( 0.125,  0.1, -0.05,  0.225,  0.2, -0.05, _arms_color);
 		draw_rect( 0.125,  0.1,  0.05,  0.225,  0.2,  0.05, _arms_color);
 		draw_rect( 0.125,  0.1, -0.05,  0.125,  0.2,  0.05, _arms_color);
-		
+
 		// shoulder
 		draw_rect( 0.125,  0.3, -0.05,  0.225,  0.3,  0.05, _body_color);
 		draw_rect( 0.225,  0.2, -0.05,  0.225,  0.3,  0.05, _body_color);
@@ -166,7 +166,7 @@ void	Human::draw_arms() {
 		draw_rect( 0.125, -0.10, -0.05,  0.225,  0.12, -0.05, _arms_color);
 		draw_rect( 0.125, -0.10,  0.05,  0.225,  0.12,  0.05, _arms_color);
 		draw_rect( 0.125, -0.10, -0.05,  0.125,  0.12,  0.05, _arms_color);
-		
+
 		if (_animation) glPopMatrix();
 	}
 }
