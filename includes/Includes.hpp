@@ -45,4 +45,8 @@ void	draw_rect(double, double, double, double, double, double, float [3]);
 
 /*--------- DEFINES --------*/
 
+#define STAY	0
+#define WALK	1
+#define JUMP	2
+
 #define KEY_ESC	27

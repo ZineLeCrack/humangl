@@ -107,9 +107,11 @@ void	imgui_set_window() {
 }
 
 static void	scroll_callback(GLFWwindow* window, double x, double y) {
+	float	&zoom = human.get_zoom();
+
 	(void)window;
 	(void)x;
-	float	&zoom = human.get_zoom();
+
 	if (y > 0 && zoom < 20.0f) human.get_zoom() += (zoom < 19.6f ? 0.4f : 20.0f - zoom);
 	if (y < 0 && zoom > 0.0f)  human.get_zoom() -= (zoom > 0.4f ? 0.4f : zoom);
 }
