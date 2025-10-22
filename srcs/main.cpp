@@ -62,10 +62,19 @@ void	display() {
 	glRotatef(human.get_rotX(), 1.0f, 0.0f, 0.0f);
 	glRotatef(human.get_rotY(), 0.0f, 1.0f, 0.0f);
 
+	if (human.get_animation() == JUMP) {
+		float angle = -sin((glfwGetTime() - human.get_animation_frame()) * 5.0f);
+		glPushMatrix();
+		if (angle > 0.0f) glTranslatef(0.0f, angle * 0.5f, 0.0f);
+		else glTranslatef(0.0f, angle * 0.05f, 0.0f);
+	}
+
 	human.draw_legs();
 	human.draw_body();
 	human.draw_arms();
 	human.draw_head();
+
+	if (human.get_animation() == JUMP) glPopMatrix();
 
 	if (cube) draw_cube();
 }
@@ -75,7 +84,7 @@ void	keypress(GLFWwindow* window) {
 }
 
 void	imgui_set_window() {
-	ImVec2 size1(400, 300);
+	ImVec2 size1(400, 350);
 	ImVec2 pos1(20, 20);
 	SetNextWindowSize(size1, ImGuiCond_FirstUseEver);
 	SetNextWindowPos(pos1, ImGuiCond_FirstUseEver);
@@ -114,7 +123,7 @@ void	imgui_set_window() {
 	End();
 
 	ImVec2 size2(400, 370);
-	ImVec2 pos2(20, 340);
+	ImVec2 pos2(20, 390);
 	SetNextWindowSize(size2, ImGuiCond_FirstUseEver);
 	SetNextWindowPos(pos2, ImGuiCond_FirstUseEver);
 
