@@ -62,14 +62,10 @@ void	display() {
 	glRotatef(human.get_rotX(), 1.0f, 0.0f, 0.0f);
 	glRotatef(human.get_rotY(), 0.0f, 1.0f, 0.0f);
 
-	glBegin(GL_QUADS);
-
 	human.draw_legs();
 	human.draw_body();
 	human.draw_arms();
 	human.draw_head();
-
-	glEnd();
 
 	if (cube) draw_cube();
 }
@@ -83,26 +79,50 @@ void	imgui_set_window() {
 	ImVec2 pos1(20, 20);
 	SetNextWindowSize(size1, ImGuiCond_FirstUseEver);
 	SetNextWindowPos(pos1, ImGuiCond_FirstUseEver);
+
 	Begin("Settings");
+
 	SeparatorText(" Rotation ");
 	Text("Rotation: x = %d, y = %d", (int)human.get_rotX(), (int)human.get_rotY());
+
 	if (Button("Reset  rotation")) human.get_rotX() = human.get_rotY() = 0.0f;
 	SameLine();
 	if (Button("Display  cube")) cube = !cube;
+
 	SeparatorText(" Size ");
 	SliderFloat("Zoom", &human.get_zoom(), 0.0f, 20.0f);
+
+	SeparatorText(" Animations ");
+	if (Button("Reset")) {
+		human.get_animation() = STAY;
+		human.get_animation_frame() = 0;
+	}
+	SameLine();
+	if (Button("Walk")) {
+		human.get_animation() = WALK;
+		human.get_animation_frame() = glfwGetTime();;
+	}
+	SameLine();
+	if (Button("Jump")) {
+		human.get_animation() = JUMP;
+		human.get_animation_frame() = glfwGetTime();
+	}
+
 	End();
 
 	ImVec2 size2(400, 370);
 	ImVec2 pos2(20, 340);
 	SetNextWindowSize(size2, ImGuiCond_FirstUseEver);
 	SetNextWindowPos(pos2, ImGuiCond_FirstUseEver);
+
 	Begin(" Colors ");
+
 	ColorPicker3(" Foots ", human.get_foots_color());
 	ColorPicker3(" Legs ", human.get_legs_color());
 	ColorPicker3(" Body ", human.get_body_color());
 	ColorPicker3(" Arms ", human.get_arms_color());
 	ColorPicker3(" Head ", human.get_head_color());
+
 	End();
 }
 
@@ -138,7 +158,7 @@ int main() {
 
 	glfwSetCursorPosCallback(window, [](GLFWwindow* w, double xpos, double ypos) {
 		(void)w;
-		if(isDragging){
+		if (isDragging){
 			int dx = int(xpos) - lastMouseX;
 			int dy = int(ypos) - lastMouseY;
 
@@ -153,8 +173,8 @@ int main() {
 	glfwSetMouseButtonCallback(window, [](GLFWwindow* w, int button, int action, int mods) {
 		(void)w;
 		(void)mods;
-		if(button == GLFW_MOUSE_BUTTON_LEFT){
-			if(action == GLFW_PRESS){
+		if (button == GLFW_MOUSE_BUTTON_LEFT){
+			if (action == GLFW_PRESS){
 				isDragging = true;
 				double xpos, ypos;
 				glfwGetCursorPos(w, &xpos, &ypos);

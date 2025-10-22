@@ -11,6 +11,9 @@
 #include <GL/glut.h>
 #include <GL/freeglut.h>
 #include <GLFW/glfw3.h>
+#include <glm/glm/glm/glm.hpp>
+#include <glm/glm/glm/gtc/matrix_transform.hpp>
+#include <glm/glm/glm/gtc/type_ptr.hpp>
 
 #include "imgui/imgui.h"
 #include "imgui/imgui_impl_glfw.h"

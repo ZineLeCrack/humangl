@@ -5,6 +5,8 @@ void	set_color(float color[3]) {
 }
 
 void	draw_rect(double x1, double y1, double z1, double x2, double y2, double z2, float color[3]) {
+	glBegin(GL_QUADS);
+
 	if (x1 == x2) {
 		set_color(color); glVertex3d(x1, y1, z1);
 		set_color(color); glVertex3d(x1, y1, z2);
@@ -21,4 +23,6 @@ void	draw_rect(double x1, double y1, double z1, double x2, double y2, double z2,
 		set_color(color); glVertex3d(x2, y2, z1);
 		set_color(color); glVertex3d(x2, y1, z1);
 	}
+
+	glEnd();
 }
