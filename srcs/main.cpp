@@ -82,6 +82,9 @@ void	imgui_set_window() {
 
 	Begin("Settings");
 
+	SeparatorText(" Info ");
+	Text("fps: %d", (int)GetIO().Framerate);
+
 	SeparatorText(" Rotation ");
 	Text("Rotation: x = %d, y = %d", (int)human.get_rotX(), (int)human.get_rotY());
 
