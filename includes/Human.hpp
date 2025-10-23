@@ -46,4 +46,21 @@ class Human
 		void	draw_body();
 		void	draw_arms();
 		void	draw_head();
+
+		void	draw_right_upper_arm();
+		void	draw_left_upper_arm();
+
+		void	draw_right_shoulder();
+		void	draw_left_shoulder();
+
+		void	draw_left_forearm();
+		void	draw_right_forearm();
+
+		void	draw_right_thigh_leg();
+		void	draw_left_thigh_leg();
+		void	draw_right_lower_leg();
+		void	draw_left_lower_leg();
+		
+		void	draw_right_foot();
+		void	draw_left_foot();
 };

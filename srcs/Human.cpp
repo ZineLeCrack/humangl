@@ -18,11 +18,7 @@ void	Human::draw_legs() {
 		}
 
 		// thigh
-		draw_rect(-0.125, -0.1, -0.05, -0.025, -0.1,  0.05, _legs_color);
-		draw_rect(-0.125, -0.1, -0.05, -0.125, -0.3,  0.05, _legs_color);
-		draw_rect(-0.025, -0.1, -0.05, -0.025, -0.3,  0.05, _legs_color);
-		draw_rect(-0.125, -0.1,  0.05, -0.025, -0.3,  0.05, _legs_color);
-		draw_rect(-0.125, -0.1, -0.05, -0.025, -0.3, -0.05, _legs_color);
+		draw_right_thigh_leg();
 
 		if (_animation == JUMP) glPopMatrix();
 
@@ -39,17 +35,10 @@ void	Human::draw_legs() {
 		}
 
 		// lower part
-		draw_rect(-0.125, -0.29, -0.05, -0.125, -0.45,  0.05, _legs_color);
-		draw_rect(-0.025, -0.29, -0.05, -0.025, -0.45,  0.05, _legs_color);
-		draw_rect(-0.125, -0.29,  0.05, -0.025, -0.45,  0.05, _legs_color);
-		draw_rect(-0.125, -0.29, -0.05, -0.025, -0.45, -0.05, _legs_color);
+		draw_right_lower_leg();
 
 		// foot
-		draw_rect(-0.125, -0.50, -0.05, -0.025, -0.50,  0.05, _foots_color);
-		draw_rect(-0.125, -0.50, -0.05, -0.125, -0.45,  0.05, _foots_color);
-		draw_rect(-0.025, -0.50, -0.05, -0.025, -0.45,  0.05, _foots_color);
-		draw_rect(-0.125, -0.50,  0.05, -0.025, -0.45,  0.05, _foots_color);
-		draw_rect(-0.125, -0.50, -0.05, -0.025, -0.45, -0.05, _foots_color);
+		draw_right_foot();
 
 		if (_animation) glPopMatrix();
 	}
@@ -68,11 +57,7 @@ void	Human::draw_legs() {
 		}
 
 		// thigh
-		draw_rect( 0.125, -0.1, -0.05,  0.025, -0.1,  0.05, _legs_color);
-		draw_rect( 0.025, -0.1, -0.05,  0.025, -0.3,  0.05, _legs_color);
-		draw_rect( 0.125, -0.1, -0.05,  0.125, -0.3,  0.05, _legs_color);
-		draw_rect( 0.125, -0.1,  0.05,  0.025, -0.3,  0.05, _legs_color);
-		draw_rect( 0.125, -0.1, -0.05,  0.025, -0.3, -0.05, _legs_color);
+		draw_left_thigh_leg();
 
 		if (_animation == JUMP) glPopMatrix();
 
@@ -89,17 +74,10 @@ void	Human::draw_legs() {
 		}
 
 		// lower part
-		draw_rect( 0.025, -0.29, -0.05,  0.025, -0.45,  0.05, _legs_color);
-		draw_rect( 0.125, -0.29, -0.05,  0.125, -0.45,  0.05, _legs_color);
-		draw_rect( 0.125, -0.29,  0.05,  0.025, -0.45,  0.05, _legs_color);
-		draw_rect( 0.125, -0.29, -0.05,  0.025, -0.45, -0.05, _legs_color);
+		draw_left_lower_leg();
 
 		// foot
-		draw_rect( 0.125, -0.50, -0.05,  0.025, -0.50,  0.05, _foots_color);
-		draw_rect( 0.025, -0.50, -0.05,  0.025, -0.45,  0.05, _foots_color);
-		draw_rect( 0.125, -0.50, -0.05,  0.125, -0.45,  0.05, _foots_color);
-		draw_rect( 0.125, -0.50,  0.05,  0.025, -0.45,  0.05, _foots_color);
-		draw_rect( 0.125, -0.50, -0.05,  0.025, -0.45, -0.05, _foots_color);
+		draw_left_foot();
 
 		if (_animation) glPopMatrix();
 	}
@@ -128,17 +106,10 @@ void	Human::draw_arms() {
 		}
 
 		// upper arm
-		draw_rect(-0.225,  0.1, -0.05, -0.225,  0.2,  0.05, _arms_color);
-		draw_rect(-0.125,  0.1, -0.05, -0.225,  0.2, -0.05, _arms_color);
-		draw_rect(-0.125,  0.1,  0.05, -0.225,  0.2,  0.05, _arms_color);
-		draw_rect(-0.125,  0.1, -0.05, -0.125,  0.2,  0.05, _arms_color);
+		draw_right_upper_arm();
 
 		// shoulder
-		draw_rect(-0.125,  0.3, -0.05, -0.225,  0.3,  0.05, _body_color);
-		draw_rect(-0.225,  0.2, -0.05, -0.225,  0.3,  0.05, _body_color);
-		draw_rect(-0.125,  0.2, -0.05, -0.225,  0.3, -0.05, _body_color);
-		draw_rect(-0.125,  0.2,  0.05, -0.225,  0.3,  0.05, _body_color);
-		draw_rect(-0.125,  0.2, -0.05, -0.125,  0.3,  0.05, _body_color);
+		draw_right_shoulder();
 
 		if (_animation == WALK || _animation == SPRINT) {
 			glTranslatef(0.0f, 0.1f, 0.0f);
@@ -147,11 +118,7 @@ void	Human::draw_arms() {
 		}
 
 		// forearm
-		draw_rect(-0.125, -0.10, -0.05, -0.225, -0.10,  0.05, _arms_color);
-		draw_rect(-0.225, -0.10, -0.05, -0.225,  0.12,  0.05, _arms_color);
-		draw_rect(-0.125, -0.10, -0.05, -0.225,  0.12, -0.05, _arms_color);
-		draw_rect(-0.125, -0.10,  0.05, -0.225,  0.12,  0.05, _arms_color);
-		draw_rect(-0.125, -0.10, -0.05, -0.125,  0.12,  0.05, _arms_color);
+		draw_right_forearm();
 
 		if (_animation) glPopMatrix();
 	}
@@ -166,17 +133,10 @@ void	Human::draw_arms() {
 		}
 
 		// upper arm
-		draw_rect( 0.225,  0.1, -0.05,  0.225,  0.2,  0.05, _arms_color);
-		draw_rect( 0.125,  0.1, -0.05,  0.225,  0.2, -0.05, _arms_color);
-		draw_rect( 0.125,  0.1,  0.05,  0.225,  0.2,  0.05, _arms_color);
-		draw_rect( 0.125,  0.1, -0.05,  0.125,  0.2,  0.05, _arms_color);
+		draw_left_upper_arm();
 
 		// shoulder
-		draw_rect( 0.125,  0.3, -0.05,  0.225,  0.3,  0.05, _body_color);
-		draw_rect( 0.225,  0.2, -0.05,  0.225,  0.3,  0.05, _body_color);
-		draw_rect( 0.125,  0.2, -0.05,  0.225,  0.3, -0.05, _body_color);
-		draw_rect( 0.125,  0.2,  0.05,  0.225,  0.3,  0.05, _body_color);
-		draw_rect( 0.125,  0.2, -0.05,  0.125,  0.3,  0.05, _body_color);
+		draw_left_shoulder();
 
 		if (_animation == WALK || _animation == SPRINT) {
 			glTranslatef(0.0f, 0.1f, 0.0f);
@@ -185,11 +145,7 @@ void	Human::draw_arms() {
 		}
 
 		// forearm
-		draw_rect( 0.125, -0.10, -0.05,  0.225, -0.10,  0.05, _arms_color);
-		draw_rect( 0.225, -0.10, -0.05,  0.225,  0.12,  0.05, _arms_color);
-		draw_rect( 0.125, -0.10, -0.05,  0.225,  0.12, -0.05, _arms_color);
-		draw_rect( 0.125, -0.10,  0.05,  0.225,  0.12,  0.05, _arms_color);
-		draw_rect( 0.125, -0.10, -0.05,  0.125,  0.12,  0.05, _arms_color);
+		draw_left_forearm();
 
 		if (_animation) glPopMatrix();
 	}
@@ -202,4 +158,108 @@ void	Human::draw_head() {
 	draw_rect( 0.1,  0.3, -0.1,  0.1,  0.5,  0.1, _head_color);
 	draw_rect(-0.1,  0.3, -0.1,  0.1,  0.5, -0.1, _head_color);
 	draw_rect(-0.1,  0.3,  0.1,  0.1,  0.5,  0.1, _head_color);
+}
+
+void	Human::draw_right_upper_arm()
+{
+	draw_rect(-0.225,  0.1, -0.05, -0.225,  0.2,  0.05, _arms_color);
+	draw_rect(-0.125,  0.1, -0.05, -0.225,  0.2, -0.05, _arms_color);
+	draw_rect(-0.125,  0.1,  0.05, -0.225,  0.2,  0.05, _arms_color);
+	draw_rect(-0.125,  0.1, -0.05, -0.125,  0.2,  0.05, _arms_color);
+}
+
+void	Human::draw_left_upper_arm()
+{
+	draw_rect( 0.225,  0.1, -0.05,  0.225,  0.2,  0.05, _arms_color);
+	draw_rect( 0.125,  0.1, -0.05,  0.225,  0.2, -0.05, _arms_color);
+	draw_rect( 0.125,  0.1,  0.05,  0.225,  0.2,  0.05, _arms_color);
+	draw_rect( 0.125,  0.1, -0.05,  0.125,  0.2,  0.05, _arms_color);
+}
+
+void	Human::draw_right_shoulder()
+{
+	draw_rect(-0.125,  0.3, -0.05, -0.225,  0.3,  0.05, _body_color);
+	draw_rect(-0.225,  0.2, -0.05, -0.225,  0.3,  0.05, _body_color);
+	draw_rect(-0.125,  0.2, -0.05, -0.225,  0.3, -0.05, _body_color);
+	draw_rect(-0.125,  0.2,  0.05, -0.225,  0.3,  0.05, _body_color);
+	draw_rect(-0.125,  0.2, -0.05, -0.125,  0.3,  0.05, _body_color);
+}
+
+void	Human::draw_left_shoulder()
+{
+	draw_rect( 0.125,  0.3, -0.05,  0.225,  0.3,  0.05, _body_color);
+	draw_rect( 0.225,  0.2, -0.05,  0.225,  0.3,  0.05, _body_color);
+	draw_rect( 0.125,  0.2, -0.05,  0.225,  0.3, -0.05, _body_color);
+	draw_rect( 0.125,  0.2,  0.05,  0.225,  0.3,  0.05, _body_color);
+	draw_rect( 0.125,  0.2, -0.05,  0.125,  0.3,  0.05, _body_color);
+}
+
+void	Human::draw_left_forearm()
+{
+	draw_rect( 0.125, -0.10, -0.05,  0.225, -0.10,  0.05, _arms_color);
+	draw_rect( 0.225, -0.10, -0.05,  0.225,  0.12,  0.05, _arms_color);
+	draw_rect( 0.125, -0.10, -0.05,  0.225,  0.12, -0.05, _arms_color);
+	draw_rect( 0.125, -0.10,  0.05,  0.225,  0.12,  0.05, _arms_color);
+	draw_rect( 0.125, -0.10, -0.05,  0.125,  0.12,  0.05, _arms_color);
+}
+
+void	Human::draw_right_forearm()
+{
+	draw_rect(-0.125, -0.10, -0.05, -0.225, -0.10,  0.05, _arms_color);
+	draw_rect(-0.225, -0.10, -0.05, -0.225,  0.12,  0.05, _arms_color);
+	draw_rect(-0.125, -0.10, -0.05, -0.225,  0.12, -0.05, _arms_color);
+	draw_rect(-0.125, -0.10,  0.05, -0.225,  0.12,  0.05, _arms_color);
+	draw_rect(-0.125, -0.10, -0.05, -0.125,  0.12,  0.05, _arms_color);
+}
+
+void	Human::draw_right_thigh_leg()
+{
+	draw_rect(-0.125, -0.1, -0.05, -0.025, -0.1,  0.05, _legs_color);
+	draw_rect(-0.125, -0.1, -0.05, -0.125, -0.3,  0.05, _legs_color);
+	draw_rect(-0.025, -0.1, -0.05, -0.025, -0.3,  0.05, _legs_color);
+	draw_rect(-0.125, -0.1,  0.05, -0.025, -0.3,  0.05, _legs_color);
+	draw_rect(-0.125, -0.1, -0.05, -0.025, -0.3, -0.05, _legs_color);
+}
+
+void	Human::draw_left_thigh_leg()
+{
+	draw_rect( 0.125, -0.1, -0.05,  0.025, -0.1,  0.05, _legs_color);
+	draw_rect( 0.025, -0.1, -0.05,  0.025, -0.3,  0.05, _legs_color);
+	draw_rect( 0.125, -0.1, -0.05,  0.125, -0.3,  0.05, _legs_color);
+	draw_rect( 0.125, -0.1,  0.05,  0.025, -0.3,  0.05, _legs_color);
+	draw_rect( 0.125, -0.1, -0.05,  0.025, -0.3, -0.05, _legs_color);
+}
+
+void	Human::draw_right_lower_leg()
+{
+	draw_rect(-0.125, -0.29, -0.05, -0.125, -0.45,  0.05, _legs_color);
+	draw_rect(-0.025, -0.29, -0.05, -0.025, -0.45,  0.05, _legs_color);
+	draw_rect(-0.125, -0.29,  0.05, -0.025, -0.45,  0.05, _legs_color);
+	draw_rect(-0.125, -0.29, -0.05, -0.025, -0.45, -0.05, _legs_color);
+}
+
+void	Human::draw_left_lower_leg()
+{
+	draw_rect( 0.025, -0.29, -0.05,  0.025, -0.45,  0.05, _legs_color);
+	draw_rect( 0.125, -0.29, -0.05,  0.125, -0.45,  0.05, _legs_color);
+	draw_rect( 0.125, -0.29,  0.05,  0.025, -0.45,  0.05, _legs_color);
+	draw_rect( 0.125, -0.29, -0.05,  0.025, -0.45, -0.05, _legs_color);
+}
+
+void	Human::draw_right_foot()
+{
+	draw_rect(-0.125, -0.50, -0.05, -0.025, -0.50,  0.05, _foots_color);
+	draw_rect(-0.125, -0.50, -0.05, -0.125, -0.45,  0.05, _foots_color);
+	draw_rect(-0.025, -0.50, -0.05, -0.025, -0.45,  0.05, _foots_color);
+	draw_rect(-0.125, -0.50,  0.05, -0.025, -0.45,  0.05, _foots_color);
+	draw_rect(-0.125, -0.50, -0.05, -0.025, -0.45, -0.05, _foots_color);
+}
+
+void	Human::draw_left_foot()
+{
+	draw_rect( 0.125, -0.50, -0.05,  0.025, -0.50,  0.05, _foots_color);
+	draw_rect( 0.025, -0.50, -0.05,  0.025, -0.45,  0.05, _foots_color);
+	draw_rect( 0.125, -0.50, -0.05,  0.125, -0.45,  0.05, _foots_color);
+	draw_rect( 0.125, -0.50,  0.05,  0.025, -0.45,  0.05, _foots_color);
+	draw_rect( 0.125, -0.50, -0.05,  0.025, -0.45, -0.05, _foots_color);
 }
