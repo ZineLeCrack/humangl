@@ -11,6 +11,10 @@ void	Human::draw_legs() {
 			glTranslatef(0.0f, -0.1f, 0.0f);
 			glRotatef(angle, 1.0f, 0.0f, 0.0f);
 			glTranslatef(0.0f, 0.1f, 0.0f);
+		} else if (_animation == JUMP) {
+			glTranslatef(0.0f, -0.1f, 0.0f);
+			glRotatef(-angle < 0 ? -angle / 2 : 0.0f, 1.0f, 0.0f, 0.0f);
+			glTranslatef(0.0f, 0.1f, 0.0f);
 		}
 
 		// thigh
@@ -20,10 +24,18 @@ void	Human::draw_legs() {
 		draw_rect(-0.125, -0.1,  0.05, -0.025, -0.3,  0.05, _legs_color);
 		draw_rect(-0.125, -0.1, -0.05, -0.025, -0.3, -0.05, _legs_color);
 
+		if (_animation == JUMP) glPopMatrix();
+
+		if (_animation == JUMP) glPushMatrix();
+
 		if (_animation == WALK || _animation == SPRINT) {
 			glTranslatef(0.0f, -0.3f, 0.0f);
 			glRotatef(angle < 0 ? -angle / 2 : 0.0f, 1.0f, 0.0f, 0.0f);
 			glTranslatef(0.0f, 0.3f, 0.0f);
+		} else if (_animation == JUMP) {
+			glTranslatef(0.0f, -angle < 0 ? -0.5f + (angle * 0.001f) : -0.5f, 0.0f);
+			glRotatef(-angle < 0 ? angle / 2 : 0.0f, 1.0f, 0.0f, 0.0f);
+			glTranslatef(0.0f, 0.5f, 0.0f);
 		}
 
 		// lower part
@@ -49,6 +61,10 @@ void	Human::draw_legs() {
 			glTranslatef(0.0f, -0.1f, 0.0f);
 			glRotatef(-angle, 1.0f, 0.0f, 0.0f);
 			glTranslatef(0.0f, 0.1f, 0.0f);
+		} else if (_animation == JUMP) {
+			glTranslatef(0.0f, -0.1f, 0.0f);
+			glRotatef(-angle < 0 ? -angle / 2 : 0.0f, 1.0f, 0.0f, 0.0f);
+			glTranslatef(0.0f, 0.1f, 0.0f);
 		}
 
 		// thigh
@@ -58,10 +74,18 @@ void	Human::draw_legs() {
 		draw_rect( 0.125, -0.1,  0.05,  0.025, -0.3,  0.05, _legs_color);
 		draw_rect( 0.125, -0.1, -0.05,  0.025, -0.3, -0.05, _legs_color);
 
+		if (_animation == JUMP) glPopMatrix();
+
+		if (_animation == JUMP) glPushMatrix();
+
 		if (_animation == WALK || _animation == SPRINT) {
 			glTranslatef(0.0f, -0.3f, 0.0f);
 			glRotatef(-angle < 0 ? angle / 2 : 0.0f, 1.0f, 0.0f, 0.0f);
 			glTranslatef(0.0f, 0.3f, 0.0f);
+		} else if (_animation == JUMP) {
+			glTranslatef(0.0f, -angle < 0 ? -0.5f + (angle * 0.001f) : -0.5f, 0.0f);
+			glRotatef(-angle < 0 ? angle / 2 : 0.0f, 1.0f, 0.0f, 0.0f);
+			glTranslatef(0.0f, 0.5f, 0.0f);
 		}
 
 		// lower part
