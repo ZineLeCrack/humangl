@@ -81,6 +81,22 @@ void	display() {
 
 void	keypress(GLFWwindow* window) {
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) glfwSetWindowShouldClose(window, true);
+	if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS) {
+		human.get_animation() = JUMP;
+		human.get_animation_frame() = glfwGetTime();
+	}
+	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
+		human.get_animation() = WALK;
+		human.get_animation_frame() = glfwGetTime();
+	}
+	if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS && glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
+		human.get_animation() = SPRINT;
+		human.get_animation_frame() = glfwGetTime();
+	}
+	if (glfwGetKey(window, GLFW_KEY_T) == GLFW_PRESS) {
+		human.get_animation() = STAY;
+		human.get_animation_frame() = glfwGetTime();
+	}
 }
 
 void	imgui_set_window() {
@@ -112,7 +128,7 @@ void	imgui_set_window() {
 	SameLine();
 	if (Button("Walk")) {
 		human.get_animation() = WALK;
-		human.get_animation_frame() = glfwGetTime();;
+		human.get_animation_frame() = glfwGetTime();
 	}
 	SameLine();
 	if (Button("Sprint")) {
@@ -134,11 +150,11 @@ void	imgui_set_window() {
 
 	Begin(" Colors ");
 
-	ColorPicker3(" Foots ", human.get_foots_color());
-	ColorPicker3(" Legs ", human.get_legs_color());
-	ColorPicker3(" Body ", human.get_body_color());
-	ColorPicker3(" Arms ", human.get_arms_color());
-	ColorPicker3(" Head ", human.get_head_color());
+	ColorEdit3(" Head ", human.get_head_color());
+	ColorEdit3(" Arms ", human.get_arms_color());
+	ColorEdit3(" Body ", human.get_body_color());
+	ColorEdit3(" Legs ", human.get_legs_color());
+	ColorEdit3(" Foots ", human.get_foots_color());
 
 	End();
 }
