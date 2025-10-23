@@ -4,6 +4,7 @@
 #include <sstream>
 #include <cstring>
 #include <vector>
+#include <array>
 #include <unistd.h>
 #include <sys/time.h>
 #include <GL/glew.h>
@@ -25,6 +26,9 @@ using namespace ImGui;
 
 /*-------- CLASSES --------*/
 #include "Human.hpp"
+#include "Shaders.hpp"
+#include "Matrix.hpp"
+#include "Vec3.hpp"
 
 class Human;
 

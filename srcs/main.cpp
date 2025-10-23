@@ -187,7 +187,7 @@ int main() {
 	}
 
 	glfwMakeContextCurrent(window);
-	glfwSwapInterval(0);
+	glfwSwapInterval(1);
 
 	glfwSetCursorPosCallback(window, [](GLFWwindow* w, double xpos, double ypos) {
 		(void)w;
