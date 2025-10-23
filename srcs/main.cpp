@@ -163,7 +163,7 @@ int main() {
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_COMPAT_PROFILE);
 
-	GLFWwindow* window = glfwCreateWindow(2560, 1600, "HumanGL", NULL, NULL);
+	GLFWwindow* window = glfwCreateWindow(1920, 1080, "HumanGL", NULL, NULL);
 	if (!window) {
 		glfwTerminate();
 		cerr << RED "Error: init error" << RESET << endl;
