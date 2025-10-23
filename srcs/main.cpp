@@ -115,6 +115,11 @@ void	imgui_set_window() {
 		human.get_animation_frame() = glfwGetTime();;
 	}
 	SameLine();
+	if (Button("Sprint")) {
+		human.get_animation() = SPRINT;
+		human.get_animation_frame() = glfwGetTime();
+	}
+	SameLine();
 	if (Button("Jump")) {
 		human.get_animation() = JUMP;
 		human.get_animation_frame() = glfwGetTime();
@@ -166,7 +171,7 @@ int main() {
 	}
 
 	glfwMakeContextCurrent(window);
-	glfwSwapInterval(1);
+	glfwSwapInterval(0);
 
 	glfwSetCursorPosCallback(window, [](GLFWwindow* w, double xpos, double ypos) {
 		(void)w;

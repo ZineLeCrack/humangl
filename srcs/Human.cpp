@@ -1,13 +1,13 @@
 #include "Human.hpp"
 
 void	Human::draw_legs() {
-	float angle = sin((glfwGetTime() - _animation_frame) * 5.0f) * 30.0f;
+	float angle = sin((glfwGetTime() - _animation_frame) * (_animation == SPRINT ? 10.0f : 5.0f)) * 30.0f;
 
 	/* right leg */
 	{
 		if (_animation) glPushMatrix();
 
-		if (_animation == WALK) {
+		if (_animation == WALK || _animation == SPRINT) {
 			glTranslatef(0.0f, -0.1f, 0.0f);
 			glRotatef(angle, 1.0f, 0.0f, 0.0f);
 			glTranslatef(0.0f, 0.1f, 0.0f);
@@ -20,7 +20,7 @@ void	Human::draw_legs() {
 		draw_rect(-0.125, -0.1,  0.05, -0.025, -0.3,  0.05, _legs_color);
 		draw_rect(-0.125, -0.1, -0.05, -0.025, -0.3, -0.05, _legs_color);
 
-		if (_animation == WALK) {
+		if (_animation == WALK || _animation == SPRINT) {
 			glTranslatef(0.0f, -0.3f, 0.0f);
 			glRotatef(angle < 0 ? -angle / 2 : 0.0f, 1.0f, 0.0f, 0.0f);
 			glTranslatef(0.0f, 0.3f, 0.0f);
@@ -45,7 +45,7 @@ void	Human::draw_legs() {
 	{
 		if (_animation) glPushMatrix();
 
-		if (_animation == WALK) {
+		if (_animation == WALK || _animation == SPRINT) {
 			glTranslatef(0.0f, -0.1f, 0.0f);
 			glRotatef(-angle, 1.0f, 0.0f, 0.0f);
 			glTranslatef(0.0f, 0.1f, 0.0f);
@@ -58,7 +58,7 @@ void	Human::draw_legs() {
 		draw_rect( 0.125, -0.1,  0.05,  0.025, -0.3,  0.05, _legs_color);
 		draw_rect( 0.125, -0.1, -0.05,  0.025, -0.3, -0.05, _legs_color);
 
-		if (_animation == WALK) {
+		if (_animation == WALK || _animation == SPRINT) {
 			glTranslatef(0.0f, -0.3f, 0.0f);
 			glRotatef(-angle < 0 ? angle / 2 : 0.0f, 1.0f, 0.0f, 0.0f);
 			glTranslatef(0.0f, 0.3f, 0.0f);
@@ -91,13 +91,13 @@ void	Human::draw_body() {
 }
 
 void	Human::draw_arms() {
-	float angle = sin((glfwGetTime() - _animation_frame) * 5.0f) * 30.0f;
+	float angle = sin((glfwGetTime() - _animation_frame) * (_animation == SPRINT ? 10.0f : 5.0f)) * 30.0f;
 
 	/* right arm */
 	{
 		if (_animation) glPushMatrix();
 
-		if (_animation == WALK) {
+		if (_animation == WALK || _animation == SPRINT) {
 			glTranslatef(0.0f, 0.25f, 0.0f);
 			glRotatef(-angle, 1.0f, 0.0f, 0.0f);
 			glTranslatef(0.0f, -0.25f, 0.0f);
@@ -116,7 +116,7 @@ void	Human::draw_arms() {
 		draw_rect(-0.125,  0.2,  0.05, -0.225,  0.3,  0.05, _body_color);
 		draw_rect(-0.125,  0.2, -0.05, -0.125,  0.3,  0.05, _body_color);
 
-		if (_animation == WALK) {
+		if (_animation == WALK || _animation == SPRINT) {
 			glTranslatef(0.0f, 0.1f, 0.0f);
 			glRotatef(-angle < 0 ? -angle / 2 : 0, 1.0f, 0.0f, 0.0f);
 			glTranslatef(0.0f, -0.1f, 0.0f);
@@ -135,7 +135,7 @@ void	Human::draw_arms() {
 	{
 		if (_animation) glPushMatrix();
 
-		if (_animation == WALK) {
+		if (_animation == WALK || _animation == SPRINT) {
 			glTranslatef(0.0f, 0.25f, 0.0f);
 			glRotatef(angle, 1.0f, 0.0f, 0.0f);
 			glTranslatef(0.0f, -0.25f, 0.0f);
@@ -154,7 +154,7 @@ void	Human::draw_arms() {
 		draw_rect( 0.125,  0.2,  0.05,  0.225,  0.3,  0.05, _body_color);
 		draw_rect( 0.125,  0.2, -0.05,  0.125,  0.3,  0.05, _body_color);
 
-		if (_animation == WALK) {
+		if (_animation == WALK || _animation == SPRINT) {
 			glTranslatef(0.0f, 0.1f, 0.0f);
 			glRotatef(angle < 0 ? angle / 2 : 0, 1.0f, 0.0f, 0.0f);
 			glTranslatef(0.0f, -0.1f, 0.0f);
