@@ -8,6 +8,8 @@ static bool	isDragging = false;
 
 static bool	cube = false;
 
+Shaders shader("shaders/vertex.vert", "shaders/fragment.frag");
+
 void framebuffer_size_callback(GLFWwindow *window, int width, int heigth)
 {
 	(void)window;
@@ -60,13 +62,20 @@ void	display() {
 	glClearColor(0.0, 0.0, 0.0, 1);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
+	// glMatrixMode(GL_MODELVIEW);
+	// glLoadIdentity();
 
-	gluLookAt(0.0f, 0.0f, 21.0f - human.get_zoom(), 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
+	Matrix view = Matrix::lookAt({0.0f, 0.0f, 21.0f - human.get_zoom()}, {0.0f, 0.0f, 0.0f}, {0.0f, 1.0f, 0.0f});
+	GLint viewLoc = glGetUniformLocation(shader.shaderProgram, "uView");
+	glUniformMatrix4fv(viewLoc, 1, GL_FALSE, view.data());
 
-	glRotatef(human.get_rotX(), 1.0f, 0.0f, 0.0f);
-	glRotatef(human.get_rotY(), 0.0f, 1.0f, 0.0f);
+	Matrix Rx = Matrix::rotateX(human.get_rotX());
+	Matrix Ry = Matrix::rotateY(human.get_rotY());
+
+	// gluLookAt(0.0f, 0.0f, 21.0f - human.get_zoom(), 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
+
+	//glRotatef(human.get_rotX(), 1.0f, 0.0f, 0.0f);
+	//glRotatef(human.get_rotY(), 0.0f, 1.0f, 0.0f);
 
 	if (human.get_animation() == JUMP) {
 		float angle = -sin((glfwGetTime() - human.get_animation_frame()) * 5.0f);
@@ -233,6 +242,7 @@ int main() {
 
 	ImGui_ImplGlfw_InitForOpenGL(window, true);
 	ImGui_ImplOpenGL3_Init("#version 460");
+	
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 	glEnable(GL_DEPTH_TEST);
 
@@ -240,10 +250,15 @@ int main() {
 	glfwGetFramebufferSize(window, &width, &height);
 	glViewport(0, 0, width, height);
 
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	gluPerspective(45, width / (float)height, 0.1f, 100.0f);
-	glMatrixMode(GL_MODELVIEW);
+	// glMatrixMode(GL_PROJECTION);
+	// glLoadIdentity();
+	// gluPerspective(45, width / (float)height, 0.1f, 100.0f);
+	// glMatrixMode(GL_MODELVIEW);
+
+	glUseProgram(shader.shaderProgram);
+	Matrix	proj = Matrix::perspective(45, width / (float)height, 0.1f, 100.0f);
+	GLint	projLoc = glGetUniformLocation(shader.shaderProgram, "uProjection");
+	glUniformMatrix4fv(projLoc, 1, GL_FALSE, proj.data());
 
 	while (!glfwWindowShouldClose(window)) {
 		glfwPollEvents();

@@ -25,12 +25,15 @@ using namespace std;
 using namespace ImGui;
 
 /*-------- CLASSES --------*/
+class Vec3;
+class Human;
+class Matrix;
+
 #include "Human.hpp"
 #include "Shaders.hpp"
-#include "Matrix.hpp"
 #include "Vec3.hpp"
-
-class Human;
+#include "Matrix.hpp"
+#include "ModelStack.hpp"
 
 /*------- FUNCTIONS ------ */
 void	set_color(float [3]);
