@@ -8,10 +8,12 @@ out vec4 FragColor;
 uniform sampler2D uTexture;
 uniform bool uUseTexture;
 
+uniform vec3 uColor;
+
 void main()
 {
 	if (uUseTexture)
 		FragColor = texture(uTexture, vertexTex);
 	else
-		FragColor = vec4(vertexColor, 1.0); 
+		FragColor = vec4(uColor, 1.0); 
 }

@@ -8,6 +8,25 @@ static bool	isDragging = false;
 
 static bool	cube = false;
 
+static GLuint cubeVAO = 0, cubeVBO = 0;
+
+static const float cubeVertices[] = {
+    	 0.5f,  0.5f,  0.5f,  -0.5f,  0.5f,  0.5f,
+    	-0.5f,  0.5f,  0.5f,  -0.5f,  0.5f, -0.5f,
+    	-0.5f,  0.5f, -0.5f,   0.5f,  0.5f, -0.5f,
+    	 0.5f,  0.5f, -0.5f,   0.5f,  0.5f,  0.5f,
+
+    	 0.5f, -0.5f,  0.5f,  -0.5f, -0.5f,  0.5f,
+    	-0.5f, -0.5f,  0.5f,  -0.5f, -0.5f, -0.5f,
+    	-0.5f, -0.5f, -0.5f,   0.5f, -0.5f, -0.5f,
+    	 0.5f, -0.5f, -0.5f,   0.5f, -0.5f,  0.5f,
+
+    	 0.5f,  0.5f,  0.5f,   0.5f, -0.5f,  0.5f,
+    	-0.5f,  0.5f,  0.5f,  -0.5f, -0.5f,  0.5f,
+    	 0.5f,  0.5f, -0.5f,   0.5f, -0.5f, -0.5f,
+    	-0.5f,  0.5f, -0.5f,  -0.5f, -0.5f, -0.5f
+	};
+
 ModelStack modelStack;
 
 void framebuffer_size_callback(GLFWwindow *window, int width, int heigth)
@@ -16,46 +35,75 @@ void framebuffer_size_callback(GLFWwindow *window, int width, int heigth)
 	glViewport(0, 0, width, heigth);
 }
 
-static void	draw_cube() {
-	glBegin(GL_LINES);
+static void	draw_cube(Shaders &shader) {
 
-	glColor3d(1.0, 0.0, 0.0); glVertex3d(0.5, 0.5, 0.5);
-	glColor3d(1.0, 0.0, 0.0); glVertex3d(-0.5, 0.5, 0.5);
+	Matrix model = Matrix::identity();
 
-	glColor3d(1.0, 0.0, 0.0); glVertex3d(-0.5, 0.5, 0.5);
-	glColor3d(1.0, 0.0, 0.0); glVertex3d(-0.5, 0.5, -0.5);
+	glLineWidth(2.0f);
+	if (cubeVAO == 0) {
+		glGenVertexArrays(1, &cubeVAO);
+  		glGenBuffers(1, &cubeVBO);
 
-	glColor3d(1.0, 0.0, 0.0); glVertex3d(-0.5, 0.5, -0.5);
-	glColor3d(1.0, 0.0, 0.0); glVertex3d(0.5, 0.5, -0.5);
+  		glBindVertexArray(cubeVAO);
+  		glBindBuffer(GL_ARRAY_BUFFER, cubeVBO);
+  		glBufferData(GL_ARRAY_BUFFER, sizeof(cubeVertices), cubeVertices, GL_STATIC_DRAW);
 
-	glColor3d(1.0, 0.0, 0.0); glVertex3d(0.5, 0.5, -0.5);
-	glColor3d(1.0, 0.0, 0.0); glVertex3d(0.5, 0.5, 0.5);
+  	  // Attribut position (location = 0)
+  		glEnableVertexAttribArray(0);
+  		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
 
-	glColor3d(1.0, 0.0, 0.0); glVertex3d(0.5, -0.5, 0.5);
-	glColor3d(1.0, 0.0, 0.0); glVertex3d(-0.5, -0.5, 0.5);
+  		glBindVertexArray(0);
+	}
 
-	glColor3d(1.0, 0.0, 0.0); glVertex3d(-0.5, -0.5, 0.5);
-	glColor3d(1.0, 0.0, 0.0); glVertex3d(-0.5, -0.5, -0.5);
+	glUseProgram(shader.shaderProgram);
 
-	glColor3d(1.0, 0.0, 0.0); glVertex3d(-0.5, -0.5, -0.5);
-	glColor3d(1.0, 0.0, 0.0); glVertex3d(0.5, -0.5, -0.5);
+    GLint modelLoc = glGetUniformLocation(shader.shaderProgram, "uModel");
+    GLint colorLoc = glGetUniformLocation(shader.shaderProgram, "uColor");
+    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, model.data());
+    glUniform3f(colorLoc, 1.0f, 0.0f, 0.0f); // rouge
 
-	glColor3d(1.0, 0.0, 0.0); glVertex3d(0.5, -0.5, -0.5);
-	glColor3d(1.0, 0.0, 0.0); glVertex3d(0.5, -0.5, 0.5);
+    glBindVertexArray(cubeVAO);
+    glDrawArrays(GL_LINES, 0, 24); // 24 sommets = 12 arêtes
+    glBindVertexArray(0);
+	// glBegin(GL_LINES);
 
-	glColor3d(1.0, 0.0, 0.0); glVertex3d(0.5, 0.5, 0.5);
-	glColor3d(1.0, 0.0, 0.0); glVertex3d(0.5, -0.5, 0.5);
+	// glColor3d(1.0, 0.0, 0.0); glVertex3d(0.5, 0.5, 0.5);
+	// glColor3d(1.0, 0.0, 0.0); glVertex3d(-0.5, 0.5, 0.5);
 
-	glColor3d(1.0, 0.0, 0.0); glVertex3d(-0.5, 0.5, 0.5);
-	glColor3d(1.0, 0.0, 0.0); glVertex3d(-0.5, -0.5, 0.5);
+	// glColor3d(1.0, 0.0, 0.0); glVertex3d(-0.5, 0.5, 0.5);
+	// glColor3d(1.0, 0.0, 0.0); glVertex3d(-0.5, 0.5, -0.5);
 
-	glColor3d(1.0, 0.0, 0.0); glVertex3d(0.5, 0.5, -0.5);
-	glColor3d(1.0, 0.0, 0.0); glVertex3d(0.5, -0.5, -0.5);
+	// glColor3d(1.0, 0.0, 0.0); glVertex3d(-0.5, 0.5, -0.5);
+	// glColor3d(1.0, 0.0, 0.0); glVertex3d(0.5, 0.5, -0.5);
 
-	glColor3d(1.0, 0.0, 0.0); glVertex3d(-0.5, 0.5, -0.5);
-	glColor3d(1.0, 0.0, 0.0); glVertex3d(-0.5, -0.5, -0.5);
+	// glColor3d(1.0, 0.0, 0.0); glVertex3d(0.5, 0.5, -0.5);
+	// glColor3d(1.0, 0.0, 0.0); glVertex3d(0.5, 0.5, 0.5);
 
-	glEnd();
+	// glColor3d(1.0, 0.0, 0.0); glVertex3d(0.5, -0.5, 0.5);
+	// glColor3d(1.0, 0.0, 0.0); glVertex3d(-0.5, -0.5, 0.5);
+
+	// glColor3d(1.0, 0.0, 0.0); glVertex3d(-0.5, -0.5, 0.5);
+	// glColor3d(1.0, 0.0, 0.0); glVertex3d(-0.5, -0.5, -0.5);
+
+	// glColor3d(1.0, 0.0, 0.0); glVertex3d(-0.5, -0.5, -0.5);
+	// glColor3d(1.0, 0.0, 0.0); glVertex3d(0.5, -0.5, -0.5);
+
+	// glColor3d(1.0, 0.0, 0.0); glVertex3d(0.5, -0.5, -0.5);
+	// glColor3d(1.0, 0.0, 0.0); glVertex3d(0.5, -0.5, 0.5);
+
+	// glColor3d(1.0, 0.0, 0.0); glVertex3d(0.5, 0.5, 0.5);
+	// glColor3d(1.0, 0.0, 0.0); glVertex3d(0.5, -0.5, 0.5);
+
+	// glColor3d(1.0, 0.0, 0.0); glVertex3d(-0.5, 0.5, 0.5);
+	// glColor3d(1.0, 0.0, 0.0); glVertex3d(-0.5, -0.5, 0.5);
+
+	// glColor3d(1.0, 0.0, 0.0); glVertex3d(0.5, 0.5, -0.5);
+	// glColor3d(1.0, 0.0, 0.0); glVertex3d(0.5, -0.5, -0.5);
+
+	// glColor3d(1.0, 0.0, 0.0); glVertex3d(-0.5, 0.5, -0.5);
+	// glColor3d(1.0, 0.0, 0.0); glVertex3d(-0.5, -0.5, -0.5);
+
+	// glEnd();
 }
 
 void	display(Shaders &shader) {
@@ -91,7 +139,7 @@ void	display(Shaders &shader) {
 
 	if (human.get_animation() == JUMP) modelStack.pop();
 
-	if (cube) draw_cube();
+	if (cube) draw_cube(shader);
 }
 
 void	keypress(GLFWwindow* window) {
