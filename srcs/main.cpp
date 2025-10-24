@@ -8,6 +8,12 @@ static bool	isDragging = false;
 
 static bool	cube = false;
 
+void framebuffer_size_callback(GLFWwindow *window, int width, int heigth)
+{
+	(void)window;
+	glViewport(0, 0, width, heigth);
+}
+
 static void	draw_cube() {
 	glBegin(GL_LINES);
 
@@ -206,7 +212,7 @@ int main() {
 	glfwSetMouseButtonCallback(window, [](GLFWwindow* w, int button, int action, int mods) {
 		(void)w;
 		(void)mods;
-		if (button == GLFW_MOUSE_BUTTON_LEFT){
+		if (button == GLFW_MOUSE_BUTTON_RIGHT){
 			if (action == GLFW_PRESS){
 				isDragging = true;
 				double xpos, ypos;
@@ -227,7 +233,7 @@ int main() {
 
 	ImGui_ImplGlfw_InitForOpenGL(window, true);
 	ImGui_ImplOpenGL3_Init("#version 460");
-
+	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 	glEnable(GL_DEPTH_TEST);
 
 	int width, height;
@@ -238,7 +244,6 @@ int main() {
 	glLoadIdentity();
 	gluPerspective(45, width / (float)height, 0.1f, 100.0f);
 	glMatrixMode(GL_MODELVIEW);
-
 
 	while (!glfwWindowShouldClose(window)) {
 		glfwPollEvents();
