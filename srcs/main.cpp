@@ -8,7 +8,6 @@ static bool	isDragging = false;
 
 static bool	cube = false;
 
-Shaders shader("shaders/vertex.vert", "shaders/fragment.frag");
 ModelStack modelStack;
 
 void framebuffer_size_callback(GLFWwindow *window, int width, int heigth)
@@ -59,7 +58,7 @@ static void	draw_cube() {
 	glEnd();
 }
 
-void	display() {
+void	display(Shaders &shader) {
 	glClearColor(0.0, 0.0, 0.0, 1);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -205,6 +204,13 @@ int main() {
 	glfwMakeContextCurrent(window);
 	glfwSwapInterval(1);
 
+	if (glewInit() != GLEW_OK) {
+		glfwTerminate();
+		throw runtime_error ("failed to initialize Glew\n");
+	}
+
+	Shaders shader("shaders/vertex.vert", "shaders/fragment.frag");
+
 	glfwSetCursorPosCallback(window, [](GLFWwindow* w, double xpos, double ypos) {
 		(void)w;
 		if (isDragging){
@@ -271,7 +277,7 @@ int main() {
 		glfwSetScrollCallback(window, scroll_callback);
 		keypress(window);
 
-		display();
+		display(shader);
 
 		imgui_set_window();
 
