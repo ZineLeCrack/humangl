@@ -1,6 +1,7 @@
 #pragma once
 
-#include "Includes.hpp"
+#include <math.h>
+using namespace std;
 
 class Vec3
 {

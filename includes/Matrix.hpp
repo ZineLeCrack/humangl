@@ -1,6 +1,8 @@
 #pragma once
 
-#include "Includes.hpp"
+#include <array>
+#include <assert.h>
+#include "Vec3.hpp"
 
 class Matrix
 {
@@ -11,11 +13,11 @@ class Matrix
 	public:
 		Matrix();
 		~Matrix();
-		
+
 		float	operator()(int row, int col) const;
 		float	&operator()(int row, int col);
 		Matrix	operator*(const Matrix& matrix) const;
-		
+
 		static Matrix	identity();
 		const float		*data() const;
 

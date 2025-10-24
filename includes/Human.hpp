@@ -42,25 +42,26 @@ class Human
 		void	set_arms_color(float r, float g, float b)	{ _arms_color[0]  = r, _arms_color[1]  = g, _arms_color[2]  = b; };
 		void	set_head_color(float r, float g, float b)	{ _head_color[0]  = r, _head_color[1]  = g, _head_color[2]  = b; };
 
-		void	draw_legs();
-		void	draw_body();
-		void	draw_arms();
-		void	draw_head();
+		void	draw(ModelStack &modelStack);
+		void	draw_legs(ModelStack &modelStack);
+		void	draw_body(ModelStack &modelStack);
+		void	draw_arms(ModelStack &modelStack);
+		void	draw_head(ModelStack &modelStack);
 
-		void	draw_right_upper_arm();
-		void	draw_left_upper_arm();
+		void	draw_right_upper_arm(ModelStack &modelStack);
+		void	draw_left_upper_arm(ModelStack &modelStack);
 
-		void	draw_right_shoulder();
-		void	draw_left_shoulder();
+		void	draw_right_shoulder(ModelStack &modelStack);
+		void	draw_left_shoulder(ModelStack &modelStack);
 
-		void	draw_left_forearm();
-		void	draw_right_forearm();
+		void	draw_left_forearm(ModelStack &modelStack);
+		void	draw_right_forearm(ModelStack &modelStack);
 
-		void	draw_right_thigh_leg();
-		void	draw_left_thigh_leg();
-		void	draw_right_lower_leg();
-		void	draw_left_lower_leg();
+		void	draw_right_thigh_leg(ModelStack &modelStack);
+		void	draw_left_thigh_leg(ModelStack &modelStack);
+		void	draw_right_lower_leg(ModelStack &modelStack);
+		void	draw_left_lower_leg(ModelStack &modelStack);
 		
-		void	draw_right_foot();
-		void	draw_left_foot();
+		void	draw_right_foot(ModelStack &modelStack);
+		void	draw_left_foot(ModelStack &modelStack);
 };

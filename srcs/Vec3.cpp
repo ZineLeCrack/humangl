@@ -1,11 +1,5 @@
 #include "Vec3.hpp"
 
-ostream &operator<<(ostream &os, const Vec3& v)
-{
-	os << "{" << v.x << ", " << v.y << ", " << v.z << "}" << endl;
-	return os;
-}
-
 Vec3::Vec3():x(0),y(0),z(0) {}
 
 Vec3::~Vec3() {}

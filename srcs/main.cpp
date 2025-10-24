@@ -9,6 +9,7 @@ static bool	isDragging = false;
 static bool	cube = false;
 
 Shaders shader("shaders/vertex.vert", "shaders/fragment.frag");
+ModelStack modelStack;
 
 void framebuffer_size_callback(GLFWwindow *window, int width, int heigth)
 {
@@ -66,30 +67,30 @@ void	display() {
 	// glLoadIdentity();
 
 	Matrix view = Matrix::lookAt({0.0f, 0.0f, 21.0f - human.get_zoom()}, {0.0f, 0.0f, 0.0f}, {0.0f, 1.0f, 0.0f});
+	// gluLookAt(0.0f, 0.0f, 21.0f - human.get_zoom(), 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
 	GLint viewLoc = glGetUniformLocation(shader.shaderProgram, "uView");
 	glUniformMatrix4fv(viewLoc, 1, GL_FALSE, view.data());
 
 	Matrix Rx = Matrix::rotateX(human.get_rotX());
 	Matrix Ry = Matrix::rotateY(human.get_rotY());
 
-	// gluLookAt(0.0f, 0.0f, 21.0f - human.get_zoom(), 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
-
 	//glRotatef(human.get_rotX(), 1.0f, 0.0f, 0.0f);
 	//glRotatef(human.get_rotY(), 0.0f, 1.0f, 0.0f);
+	Matrix model = Ry * Rx;
+	GLint modelLoc = glGetUniformLocation(shader.shaderProgram, "uModel");
+	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, model.data());
 
 	if (human.get_animation() == JUMP) {
 		float angle = -sin((glfwGetTime() - human.get_animation_frame()) * 5.0f);
-		glPushMatrix();
-		if (angle > 0.0f) glTranslatef(0.0f, angle * 0.5f, 0.0f);
-		else glTranslatef(0.0f, angle * 0.05f, 0.0f);
+		// glPushMatrix();
+		modelStack.push();
+		if (angle > 0.0f) model.translate(0.0f, angle * 0.5f, 0.0f);
+		else model.translate(0.0f, angle * 0.05f, 0.0f);
 	}
 
-	human.draw_legs();
-	human.draw_body();
-	human.draw_arms();
-	human.draw_head();
+	human.draw(modelStack);
 
-	if (human.get_animation() == JUMP) glPopMatrix();
+	if (human.get_animation() == JUMP) modelStack.pop();
 
 	if (cube) draw_cube();
 }
@@ -192,7 +193,7 @@ int main() {
 
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_COMPAT_PROFILE);
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 	GLFWwindow* window = glfwCreateWindow(1920, 1080, "HumanGL", NULL, NULL);
 	if (!window) {
