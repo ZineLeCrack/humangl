@@ -60,7 +60,7 @@ class Human
 		void	draw_left_thigh_leg();
 		void	draw_right_lower_leg();
 		void	draw_left_lower_leg();
-		
+
 		void	draw_right_foot();
 		void	draw_left_foot();
 };
