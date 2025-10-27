@@ -7,7 +7,6 @@ void	set_color(float color[3])
 
 void	draw_rect(const Vec3 &a, const Vec3 &b, const float color[3], Shaders &shader, ModelStack &modelStack)
 {
-	// (void)modelStack;
 	std::vector<float> vertices;
 
 	if (a.z == b.z) {
