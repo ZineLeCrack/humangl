@@ -58,7 +58,7 @@ class Human
 		void	draw_right_thigh(ModelStack &modelStack, Shaders &shader);
 		void	draw_right_lower_leg(ModelStack &modelStack, Shaders &shader);
 		void	draw_left_lower_leg(ModelStack &modelStack, Shaders &shader);
-		
+
 		void	draw_right_foot(ModelStack &modelStack, Shaders &shader);
 		void	draw_left_foot(ModelStack &modelStack, Shaders &shader);
 };

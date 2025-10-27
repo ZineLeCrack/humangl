@@ -16,7 +16,7 @@ Shaders::Shaders(string vertexFilePath, string fragmentFilePath)
 {
 	string vertexBuff = readShaderFile(vertexFilePath);
 	string fragmentBuff= readShaderFile(fragmentFilePath);
-	
+
 	GLuint vertexShader = compileShader(vertexBuff, GL_VERTEX_SHADER);
 	GLuint fragmentshader = compileShader(fragmentBuff, GL_FRAGMENT_SHADER);
 
