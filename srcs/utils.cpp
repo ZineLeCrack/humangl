@@ -10,28 +10,37 @@ void	draw_rect(const Vec3 &a, const Vec3 &b, const float color[3], Shaders &shad
 	// (void)modelStack;
 	std::vector<float> vertices;
 
-	if (a.x == b.x) {
+	if (a.z == b.z) {
 		vertices = {
 			a.x, a.y, a.z,
 			a.x, b.y, a.z,
-			a.x, b.y, b.z,
-			a.x, a.y, b.z,
+			b.x, b.y, a.z,
+
+			a.x, a.y, a.z,
+			b.x, a.y, a.z,
+			b.x, b.y, a.z,
 		};
 	}
 	else if (a.y == b.y) {
 		vertices = {
 			a.x, a.y, a.z,
+			b.x, a.y, a.z,
+			b.x, a.y, b.z,
+
+			a.x, a.y, a.z,
 			a.x, a.y, b.z,
 			b.x, a.y, b.z,
-			b.x, a.y, a.z,
 		};
 	}
-	else if (a.z == b.z) {
+	else if (a.x == b.x) {
 		vertices = {
 			a.x, a.y, a.z,
 			a.x, b.y, a.z,
-			b.x, b.y, a.z,
-			b.x, a.y, a.z,
+			a.x, b.y, b.z,
+
+			a.x, a.y, a.z,
+			a.x, a.y, b.z,
+			a.x, b.y, b.z,
 		};
 	} else return;
 
@@ -53,7 +62,7 @@ void	draw_rect(const Vec3 &a, const Vec3 &b, const float color[3], Shaders &shad
 	GLint modelLoc = glGetUniformLocation(shader.shaderProgram, "uModel");
 	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, modelStack.current().data());
 
-	glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
+	glDrawArrays(GL_TRIANGLES, 0, 6);
 
 	glBindVertexArray(0);
 	glDeleteBuffers(1, &VBO);
