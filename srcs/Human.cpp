@@ -1,11 +1,15 @@
 #include "Human.hpp"
 
+Human::Human()	{_rightHand = new Hand("right");};
+Human::~Human()	{delete _rightHand;};
+
 void	Human::draw(ModelStack &modelStack, Shaders &shader)
 {
 	draw_head(modelStack, shader);
 	draw_body(modelStack, shader);
 	draw_arms(modelStack, shader);
 	draw_legs(modelStack, shader);
+	_rightHand->draw(_legs_color, modelStack, shader);
 }
 
 void	Human::draw_legs(ModelStack &modelStack, Shaders &shader)

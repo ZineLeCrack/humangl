@@ -1,6 +1,8 @@
 #pragma once
 
 #include "Includes.hpp"
+#include "Hand.hpp"
+class Hand;
 
 class Human
 {
@@ -19,10 +21,12 @@ class Human
 		int		_animation			= STAY;
 		double	_animation_frame	= 0;
 
+		Hand	*_rightHand;
+
 	public:
 
-		Human()		{};
-		~Human()	{};
+		Human();
+		~Human();
 
 		float	&get_rotX() 			{ return _rotX; }
 		float	&get_rotY() 			{ return _rotY; }
