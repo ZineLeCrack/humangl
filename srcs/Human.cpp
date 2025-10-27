@@ -152,28 +152,28 @@ void	Human::draw_arms() {
 }
 
 void	Human::draw_head() {
-	draw_rect(-0.1,  0.3, -0.1,  0.1,  0.3,  0.1, _head_color);
-	draw_rect(-0.1,  0.5, -0.1,  0.1,  0.5,  0.1, _head_color);
-	draw_rect(-0.1,  0.3, -0.1, -0.1,  0.5,  0.1, _head_color);
-	draw_rect( 0.1,  0.3, -0.1,  0.1,  0.5,  0.1, _head_color);
-	draw_rect(-0.1,  0.3, -0.1,  0.1,  0.5, -0.1, _head_color);
-	draw_rect(-0.1,  0.3,  0.1,  0.1,  0.5,  0.1, _head_color);
+	draw_rect(-0.1,  0.3, -0.1,  0.1,  0.3,  0.1, _skin_color);
+	draw_rect(-0.1,  0.5, -0.1,  0.1,  0.5,  0.1, _skin_color);
+	draw_rect(-0.1,  0.3, -0.1, -0.1,  0.5,  0.1, _skin_color);
+	draw_rect( 0.1,  0.3, -0.1,  0.1,  0.5,  0.1, _skin_color);
+	draw_rect(-0.1,  0.3, -0.1,  0.1,  0.5, -0.1, _skin_color);
+	draw_rect(-0.1,  0.3,  0.1,  0.1,  0.5,  0.1, _skin_color);
 }
 
 void	Human::draw_right_upper_arm()
 {
-	draw_rect(-0.225,  0.1, -0.05, -0.225,  0.2,  0.05, _arms_color);
-	draw_rect(-0.125,  0.1, -0.05, -0.225,  0.2, -0.05, _arms_color);
-	draw_rect(-0.125,  0.1,  0.05, -0.225,  0.2,  0.05, _arms_color);
-	draw_rect(-0.125,  0.1, -0.05, -0.125,  0.2,  0.05, _arms_color);
+	draw_rect(-0.225,  0.1, -0.05, -0.225,  0.2,  0.05, _skin_color);
+	draw_rect(-0.125,  0.1, -0.05, -0.225,  0.2, -0.05, _skin_color);
+	draw_rect(-0.125,  0.1,  0.05, -0.225,  0.2,  0.05, _skin_color);
+	draw_rect(-0.125,  0.1, -0.05, -0.125,  0.2,  0.05, _skin_color);
 }
 
 void	Human::draw_left_upper_arm()
 {
-	draw_rect( 0.225,  0.1, -0.05,  0.225,  0.2,  0.05, _arms_color);
-	draw_rect( 0.125,  0.1, -0.05,  0.225,  0.2, -0.05, _arms_color);
-	draw_rect( 0.125,  0.1,  0.05,  0.225,  0.2,  0.05, _arms_color);
-	draw_rect( 0.125,  0.1, -0.05,  0.125,  0.2,  0.05, _arms_color);
+	draw_rect( 0.225,  0.1, -0.05,  0.225,  0.2,  0.05, _skin_color);
+	draw_rect( 0.125,  0.1, -0.05,  0.225,  0.2, -0.05, _skin_color);
+	draw_rect( 0.125,  0.1,  0.05,  0.225,  0.2,  0.05, _skin_color);
+	draw_rect( 0.125,  0.1, -0.05,  0.125,  0.2,  0.05, _skin_color);
 }
 
 void	Human::draw_right_shoulder()
@@ -196,20 +196,20 @@ void	Human::draw_left_shoulder()
 
 void	Human::draw_left_forearm()
 {
-	draw_rect( 0.125, -0.10, -0.05,  0.225, -0.10,  0.05, _arms_color);
-	draw_rect( 0.225, -0.10, -0.05,  0.225,  0.12,  0.05, _arms_color);
-	draw_rect( 0.125, -0.10, -0.05,  0.225,  0.12, -0.05, _arms_color);
-	draw_rect( 0.125, -0.10,  0.05,  0.225,  0.12,  0.05, _arms_color);
-	draw_rect( 0.125, -0.10, -0.05,  0.125,  0.12,  0.05, _arms_color);
+	draw_rect( 0.125, -0.10, -0.05,  0.225, -0.10,  0.05, _skin_color);
+	draw_rect( 0.225, -0.10, -0.05,  0.225,  0.12,  0.05, _skin_color);
+	draw_rect( 0.125, -0.10, -0.05,  0.225,  0.12, -0.05, _skin_color);
+	draw_rect( 0.125, -0.10,  0.05,  0.225,  0.12,  0.05, _skin_color);
+	draw_rect( 0.125, -0.10, -0.05,  0.125,  0.12,  0.05, _skin_color);
 }
 
 void	Human::draw_right_forearm()
 {
-	draw_rect(-0.125, -0.10, -0.05, -0.225, -0.10,  0.05, _arms_color);
-	draw_rect(-0.225, -0.10, -0.05, -0.225,  0.12,  0.05, _arms_color);
-	draw_rect(-0.125, -0.10, -0.05, -0.225,  0.12, -0.05, _arms_color);
-	draw_rect(-0.125, -0.10,  0.05, -0.225,  0.12,  0.05, _arms_color);
-	draw_rect(-0.125, -0.10, -0.05, -0.125,  0.12,  0.05, _arms_color);
+	draw_rect(-0.125, -0.10, -0.05, -0.225, -0.10,  0.05, _skin_color);
+	draw_rect(-0.225, -0.10, -0.05, -0.225,  0.12,  0.05, _skin_color);
+	draw_rect(-0.125, -0.10, -0.05, -0.225,  0.12, -0.05, _skin_color);
+	draw_rect(-0.125, -0.10,  0.05, -0.225,  0.12,  0.05, _skin_color);
+	draw_rect(-0.125, -0.10, -0.05, -0.125,  0.12,  0.05, _skin_color);
 }
 
 void	Human::draw_right_thigh_leg()
