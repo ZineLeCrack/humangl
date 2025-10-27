@@ -166,8 +166,7 @@ void	imgui_set_window() {
 
 	Begin(" Colors ");
 
-	ColorEdit3(" Head ", human.get_head_color());
-	ColorEdit3(" Arms ", human.get_arms_color());
+	ColorEdit3(" Skin ", human.get_skin_color());
 	ColorEdit3(" Body ", human.get_body_color());
 	ColorEdit3(" Legs ", human.get_legs_color());
 	ColorEdit3(" Foots ", human.get_foots_color());
@@ -203,7 +202,7 @@ int main() {
 	}
 
 	glfwMakeContextCurrent(window);
-	glfwSwapInterval(1);
+	glfwSwapInterval(0);
 
 	if (glewInit() != GLEW_OK) {
 		glfwTerminate();
