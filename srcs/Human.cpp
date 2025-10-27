@@ -18,7 +18,7 @@ void	Human::draw_legs() {
 		}
 
 		// thigh
-		draw_right_thigh_leg();
+		draw_right_thigh();
 
 		if (_animation == JUMP) glPopMatrix();
 
@@ -57,7 +57,7 @@ void	Human::draw_legs() {
 		}
 
 		// thigh
-		draw_left_thigh_leg();
+		draw_left_thigh();
 
 		if (_animation == JUMP) glPopMatrix();
 
@@ -212,7 +212,7 @@ void	Human::draw_right_forearm()
 	draw_rect(-0.125, -0.10, -0.05, -0.125,  0.12,  0.05, _skin_color);
 }
 
-void	Human::draw_right_thigh_leg()
+void	Human::draw_right_thigh()
 {
 	draw_rect(-0.125, -0.1, -0.05, -0.025, -0.1,  0.05, _legs_color);
 	draw_rect(-0.125, -0.1, -0.05, -0.125, -0.3,  0.05, _legs_color);
@@ -221,7 +221,7 @@ void	Human::draw_right_thigh_leg()
 	draw_rect(-0.125, -0.1, -0.05, -0.025, -0.3, -0.05, _legs_color);
 }
 
-void	Human::draw_left_thigh_leg()
+void	Human::draw_left_thigh()
 {
 	draw_rect( 0.125, -0.1, -0.05,  0.025, -0.1,  0.05, _legs_color);
 	draw_rect( 0.025, -0.1, -0.05,  0.025, -0.3,  0.05, _legs_color);

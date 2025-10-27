@@ -53,8 +53,8 @@ class Human
 		void	draw_left_forearm();
 		void	draw_right_forearm();
 
-		void	draw_right_thigh_leg();
-		void	draw_left_thigh_leg();
+		void	draw_right_thigh();
+		void	draw_left_thigh();
 		void	draw_right_lower_leg();
 		void	draw_left_lower_leg();
 
