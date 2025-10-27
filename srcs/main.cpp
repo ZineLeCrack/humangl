@@ -8,79 +8,111 @@ static bool	isDragging = false;
 
 static bool	cube = false;
 
-static void	draw_cube() {
-	glBegin(GL_LINES);
+static GLuint cubeVAO = 0, cubeVBO = 0;
 
-	glColor3d(1.0, 0.0, 0.0); glVertex3d(0.5, 0.5, 0.5);
-	glColor3d(1.0, 0.0, 0.0); glVertex3d(-0.5, 0.5, 0.5);
+static const float cubeVertices[] = {
+	 0.5f,  0.5f,  0.5f,  -0.5f,  0.5f,  0.5f,
+	-0.5f,  0.5f,  0.5f,  -0.5f,  0.5f, -0.5f,
+	-0.5f,  0.5f, -0.5f,   0.5f,  0.5f, -0.5f,
+	 0.5f,  0.5f, -0.5f,   0.5f,  0.5f,  0.5f,
 
-	glColor3d(1.0, 0.0, 0.0); glVertex3d(-0.5, 0.5, 0.5);
-	glColor3d(1.0, 0.0, 0.0); glVertex3d(-0.5, 0.5, -0.5);
+	 0.5f, -0.5f,  0.5f,  -0.5f, -0.5f,  0.5f,
+	-0.5f, -0.5f,  0.5f,  -0.5f, -0.5f, -0.5f,
+	-0.5f, -0.5f, -0.5f,   0.5f, -0.5f, -0.5f,
+	 0.5f, -0.5f, -0.5f,   0.5f, -0.5f,  0.5f,
 
-	glColor3d(1.0, 0.0, 0.0); glVertex3d(-0.5, 0.5, -0.5);
-	glColor3d(1.0, 0.0, 0.0); glVertex3d(0.5, 0.5, -0.5);
+	 0.5f,  0.5f,  0.5f,   0.5f, -0.5f,  0.5f,
+	-0.5f,  0.5f,  0.5f,  -0.5f, -0.5f,  0.5f,
+	 0.5f,  0.5f, -0.5f,   0.5f, -0.5f, -0.5f,
+	-0.5f,  0.5f, -0.5f,  -0.5f, -0.5f, -0.5f
+};
 
-	glColor3d(1.0, 0.0, 0.0); glVertex3d(0.5, 0.5, -0.5);
-	glColor3d(1.0, 0.0, 0.0); glVertex3d(0.5, 0.5, 0.5);
+ModelStack modelStack;
 
-	glColor3d(1.0, 0.0, 0.0); glVertex3d(0.5, -0.5, 0.5);
-	glColor3d(1.0, 0.0, 0.0); glVertex3d(-0.5, -0.5, 0.5);
+static float toRadians = M_PI / 180.0f;
 
-	glColor3d(1.0, 0.0, 0.0); glVertex3d(-0.5, -0.5, 0.5);
-	glColor3d(1.0, 0.0, 0.0); glVertex3d(-0.5, -0.5, -0.5);
-
-	glColor3d(1.0, 0.0, 0.0); glVertex3d(-0.5, -0.5, -0.5);
-	glColor3d(1.0, 0.0, 0.0); glVertex3d(0.5, -0.5, -0.5);
-
-	glColor3d(1.0, 0.0, 0.0); glVertex3d(0.5, -0.5, -0.5);
-	glColor3d(1.0, 0.0, 0.0); glVertex3d(0.5, -0.5, 0.5);
-
-	glColor3d(1.0, 0.0, 0.0); glVertex3d(0.5, 0.5, 0.5);
-	glColor3d(1.0, 0.0, 0.0); glVertex3d(0.5, -0.5, 0.5);
-
-	glColor3d(1.0, 0.0, 0.0); glVertex3d(-0.5, 0.5, 0.5);
-	glColor3d(1.0, 0.0, 0.0); glVertex3d(-0.5, -0.5, 0.5);
-
-	glColor3d(1.0, 0.0, 0.0); glVertex3d(0.5, 0.5, -0.5);
-	glColor3d(1.0, 0.0, 0.0); glVertex3d(0.5, -0.5, -0.5);
-
-	glColor3d(1.0, 0.0, 0.0); glVertex3d(-0.5, 0.5, -0.5);
-	glColor3d(1.0, 0.0, 0.0); glVertex3d(-0.5, -0.5, -0.5);
-
-	glEnd();
+void framebuffer_size_callback(GLFWwindow *window, int width, int heigth)
+{
+	(void)window;
+	glViewport(0, 0, width, heigth);
 }
 
-void	display() {
+static void	draw_cube(Shaders &shader, const Matrix &model)
+{
+	glLineWidth(2.0f);
+	if (cubeVAO == 0) {
+		glGenVertexArrays(1, &cubeVAO);
+		glGenBuffers(1, &cubeVBO);
+
+		glBindVertexArray(cubeVAO);
+		glBindBuffer(GL_ARRAY_BUFFER, cubeVBO);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(cubeVertices), cubeVertices, GL_STATIC_DRAW);
+
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+	}
+
+	glUseProgram(shader.shaderProgram);
+	GLint modelLoc = glGetUniformLocation(shader.shaderProgram, "uModel");
+	GLint colorLoc = glGetUniformLocation(shader.shaderProgram, "uColor");
+	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, model.data());
+	glUniform3f(colorLoc, 1.0f, 0.0f, 0.0f);
+
+	glBindVertexArray(cubeVAO);
+	glDrawArrays(GL_LINES, 0, 24);
+	glBindVertexArray(0);
+}
+
+void	display(Shaders &shader) {
 	glClearColor(0.0, 0.0, 0.0, 1);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
+	Matrix view = Matrix::lookAt({0.0f, 0.0f, 21.0f - human.get_zoom()}, {0.0f, 0.0f, 0.0f}, {0.0f, 1.0f, 0.0f});
+	GLint viewLoc = glGetUniformLocation(shader.shaderProgram, "uView");
+	glUniformMatrix4fv(viewLoc, 1, GL_FALSE, view.data());
 
-	gluLookAt(0.0f, 0.0f, 21.0f - human.get_zoom(), 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
+	Matrix Rx = Matrix::rotateX(human.get_rotX() * toRadians);
+	Matrix Ry = Matrix::rotateY(human.get_rotY() * toRadians);
 
-	glRotatef(human.get_rotX(), 1.0f, 0.0f, 0.0f);
-	glRotatef(human.get_rotY(), 0.0f, 1.0f, 0.0f);
+	Matrix model = Ry * Rx;
+	GLint modelLoc = glGetUniformLocation(shader.shaderProgram, "uModel");
+	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, model.data());
 
+	modelStack.loadIdentity();
+	modelStack.push();
+	modelStack.current() = model;
 	if (human.get_animation() == JUMP) {
 		float angle = -sin((glfwGetTime() - human.get_animation_frame()) * 5.0f);
-		glPushMatrix();
-		if (angle > 0.0f) glTranslatef(0.0f, angle * 0.5f, 0.0f);
-		else glTranslatef(0.0f, angle * 0.05f, 0.0f);
+		modelStack.push();
+		if (angle > 0.0f) modelStack.translate(0.0f, angle * 0.5f, 0.0f);
+		else modelStack.translate(0.0f, angle * 0.05f, 0.0f);
 	}
 
-	human.draw_legs();
-	human.draw_body();
-	human.draw_arms();
-	human.draw_head();
+	human.draw(modelStack, shader);
 
-	if (human.get_animation() == JUMP) glPopMatrix();
+	if (human.get_animation() == JUMP) modelStack.pop();
 
-	if (cube) draw_cube();
+	if (cube) draw_cube(shader, model);
 }
 
 void	keypress(GLFWwindow* window) {
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) glfwSetWindowShouldClose(window, true);
+	if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS) {
+		human.get_animation() = JUMP;
+		human.get_animation_frame() = glfwGetTime();
+	}
+	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
+		human.get_animation() = WALK;
+		human.get_animation_frame() = glfwGetTime();
+	}
+	if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS && glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
+		human.get_animation() = SPRINT;
+		human.get_animation_frame() = glfwGetTime();
+	}
+	if (glfwGetKey(window, GLFW_KEY_T) == GLFW_PRESS) {
+		human.get_animation() = STAY;
+		human.get_animation_frame() = glfwGetTime();
+	}
 }
 
 void	imgui_set_window() {
@@ -112,7 +144,7 @@ void	imgui_set_window() {
 	SameLine();
 	if (Button("Walk")) {
 		human.get_animation() = WALK;
-		human.get_animation_frame() = glfwGetTime();;
+		human.get_animation_frame() = glfwGetTime();
 	}
 	SameLine();
 	if (Button("Sprint")) {
@@ -134,11 +166,11 @@ void	imgui_set_window() {
 
 	Begin(" Colors ");
 
-	ColorPicker3(" Foots ", human.get_foots_color());
-	ColorPicker3(" Legs ", human.get_legs_color());
-	ColorPicker3(" Body ", human.get_body_color());
-	ColorPicker3(" Arms ", human.get_arms_color());
-	ColorPicker3(" Head ", human.get_head_color());
+	ColorEdit3(" Head ", human.get_head_color());
+	ColorEdit3(" Arms ", human.get_arms_color());
+	ColorEdit3(" Body ", human.get_body_color());
+	ColorEdit3(" Legs ", human.get_legs_color());
+	ColorEdit3(" Foots ", human.get_foots_color());
 
 	End();
 }
@@ -161,7 +193,7 @@ int main() {
 
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_COMPAT_PROFILE);
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 	GLFWwindow* window = glfwCreateWindow(1920, 1080, "HumanGL", NULL, NULL);
 	if (!window) {
@@ -171,7 +203,14 @@ int main() {
 	}
 
 	glfwMakeContextCurrent(window);
-	glfwSwapInterval(0);
+	glfwSwapInterval(1);
+
+	if (glewInit() != GLEW_OK) {
+		glfwTerminate();
+		throw runtime_error ("failed to initialize Glew\n");
+	}
+
+	Shaders shader("shaders/vertex.vert", "shaders/fragment.frag");
 
 	glfwSetCursorPosCallback(window, [](GLFWwindow* w, double xpos, double ypos) {
 		(void)w;
@@ -190,7 +229,7 @@ int main() {
 	glfwSetMouseButtonCallback(window, [](GLFWwindow* w, int button, int action, int mods) {
 		(void)w;
 		(void)mods;
-		if (button == GLFW_MOUSE_BUTTON_LEFT){
+		if (button == GLFW_MOUSE_BUTTON_RIGHT){
 			if (action == GLFW_PRESS){
 				isDragging = true;
 				double xpos, ypos;
@@ -212,17 +251,17 @@ int main() {
 	ImGui_ImplGlfw_InitForOpenGL(window, true);
 	ImGui_ImplOpenGL3_Init("#version 460");
 
+	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 	glEnable(GL_DEPTH_TEST);
 
 	int width, height;
 	glfwGetFramebufferSize(window, &width, &height);
 	glViewport(0, 0, width, height);
 
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	gluPerspective(45, width / (float)height, 0.1f, 100.0f);
-	glMatrixMode(GL_MODELVIEW);
-
+	glUseProgram(shader.shaderProgram);
+	Matrix	proj = Matrix::perspective(45, width / (float)height, 0.1f, 100.0f);
+	GLint	projLoc = glGetUniformLocation(shader.shaderProgram, "uProjection");
+	glUniformMatrix4fv(projLoc, 1, GL_FALSE, proj.data());
 
 	while (!glfwWindowShouldClose(window)) {
 		glfwPollEvents();
@@ -234,7 +273,7 @@ int main() {
 		glfwSetScrollCallback(window, scroll_callback);
 		keypress(window);
 
-		display();
+		display(shader);
 
 		imgui_set_window();
 

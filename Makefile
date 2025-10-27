@@ -19,7 +19,7 @@ IMGUI_SRCS := $(addprefix $(IMGUI_SRCDIR)/, $(IMGUI_SRCS))
 
 IMGUI_OBJS = $(IMGUI_SRCS:$(IMGUI_SRCDIR)/%.cpp=$(OBJDIR)/%.o)
 
-SRCS = Human.cpp utils.cpp main.cpp
+SRCS = Human.cpp utils.cpp main.cpp Matrix.cpp Shaders.cpp Vec3.cpp ModelStack.cpp
 
 SRCS := $(addprefix $(SRCDIR)/, $(SRCS))
 

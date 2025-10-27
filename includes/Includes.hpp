@@ -4,6 +4,7 @@
 #include <sstream>
 #include <cstring>
 #include <vector>
+#include <array>
 #include <unistd.h>
 #include <sys/time.h>
 #include <GL/glew.h>
@@ -24,13 +25,20 @@ using namespace std;
 using namespace ImGui;
 
 /*-------- CLASSES --------*/
-#include "Human.hpp"
-
+class Vec3;
 class Human;
+class Matrix;
+class Shaders;
+
+#include "Human.hpp"
+#include "Shaders.hpp"
+#include "Vec3.hpp"
+#include "Matrix.hpp"
+#include "ModelStack.hpp"
 
 /*------- FUNCTIONS ------ */
-void	set_color(float [3]);
-void	draw_rect(double, double, double, double, double, double, float [3]);
+void	set_color(float color[3]);
+void	draw_rect(const Vec3 &a, const Vec3 &b, const float colors[3], Shaders &shader, ModelStack &modelStack);
 
 /*----- DEFINE COLORS -----*/
 #define RESET	"\033[0m"

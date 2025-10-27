@@ -1,205 +1,277 @@
 #include "Human.hpp"
 
-void	Human::draw_legs() {
+void	Human::draw(ModelStack &modelStack, Shaders &shader)
+{
+	draw_head(modelStack, shader);
+	draw_body(modelStack, shader);
+	draw_arms(modelStack, shader);
+	draw_legs(modelStack, shader);
+}
+
+void	Human::draw_legs(ModelStack &modelStack, Shaders &shader)
+{
 	float angle = sin((glfwGetTime() - _animation_frame) * (_animation == SPRINT ? 10.0f : 5.0f)) * 30.0f;
 
 	/* right leg */
 	{
-		if (_animation) glPushMatrix();
+		if (_animation) modelStack.push();
 
 		if (_animation == WALK || _animation == SPRINT) {
-			glTranslatef(0.0f, -0.1f, 0.0f);
-			glRotatef(angle, 1.0f, 0.0f, 0.0f);
-			glTranslatef(0.0f, 0.1f, 0.0f);
+			modelStack.translate(0.0f, -0.1f, 0.0f);
+			modelStack.rotate(angle, 'X');
+			modelStack.translate(0.0f, 0.1f, 0.0f);
 		} else if (_animation == JUMP) {
-			glTranslatef(0.0f, -0.1f, 0.0f);
-			glRotatef(-angle < 0 ? -angle / 2 : 0.0f, 1.0f, 0.0f, 0.0f);
-			glTranslatef(0.0f, 0.1f, 0.0f);
+			modelStack.translate(0.0f, -0.1f, 0.0f);
+			modelStack.rotate(-angle < 0 ? -angle / 2 : 0.0f, 'X');
+			modelStack.translate(0.0f, 0.1f, 0.0f);
 		}
 
 		// thigh
-		draw_rect(-0.125, -0.1, -0.05, -0.025, -0.1,  0.05, _legs_color);
-		draw_rect(-0.125, -0.1, -0.05, -0.125, -0.3,  0.05, _legs_color);
-		draw_rect(-0.025, -0.1, -0.05, -0.025, -0.3,  0.05, _legs_color);
-		draw_rect(-0.125, -0.1,  0.05, -0.025, -0.3,  0.05, _legs_color);
-		draw_rect(-0.125, -0.1, -0.05, -0.025, -0.3, -0.05, _legs_color);
+		draw_right_thigh_leg(modelStack, shader);
 
-		if (_animation == JUMP) glPopMatrix();
+		if (_animation == JUMP) modelStack.pop();
 
-		if (_animation == JUMP) glPushMatrix();
+		if (_animation == JUMP) modelStack.push();
 
 		if (_animation == WALK || _animation == SPRINT) {
-			glTranslatef(0.0f, -0.3f, 0.0f);
-			glRotatef(angle < 0 ? -angle / 2 : 0.0f, 1.0f, 0.0f, 0.0f);
-			glTranslatef(0.0f, 0.3f, 0.0f);
+			modelStack.translate(0.0f, -0.3f, 0.0f);
+			modelStack.rotate(angle < 0 ? -angle / 2 : 0.0f, 'X');
+			modelStack.translate(0.0f, 0.3f, 0.0f);
 		} else if (_animation == JUMP) {
-			glTranslatef(0.0f, -angle < 0 ? -0.5f + (angle * 0.001f) : -0.5f, 0.0f);
-			glRotatef(-angle < 0 ? angle / 2 : 0.0f, 1.0f, 0.0f, 0.0f);
-			glTranslatef(0.0f, 0.5f, 0.0f);
+			modelStack.translate(0.0f, -angle < 0 ? -0.5f + (angle * 0.001f) : -0.5f, 0.0f);
+			modelStack.rotate(-angle < 0 ? angle / 2 : 0.0f, 'X');
+			modelStack.translate(0.0f, 0.5f, 0.0f);
 		}
 
 		// lower part
-		draw_rect(-0.125, -0.29, -0.05, -0.125, -0.45,  0.05, _legs_color);
-		draw_rect(-0.025, -0.29, -0.05, -0.025, -0.45,  0.05, _legs_color);
-		draw_rect(-0.125, -0.29,  0.05, -0.025, -0.45,  0.05, _legs_color);
-		draw_rect(-0.125, -0.29, -0.05, -0.025, -0.45, -0.05, _legs_color);
+		draw_right_lower_leg(modelStack, shader);
 
 		// foot
-		draw_rect(-0.125, -0.50, -0.05, -0.025, -0.50,  0.05, _foots_color);
-		draw_rect(-0.125, -0.50, -0.05, -0.125, -0.45,  0.05, _foots_color);
-		draw_rect(-0.025, -0.50, -0.05, -0.025, -0.45,  0.05, _foots_color);
-		draw_rect(-0.125, -0.50,  0.05, -0.025, -0.45,  0.05, _foots_color);
-		draw_rect(-0.125, -0.50, -0.05, -0.025, -0.45, -0.05, _foots_color);
+		draw_right_foot(modelStack, shader);
 
-		if (_animation) glPopMatrix();
+		if (_animation) modelStack.pop();
 	}
 	/* left leg */
 	{
-		if (_animation) glPushMatrix();
+		if (_animation) modelStack.push();
 
 		if (_animation == WALK || _animation == SPRINT) {
-			glTranslatef(0.0f, -0.1f, 0.0f);
-			glRotatef(-angle, 1.0f, 0.0f, 0.0f);
-			glTranslatef(0.0f, 0.1f, 0.0f);
+			modelStack.translate(0.0f, -0.1f, 0.0f);
+			modelStack.rotate(-angle, 'X');
+			modelStack.translate(0.0f, 0.1f, 0.0f);
 		} else if (_animation == JUMP) {
-			glTranslatef(0.0f, -0.1f, 0.0f);
-			glRotatef(-angle < 0 ? -angle / 2 : 0.0f, 1.0f, 0.0f, 0.0f);
-			glTranslatef(0.0f, 0.1f, 0.0f);
+			modelStack.translate(0.0f, -0.1f, 0.0f);
+			modelStack.rotate(-angle < 0 ? -angle / 2 : 0.0f, 'X');
+			modelStack.translate(0.0f, 0.1f, 0.0f);
 		}
 
 		// thigh
-		draw_rect( 0.125, -0.1, -0.05,  0.025, -0.1,  0.05, _legs_color);
-		draw_rect( 0.025, -0.1, -0.05,  0.025, -0.3,  0.05, _legs_color);
-		draw_rect( 0.125, -0.1, -0.05,  0.125, -0.3,  0.05, _legs_color);
-		draw_rect( 0.125, -0.1,  0.05,  0.025, -0.3,  0.05, _legs_color);
-		draw_rect( 0.125, -0.1, -0.05,  0.025, -0.3, -0.05, _legs_color);
+		draw_left_thigh_leg(modelStack, shader);
 
-		if (_animation == JUMP) glPopMatrix();
+		if (_animation == JUMP) modelStack.pop();
 
-		if (_animation == JUMP) glPushMatrix();
+		if (_animation == JUMP) modelStack.push();
 
 		if (_animation == WALK || _animation == SPRINT) {
-			glTranslatef(0.0f, -0.3f, 0.0f);
-			glRotatef(-angle < 0 ? angle / 2 : 0.0f, 1.0f, 0.0f, 0.0f);
-			glTranslatef(0.0f, 0.3f, 0.0f);
+			modelStack.translate(0.0f, -0.3f, 0.0f);
+			modelStack.rotate(-angle < 0 ? angle / 2 : 0.0f, 'X');
+			modelStack.translate(0.0f, 0.3f, 0.0f);
 		} else if (_animation == JUMP) {
-			glTranslatef(0.0f, -angle < 0 ? -0.5f + (angle * 0.001f) : -0.5f, 0.0f);
-			glRotatef(-angle < 0 ? angle / 2 : 0.0f, 1.0f, 0.0f, 0.0f);
-			glTranslatef(0.0f, 0.5f, 0.0f);
+			modelStack.translate(0.0f, -angle < 0 ? -0.5f + (angle * 0.001f) : -0.5f, 0.0f);
+			modelStack.rotate(-angle < 0 ? angle / 2 : 0.0f, 'X');
+			modelStack.translate(0.0f, 0.5f, 0.0f);
 		}
 
 		// lower part
-		draw_rect( 0.025, -0.29, -0.05,  0.025, -0.45,  0.05, _legs_color);
-		draw_rect( 0.125, -0.29, -0.05,  0.125, -0.45,  0.05, _legs_color);
-		draw_rect( 0.125, -0.29,  0.05,  0.025, -0.45,  0.05, _legs_color);
-		draw_rect( 0.125, -0.29, -0.05,  0.025, -0.45, -0.05, _legs_color);
+		draw_left_lower_leg(modelStack, shader);
 
 		// foot
-		draw_rect( 0.125, -0.50, -0.05,  0.025, -0.50,  0.05, _foots_color);
-		draw_rect( 0.025, -0.50, -0.05,  0.025, -0.45,  0.05, _foots_color);
-		draw_rect( 0.125, -0.50, -0.05,  0.125, -0.45,  0.05, _foots_color);
-		draw_rect( 0.125, -0.50,  0.05,  0.025, -0.45,  0.05, _foots_color);
-		draw_rect( 0.125, -0.50, -0.05,  0.025, -0.45, -0.05, _foots_color);
+		draw_left_foot(modelStack, shader);
 
-		if (_animation) glPopMatrix();
+		if (_animation) modelStack.pop();
 	}
 }
 
-void	Human::draw_body() {
-	draw_rect(-0.125, -0.1, -0.05,  0.125, -0.1,  0.05, _body_color);
-	draw_rect(-0.125,  0.3, -0.05,  0.125,  0.3,  0.05, _body_color);
-	draw_rect(-0.125,  0.3, -0.05,  0.125, -0.1, -0.05, _body_color);
-	draw_rect(-0.125,  0.3,  0.05,  0.125, -0.1,  0.05, _body_color);
-	draw_rect(-0.125,  0.3, -0.05, -0.125, -0.1,  0.05, _body_color);
-	draw_rect( 0.125,  0.3, -0.05,  0.125, -0.1,  0.05, _body_color);
+void	Human::draw_body(ModelStack &modelStack, Shaders &shader)
+{
+	draw_rect({-0.125f, -0.1f, -0.05f}, {0.125f, -0.1f,  0.05f}, _body_color, shader, modelStack);
+	draw_rect({-0.125f,  0.3f, -0.05f}, {0.125f,  0.3f,  0.05f}, _body_color, shader, modelStack);
+	draw_rect({-0.125f,  0.3f, -0.05f}, {0.125f, -0.1f, -0.05f}, _body_color, shader, modelStack);
+	draw_rect({-0.125f,  0.3f,  0.05f}, {0.125f, -0.1f,  0.05f}, _body_color, shader, modelStack);
+	draw_rect({-0.125f,  0.3f, -0.05f}, {0.125f, -0.1f,  0.05f}, _body_color, shader, modelStack);
+	draw_rect({ 0.125f,  0.3f, -0.05f}, {0.125f, -0.1f,  0.05f}, _body_color, shader, modelStack);
 }
 
-void	Human::draw_arms() {
+void	Human::draw_arms(ModelStack &modelStack, Shaders &shader)
+{
 	float angle = sin((glfwGetTime() - _animation_frame) * (_animation == SPRINT ? 10.0f : 5.0f)) * 30.0f;
 
 	/* right arm */
 	{
-		if (_animation) glPushMatrix();
+		if (_animation) modelStack.push();
 
 		if (_animation == WALK || _animation == SPRINT) {
-			glTranslatef(0.0f, 0.25f, 0.0f);
-			glRotatef(-angle, 1.0f, 0.0f, 0.0f);
-			glTranslatef(0.0f, -0.25f, 0.0f);
+			modelStack.translate(0.0f, 0.25f, 0.0f);
+			modelStack.rotate(-angle, 'X');
+			modelStack.translate(0.0f, -0.25f, 0.0f);
 		}
 
 		// upper arm
-		draw_rect(-0.225,  0.1, -0.05, -0.225,  0.2,  0.05, _arms_color);
-		draw_rect(-0.125,  0.1, -0.05, -0.225,  0.2, -0.05, _arms_color);
-		draw_rect(-0.125,  0.1,  0.05, -0.225,  0.2,  0.05, _arms_color);
-		draw_rect(-0.125,  0.1, -0.05, -0.125,  0.2,  0.05, _arms_color);
+		draw_right_upper_arm(modelStack, shader);
 
 		// shoulder
-		draw_rect(-0.125,  0.3, -0.05, -0.225,  0.3,  0.05, _body_color);
-		draw_rect(-0.225,  0.2, -0.05, -0.225,  0.3,  0.05, _body_color);
-		draw_rect(-0.125,  0.2, -0.05, -0.225,  0.3, -0.05, _body_color);
-		draw_rect(-0.125,  0.2,  0.05, -0.225,  0.3,  0.05, _body_color);
-		draw_rect(-0.125,  0.2, -0.05, -0.125,  0.3,  0.05, _body_color);
+		draw_right_shoulder(modelStack, shader);
 
 		if (_animation == WALK || _animation == SPRINT) {
-			glTranslatef(0.0f, 0.1f, 0.0f);
-			glRotatef(-angle < 0 ? -angle / 2 : 0, 1.0f, 0.0f, 0.0f);
-			glTranslatef(0.0f, -0.1f, 0.0f);
+			modelStack.translate(0.0f, 0.1f, 0.0f);
+			modelStack.rotate(-angle < 0 ? -angle / 2 : 0, 'X');
+			modelStack.translate(0.0f, -0.1f, 0.0f);
 		}
 
 		// forearm
-		draw_rect(-0.125, -0.10, -0.05, -0.225, -0.10,  0.05, _arms_color);
-		draw_rect(-0.225, -0.10, -0.05, -0.225,  0.12,  0.05, _arms_color);
-		draw_rect(-0.125, -0.10, -0.05, -0.225,  0.12, -0.05, _arms_color);
-		draw_rect(-0.125, -0.10,  0.05, -0.225,  0.12,  0.05, _arms_color);
-		draw_rect(-0.125, -0.10, -0.05, -0.125,  0.12,  0.05, _arms_color);
+		draw_right_forearm(modelStack, shader);
 
-		if (_animation) glPopMatrix();
+		if (_animation) modelStack.pop();
 	}
 	/* left arm */
 	{
-		if (_animation) glPushMatrix();
+		if (_animation) modelStack.push();
 
 		if (_animation == WALK || _animation == SPRINT) {
-			glTranslatef(0.0f, 0.25f, 0.0f);
-			glRotatef(angle, 1.0f, 0.0f, 0.0f);
-			glTranslatef(0.0f, -0.25f, 0.0f);
+			modelStack.translate(0.0f, 0.25f, 0.0f);
+			modelStack.rotate(angle, 'X');
+			modelStack.translate(0.0f, -0.25f, 0.0f);
 		}
 
 		// upper arm
-		draw_rect( 0.225,  0.1, -0.05,  0.225,  0.2,  0.05, _arms_color);
-		draw_rect( 0.125,  0.1, -0.05,  0.225,  0.2, -0.05, _arms_color);
-		draw_rect( 0.125,  0.1,  0.05,  0.225,  0.2,  0.05, _arms_color);
-		draw_rect( 0.125,  0.1, -0.05,  0.125,  0.2,  0.05, _arms_color);
+		draw_left_upper_arm(modelStack, shader);
 
 		// shoulder
-		draw_rect( 0.125,  0.3, -0.05,  0.225,  0.3,  0.05, _body_color);
-		draw_rect( 0.225,  0.2, -0.05,  0.225,  0.3,  0.05, _body_color);
-		draw_rect( 0.125,  0.2, -0.05,  0.225,  0.3, -0.05, _body_color);
-		draw_rect( 0.125,  0.2,  0.05,  0.225,  0.3,  0.05, _body_color);
-		draw_rect( 0.125,  0.2, -0.05,  0.125,  0.3,  0.05, _body_color);
+		draw_left_shoulder(modelStack, shader);
 
 		if (_animation == WALK || _animation == SPRINT) {
-			glTranslatef(0.0f, 0.1f, 0.0f);
-			glRotatef(angle < 0 ? angle / 2 : 0, 1.0f, 0.0f, 0.0f);
-			glTranslatef(0.0f, -0.1f, 0.0f);
+			modelStack.translate(0.0f, 0.1f, 0.0f);
+			modelStack.rotate(angle < 0 ? angle / 2 : 0, 'X');
+			modelStack.translate(0.0f, -0.1f, 0.0f);
 		}
 
 		// forearm
-		draw_rect( 0.125, -0.10, -0.05,  0.225, -0.10,  0.05, _arms_color);
-		draw_rect( 0.225, -0.10, -0.05,  0.225,  0.12,  0.05, _arms_color);
-		draw_rect( 0.125, -0.10, -0.05,  0.225,  0.12, -0.05, _arms_color);
-		draw_rect( 0.125, -0.10,  0.05,  0.225,  0.12,  0.05, _arms_color);
-		draw_rect( 0.125, -0.10, -0.05,  0.125,  0.12,  0.05, _arms_color);
+		draw_left_forearm(modelStack, shader);
 
-		if (_animation) glPopMatrix();
+		if (_animation) modelStack.pop();
 	}
 }
 
-void	Human::draw_head() {
-	draw_rect(-0.1,  0.3, -0.1,  0.1,  0.3,  0.1, _head_color);
-	draw_rect(-0.1,  0.5, -0.1,  0.1,  0.5,  0.1, _head_color);
-	draw_rect(-0.1,  0.3, -0.1, -0.1,  0.5,  0.1, _head_color);
-	draw_rect( 0.1,  0.3, -0.1,  0.1,  0.5,  0.1, _head_color);
-	draw_rect(-0.1,  0.3, -0.1,  0.1,  0.5, -0.1, _head_color);
-	draw_rect(-0.1,  0.3,  0.1,  0.1,  0.5,  0.1, _head_color);
+void	Human::draw_head(ModelStack &modelStack, Shaders &shader)
+{
+	draw_rect({-0.1f,  0.3f, -0.1f}, {0.1f, 0.3f,  0.1f}, _head_color, shader, modelStack);
+	draw_rect({-0.1f,  0.5f, -0.1f}, {0.1f, 0.5f,  0.1f}, _head_color, shader, modelStack);
+	draw_rect({-0.1f,  0.3f, -0.1f}, {0.1f, 0.5f,  0.1f}, _head_color, shader, modelStack);
+	draw_rect({ 0.1f,  0.3f, -0.1f}, {0.1f, 0.5f,  0.1f}, _head_color, shader, modelStack);
+	draw_rect({-0.1f,  0.3f, -0.1f}, {0.1f, 0.5f, -0.1f}, _head_color, shader, modelStack);
+	draw_rect({-0.1f,  0.3f,  0.1f}, {0.1f, 0.5f,  0.1f}, _head_color, shader, modelStack);
+}
+
+void	Human::draw_right_upper_arm(ModelStack &modelStack, Shaders &shader)
+{
+	draw_rect({-0.225f,  0.1f, -0.05f}, {-0.225f,  0.2f,  0.05f}, _arms_color, shader, modelStack);
+	draw_rect({-0.125f,  0.1f, -0.05f}, {-0.225f,  0.2f, -0.05f}, _arms_color, shader, modelStack);
+	draw_rect({-0.125f,  0.1f,  0.05f}, {-0.225f,  0.2f,  0.05f}, _arms_color, shader, modelStack);
+	draw_rect({-0.125f,  0.1f, -0.05f}, {-0.125f,  0.2f,  0.05f}, _arms_color, shader, modelStack);
+}
+
+void	Human::draw_left_upper_arm(ModelStack &modelStack, Shaders &shader)
+{
+	draw_rect({0.225f,  0.1f, -0.05f},  {0.225,  0.2f,  0.05f}, _arms_color, shader, modelStack);
+	draw_rect({0.125f,  0.1f, -0.05f},  {0.225,  0.2f, -0.05f}, _arms_color, shader, modelStack);
+	draw_rect({0.125f,  0.1f,  0.05f},  {0.225,  0.2f,  0.05f}, _arms_color, shader, modelStack);
+	draw_rect({0.125f,  0.1f, -0.05f},  {0.125,  0.2f,  0.05f}, _arms_color, shader, modelStack);
+}
+
+void	Human::draw_right_shoulder(ModelStack &modelStack, Shaders &shader)
+{
+	draw_rect({-0.125f,  0.3f, -0.05f}, {-0.225f,  0.3f,  0.05f}, _body_color, shader, modelStack);
+	draw_rect({-0.225f,  0.2f, -0.05f}, {-0.225f,  0.3f,  0.05f}, _body_color, shader, modelStack);
+	draw_rect({-0.125f,  0.2f, -0.05f}, {-0.225f,  0.3f, -0.05f}, _body_color, shader, modelStack);
+	draw_rect({-0.125f,  0.2f,  0.05f}, {-0.225f,  0.3f,  0.05f}, _body_color, shader, modelStack);
+	draw_rect({-0.125f,  0.2f, -0.05f}, {-0.125f,  0.3f,  0.05f}, _body_color, shader, modelStack);
+}
+
+void	Human::draw_left_shoulder(ModelStack &modelStack, Shaders &shader)
+{
+	draw_rect({0.125f,  0.3f, -0.05f}, {0.225f,  0.3f, 0.05f}, _body_color, shader, modelStack);
+	draw_rect({0.225f,  0.2f, -0.05f}, {0.225f,  0.3f, 0.05f}, _body_color, shader, modelStack);
+	draw_rect({0.125f,  0.2f, -0.05f}, {0.225f,  0.3f, 0.05f}, _body_color, shader, modelStack);
+	draw_rect({0.125f,  0.2f,  0.05f}, {0.225f,  0.3f, 0.05f}, _body_color, shader, modelStack);
+	draw_rect({0.125f,  0.2f, -0.05f}, {0.125f,  0.3f, 0.05f}, _body_color, shader, modelStack);
+}
+
+void	Human::draw_left_forearm(ModelStack &modelStack, Shaders &shader)
+{
+	draw_rect({0.125f, -0.10f, -0.05f}, { 0.225f, -0.10f,  0.05f}, _arms_color, shader, modelStack);
+	draw_rect({0.225f, -0.10f, -0.05f}, { 0.225f,  0.12f,  0.05f}, _arms_color, shader, modelStack);
+	draw_rect({0.125f, -0.10f, -0.05f}, { 0.225f,  0.12f, -0.05f}, _arms_color, shader, modelStack);
+	draw_rect({0.125f, -0.10f,  0.05f}, { 0.225f,  0.12f,  0.05f}, _arms_color, shader, modelStack);
+	draw_rect({0.125f, -0.10f, -0.05f}, { 0.125f,  0.12f,  0.05f}, _arms_color, shader, modelStack);
+}
+
+void	Human::draw_right_forearm(ModelStack &modelStack, Shaders &shader)
+{
+	draw_rect({-0.125f, -0.10f, -0.05f}, { -0.225f, -0.10f,  0.05f}, _arms_color, shader, modelStack);
+	draw_rect({-0.225f, -0.10f, -0.05f}, { -0.225f,  0.12f,  0.05f}, _arms_color, shader, modelStack);
+	draw_rect({-0.125f, -0.10f, -0.05f}, { -0.225f,  0.12f, -0.05f}, _arms_color, shader, modelStack);
+	draw_rect({-0.125f, -0.10f,  0.05f}, { -0.225f,  0.12f,  0.05f}, _arms_color, shader, modelStack);
+	draw_rect({-0.125f, -0.10f, -0.05f}, { -0.125f,  0.12f,  0.05f}, _arms_color, shader, modelStack);
+}
+
+void	Human::draw_right_thigh_leg(ModelStack &modelStack, Shaders &shader)
+{
+	draw_rect({-0.125f, -0.1f, -0.05f}, {-0.025f, -0.1f,  0.05f}, _legs_color, shader, modelStack);
+	draw_rect({-0.125f, -0.1f, -0.05f}, {-0.125f, -0.3f,  0.05f}, _legs_color, shader, modelStack);
+	draw_rect({-0.025f, -0.1f, -0.05f}, {-0.025f, -0.3f,  0.05f}, _legs_color, shader, modelStack);
+	draw_rect({-0.125f, -0.1f,  0.05f}, {-0.025f, -0.3f,  0.05f}, _legs_color, shader, modelStack);
+	draw_rect({-0.125f, -0.1f, -0.05f}, {-0.025f, -0.3f, -0.05f}, _legs_color, shader, modelStack);
+}
+
+void	Human::draw_left_thigh_leg(ModelStack &modelStack, Shaders &shader)
+{
+	draw_rect({0.125f, -0.1f, -0.05f}, {0.025f, -0.1f,  0.05f}, _legs_color, shader, modelStack);
+	draw_rect({0.025f, -0.1f, -0.05f}, {0.025f, -0.3f,  0.05f}, _legs_color, shader, modelStack);
+	draw_rect({0.125f, -0.1f, -0.05f}, {0.125f, -0.3f,  0.05f}, _legs_color, shader, modelStack);
+	draw_rect({0.125f, -0.1f,  0.05f}, {0.025f, -0.3f,  0.05f}, _legs_color, shader, modelStack);
+	draw_rect({0.125f, -0.1f, -0.05f}, {0.025f, -0.3f, -0.05f}, _legs_color, shader, modelStack);
+}
+
+void	Human::draw_right_lower_leg(ModelStack &modelStack, Shaders &shader)
+{
+	draw_rect({-0.125f, -0.29f, -0.05f}, {-0.125f, -0.45f,  0.05f}, _legs_color, shader, modelStack);
+	draw_rect({-0.025f, -0.29f, -0.05f}, {-0.025f, -0.45f,  0.05f}, _legs_color, shader, modelStack);
+	draw_rect({-0.125f, -0.29f,  0.05f}, {-0.025f, -0.45f,  0.05f}, _legs_color, shader, modelStack);
+	draw_rect({-0.125f, -0.29f, -0.05f}, {-0.025f, -0.45f, -0.05f}, _legs_color, shader, modelStack);
+}
+
+void	Human::draw_left_lower_leg(ModelStack &modelStack, Shaders &shader)
+{
+	draw_rect({0.025f, -0.29f, -0.05f}, {0.025f, -0.45f,  0.05f}, _legs_color, shader, modelStack);
+	draw_rect({0.125f, -0.29f, -0.05f}, {0.125f, -0.45f,  0.05f}, _legs_color, shader, modelStack);
+	draw_rect({0.125f, -0.29f,  0.05f}, {0.025f, -0.45f,  0.05f}, _legs_color, shader, modelStack);
+	draw_rect({0.125f, -0.29f, -0.05f}, {0.025f, -0.45f, -0.05f}, _legs_color, shader, modelStack);
+}
+
+void	Human::draw_right_foot(ModelStack &modelStack, Shaders &shader)
+{
+	draw_rect({-0.125f, -0.50f, -0.05f}, {-0.025f, -0.50f,  0.05f}, _foots_color, shader, modelStack);
+	draw_rect({-0.125f, -0.50f, -0.05f}, {-0.125f, -0.45f,  0.05f}, _foots_color, shader, modelStack);
+	draw_rect({-0.025f, -0.50f, -0.05f}, {-0.025f, -0.45f,  0.05f}, _foots_color, shader, modelStack);
+	draw_rect({-0.125f, -0.50f,  0.05f}, {-0.025f, -0.45f,  0.05f}, _foots_color, shader, modelStack);
+	draw_rect({-0.125f, -0.50f, -0.05f}, {-0.025f, -0.45f, -0.05f}, _foots_color, shader, modelStack);
+}
+
+void	Human::draw_left_foot(ModelStack &modelStack, Shaders &shader)
+{
+	draw_rect({0.125f, -0.50f, -0.05f}, {0.025f, -0.50f,  0.05f}, _foots_color, shader, modelStack);
+	draw_rect({0.025f, -0.50f, -0.05f}, {0.025f, -0.45f,  0.05f}, _foots_color, shader, modelStack);
+	draw_rect({0.125f, -0.50f, -0.05f}, {0.125f, -0.45f,  0.05f}, _foots_color, shader, modelStack);
+	draw_rect({0.125f, -0.50f,  0.05f}, {0.025f, -0.45f,  0.05f}, _foots_color, shader, modelStack);
+	draw_rect({0.125f, -0.50f, -0.05f}, {0.025f, -0.45f, -0.05f}, _foots_color, shader, modelStack);
 }
