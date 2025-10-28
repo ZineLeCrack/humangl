@@ -25,10 +25,10 @@ Human::~Human()	{delete _rightHand;}
 void	Human::draw(ModelStack &modelStack, Shaders &shader)
 {
 	float angle = sin((glfwGetTime() - _animation_frame) * (_animation == SPRINT ? 10.0f : 5.0f)) * 30.0f;
-	
+
 	if (_showHead) draw_head(modelStack, shader);
 	if (_showBody) draw_body(modelStack, shader);
-	
+
 	draw_left_arm(modelStack, shader, angle);
 	draw_right_arm(modelStack, shader, angle);
 
@@ -321,3 +321,4 @@ void	Human::draw_left_foot(ModelStack &modelStack, Shaders &shader)
 	draw_rect({0.125f, -0.50f,  0.05f}, {0.025f, -0.45f,  0.05f}, _foots_color, shader, modelStack);
 	draw_rect({0.125f, -0.50f, -0.05f}, {0.025f, -0.45f, -0.05f}, _foots_color, shader, modelStack);
 }
+

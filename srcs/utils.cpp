@@ -67,3 +67,15 @@ void	draw_rect(const Vec3 &a, const Vec3 &b, const float color[3], Shaders &shad
 	glDeleteBuffers(1, &VBO);
 	glDeleteVertexArrays(1, &VAO);
 }
+
+void draw_paving_shape(const Vec3 &a, const Vec3 &b, const float color[3], Shaders &shader, ModelStack &modelStack)
+{
+	draw_rect({a.x, a.y, a.z}, {b.x, b.y, a.z}, color, shader, modelStack);
+	draw_rect({a.x, a.y, b.z}, {b.x, b.y, b.z}, color, shader, modelStack);
+
+	draw_rect({a.x, a.y, a.z}, {a.x, b.y, b.z}, color, shader, modelStack);
+	draw_rect({b.x, a.y, a.z}, {b.x, b.y, b.z}, color, shader, modelStack);
+
+	draw_rect({a.x, a.y, a.z}, {b.x, a.y, b.z}, color, shader, modelStack);
+	draw_rect({a.x, b.y, a.z}, {b.x, b.y, b.z}, color, shader, modelStack);
+}
