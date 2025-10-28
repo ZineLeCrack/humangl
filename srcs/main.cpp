@@ -119,12 +119,10 @@ void	keypress(GLFWwindow* window)
 
 void	imgui_set_window()
 {
-	ImVec2 size1(400, 350);
 	ImVec2 pos1(20, 20);
-	SetNextWindowSize(size1, ImGuiCond_FirstUseEver);
 	SetNextWindowPos(pos1, ImGuiCond_FirstUseEver);
-
-	Begin("Settings");
+	SetNextWindowCollapsed(true, ImGuiCond_FirstUseEver);
+	Begin("Settings", NULL, ImGuiWindowFlags_AlwaysAutoResize);
 
 	SeparatorText(" Info ");
 	Text("fps: %d", (int)GetIO().Framerate);
@@ -138,6 +136,8 @@ void	imgui_set_window()
 
 	SeparatorText(" Size ");
 	SliderFloat("Zoom", &human.get_zoom(), 0.0f, 20.0f);
+
+	SliderFloat("Size", &human.get_size(), 0.5f, 2.0f);
 
 	SeparatorText(" Animations ");
 	if (Button("Reset")) {
@@ -162,12 +162,10 @@ void	imgui_set_window()
 
 	End();
 
-	ImVec2 size2(400, 590);
-	ImVec2 pos2(20, 390);
-	SetNextWindowSize(size2, ImGuiCond_FirstUseEver);
+	ImVec2 pos2(20, 60);
+	SetNextWindowCollapsed(true, ImGuiCond_FirstUseEver);
 	SetNextWindowPos(pos2, ImGuiCond_FirstUseEver);
-
-	Begin(" Colors ");
+	Begin(" Colors ", NULL, ImGuiWindowFlags_AlwaysAutoResize);
 
 	ColorEdit3(" Skin ", human.get_skin_color());
 	ColorEdit3(" Body ", human.get_body_color());

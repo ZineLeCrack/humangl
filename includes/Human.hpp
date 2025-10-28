@@ -12,6 +12,7 @@ class Human
 		float	_rotY = 0.0f;
 
 		float	_zoom = 16.0f;
+		float	_size = 1.0f;
 
 		float	_foots_color[3]	= { 0.20f, 0.20f, 0.20f };
 		float	_legs_color[3]	= { 0.00f, 0.00f, 1.00f };
@@ -47,6 +48,7 @@ class Human
 		float	&get_rotX() 			{ return _rotX; }
 		float	&get_rotY() 			{ return _rotY; }
 		float	&get_zoom() 			{ return _zoom; }
+		float	&get_size()				{ return _size; }
 		float	*get_foots_color()		{ return _foots_color; }
 		float	*get_legs_color()		{ return _legs_color; }
 		float	*get_body_color()		{ return _body_color; }
