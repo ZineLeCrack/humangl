@@ -121,7 +121,7 @@ void	imgui_set_window()
 {
 	ImVec2 pos1(20, 20);
 	SetNextWindowPos(pos1, ImGuiCond_FirstUseEver);
-	SetNextWindowCollapsed(true, ImGuiCond_FirstUseEver);
+	// SetNextWindowCollapsed(true, ImGuiCond_FirstUseEver);
 	Begin("Settings", NULL, ImGuiWindowFlags_AlwaysAutoResize);
 
 	SeparatorText(" Info ");
@@ -162,8 +162,8 @@ void	imgui_set_window()
 
 	End();
 
-	ImVec2 pos2(20, 60);
-	SetNextWindowCollapsed(true, ImGuiCond_FirstUseEver);
+	ImVec2 pos2(1420, 20);
+	// SetNextWindowCollapsed(true, ImGuiCond_FirstUseEver);
 	SetNextWindowPos(pos2, ImGuiCond_FirstUseEver);
 	Begin(" Colors ", NULL, ImGuiWindowFlags_AlwaysAutoResize);
 
