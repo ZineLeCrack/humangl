@@ -1,6 +1,8 @@
 #pragma once
 
 #include "Includes.hpp"
+#include "Hand.hpp"
+class Hand;
 
 class Human
 {
@@ -19,10 +21,28 @@ class Human
 		int		_animation			= STAY;
 		double	_animation_frame	= 0;
 
+		Hand	*_rightHand;
+
 	public:
 
-		Human()		{};
-		~Human()	{};
+		bool	_showBody;
+		bool	_showHead;
+
+		bool	_showRightUpperArm;
+		bool	_showRightForearm;
+		bool	_showLeftUpperArm;
+		bool	_showLeftForearm;
+
+		bool	_showRightTigh;
+		bool	_showRightLowerLeg;
+		bool	_showLeftTigh;
+		bool	_showLeftLowerLeg;
+
+		bool	_showRightFoot;
+		bool	_showLeftFoot;
+
+		Human();
+		~Human();
 
 		float	&get_rotX() 			{ return _rotX; }
 		float	&get_rotY() 			{ return _rotY; }
@@ -40,25 +60,31 @@ class Human
 		void	set_skin_color(float r, float g, float b)	{ _skin_color[0]  = r, _skin_color[1]  = g, _skin_color[2]  = b; };
 
 		void	draw(ModelStack &modelStack, Shaders &shader);
-		void	draw_legs(ModelStack &modelStack, Shaders &shader);
 		void	draw_body(ModelStack &modelStack, Shaders &shader);
-		void	draw_arms(ModelStack &modelStack, Shaders &shader);
 		void	draw_head(ModelStack &modelStack, Shaders &shader);
 
+		/*Right arm*/
+		void	draw_right_arm(ModelStack &modelStack, Shaders &shader, float angle);
 		void	draw_right_upper_arm(ModelStack &modelStack, Shaders &shader);
-		void	draw_left_upper_arm(ModelStack &modelStack, Shaders &shader);
-
 		void	draw_right_shoulder(ModelStack &modelStack, Shaders &shader);
-		void	draw_left_shoulder(ModelStack &modelStack, Shaders &shader);
-
-		void	draw_left_forearm(ModelStack &modelStack, Shaders &shader);
 		void	draw_right_forearm(ModelStack &modelStack, Shaders &shader);
 
-		void	draw_left_thigh(ModelStack &modelStack, Shaders &shader);
+		/*Left arm*/
+		void	draw_left_arm(ModelStack &modelStack, Shaders &shader, float angle);
+		void	draw_left_upper_arm(ModelStack &modelStack, Shaders &shader);
+		void	draw_left_shoulder(ModelStack &modelStack, Shaders &shader);
+		void	draw_left_forearm(ModelStack &modelStack, Shaders &shader);
+		
+		/*Right leg*/
+		void	draw_right_leg(ModelStack &modelStack, Shaders &shader, float angle);
 		void	draw_right_thigh(ModelStack &modelStack, Shaders &shader);
 		void	draw_right_lower_leg(ModelStack &modelStack, Shaders &shader);
-		void	draw_left_lower_leg(ModelStack &modelStack, Shaders &shader);
-
 		void	draw_right_foot(ModelStack &modelStack, Shaders &shader);
+
+		/*Left leg*/
+		void	draw_left_leg(ModelStack &modelStack, Shaders &shader, float angle);
+		void	draw_left_thigh(ModelStack &modelStack, Shaders &shader);
+		void	draw_left_lower_leg(ModelStack &modelStack, Shaders &shader);
 		void	draw_left_foot(ModelStack &modelStack, Shaders &shader);
+
 };

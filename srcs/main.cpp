@@ -63,7 +63,8 @@ static void	draw_cube(Shaders &shader, const Matrix &model)
 	glBindVertexArray(0);
 }
 
-void	display(Shaders &shader) {
+void	display(Shaders &shader)
+{
 	glClearColor(0.0, 0.0, 0.0, 1);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -95,7 +96,8 @@ void	display(Shaders &shader) {
 	if (cube) draw_cube(shader, model);
 }
 
-void	keypress(GLFWwindow* window) {
+void	keypress(GLFWwindow* window)
+{
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) glfwSetWindowShouldClose(window, true);
 	if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS) {
 		human.get_animation() = JUMP;
@@ -115,7 +117,8 @@ void	keypress(GLFWwindow* window) {
 	}
 }
 
-void	imgui_set_window() {
+void	imgui_set_window()
+{
 	ImVec2 size1(400, 350);
 	ImVec2 pos1(20, 20);
 	SetNextWindowSize(size1, ImGuiCond_FirstUseEver);
@@ -159,7 +162,7 @@ void	imgui_set_window() {
 
 	End();
 
-	ImVec2 size2(400, 370);
+	ImVec2 size2(400, 590);
 	ImVec2 pos2(20, 390);
 	SetNextWindowSize(size2, ImGuiCond_FirstUseEver);
 	SetNextWindowPos(pos2, ImGuiCond_FirstUseEver);
@@ -171,10 +174,23 @@ void	imgui_set_window() {
 	ColorEdit3(" Legs ", human.get_legs_color());
 	ColorEdit3(" Foots ", human.get_foots_color());
 
+	Checkbox("Head", &human._showHead);
+	Checkbox("Body", &human._showBody);
+	Checkbox("Right Upper Arm", &human._showRightUpperArm);
+	Checkbox("Left Upper Arm", &human._showLeftUpperArm);
+	Checkbox("Right Forearm Arm", &human._showRightForearm);
+	Checkbox("Left Forearm Arm", &human._showLeftForearm);
+	Checkbox("Right Tigh", &human._showRightTigh);
+	Checkbox("Left Tigh", &human._showLeftTigh);
+	Checkbox("Right Lower Leg", &human._showRightLowerLeg);
+	Checkbox("Left Lower Leg", &human._showLeftLowerLeg);
+	Checkbox("Right Foot", &human._showRightFoot);
+	Checkbox("Left Foot", &human._showLeftFoot);
 	End();
 }
 
-static void	scroll_callback(GLFWwindow* window, double x, double y) {
+static void	scroll_callback(GLFWwindow* window, double x, double y)
+{
 	float	&zoom = human.get_zoom();
 
 	(void)window;
@@ -184,7 +200,8 @@ static void	scroll_callback(GLFWwindow* window, double x, double y) {
 	if (y < 0 && zoom > 0.0f)  human.get_zoom() -= (zoom > 0.4f ? 0.4f : zoom);
 }
 
-int main() {
+int main()
+{
 	if (!glfwInit()) {
 		cerr << RED "Error: init error" << RESET << endl;
 		return 1;
@@ -202,7 +219,7 @@ int main() {
 	}
 
 	glfwMakeContextCurrent(window);
-	glfwSwapInterval(0);
+	glfwSwapInterval(1);
 
 	if (glewInit() != GLEW_OK) {
 		glfwTerminate();
