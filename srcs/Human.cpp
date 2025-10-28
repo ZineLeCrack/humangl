@@ -11,13 +11,13 @@ Human::Human()
 	_showLeftUpperArm = true;
 	_showLeftForearm = true;
 
-	_showRightTigh = true;
-	_showRightLowerLeg = true;
-	_showLeftTigh = true;
-	_showLeftLowerLeg = true;
+	_showRightTigh = false;
+	_showRightLowerLeg = false;
+	_showLeftTigh = false;
+	_showLeftLowerLeg = false;
 
-	_showRightFoot = true;
-	_showLeftFoot = true;
+	_showRightFoot = false;
+	_showLeftFoot = false;
 }
 
 Human::~Human()	{delete _rightHand;}
@@ -86,6 +86,7 @@ void	Human::draw_right_arm(ModelStack &modelStack, Shaders &shader, float angle)
 		// forearm
 		draw_right_forearm(modelStack, shader);
 	}
+	_rightHand->draw(_body_color, modelStack, shader);
 
 	if (_animation) modelStack.pop();
 }
@@ -321,4 +322,3 @@ void	Human::draw_left_foot(ModelStack &modelStack, Shaders &shader)
 	draw_rect({0.125f, -0.50f,  0.05f}, {0.025f, -0.45f,  0.05f}, _foots_color, shader, modelStack);
 	draw_rect({0.125f, -0.50f, -0.05f}, {0.025f, -0.45f, -0.05f}, _foots_color, shader, modelStack);
 }
-
