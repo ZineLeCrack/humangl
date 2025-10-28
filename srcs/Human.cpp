@@ -11,13 +11,13 @@ Human::Human()
 	_showLeftUpperArm = true;
 	_showLeftForearm = true;
 
-	_showRightTigh = false;
-	_showRightLowerLeg = false;
-	_showLeftTigh = false;
-	_showLeftLowerLeg = false;
+	_showRightTigh = true;
+	_showRightLowerLeg = true;
+	_showLeftTigh = true;
+	_showLeftLowerLeg = true;
 
-	_showRightFoot = false;
-	_showLeftFoot = false;
+	_showRightFoot = true;
+	_showLeftFoot = true;
 }
 
 Human::~Human()	{delete _rightHand;}
