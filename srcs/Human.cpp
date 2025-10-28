@@ -1,14 +1,33 @@
 #include "Human.hpp"
 
-Human::Human()	{_rightHand = new Hand("right");};
-Human::~Human()	{delete _rightHand;};
+Human::Human()
+{
+	_rightHand = new Hand("right");
+	_showBody = true;
+	_showHead = true;
+
+	_showRightUpperArm = true;
+	_showRightForearm = true;
+	_showLeftUpperArm = true;
+	_showLeftForearm = true;
+
+	_showRightTigh = true;
+	_showRightLowerLeg = true;
+	_showLeftTigh = true;
+	_showLeftLowerLeg = true;
+
+	_showRightFoot = true;
+	_showLeftFoot = true;
+}
+
+Human::~Human()	{delete _rightHand;}
 
 void	Human::draw(ModelStack &modelStack, Shaders &shader)
 {
 	float angle = sin((glfwGetTime() - _animation_frame) * (_animation == SPRINT ? 10.0f : 5.0f)) * 30.0f;
 	
-	draw_head(modelStack, shader);
-	draw_body(modelStack, shader);
+	if (_showHead) draw_head(modelStack, shader);
+	if (_showBody) draw_body(modelStack, shader);
 	
 	draw_left_arm(modelStack, shader, angle);
 	draw_right_arm(modelStack, shader, angle);
@@ -47,11 +66,14 @@ void	Human::draw_right_arm(ModelStack &modelStack, Shaders &shader, float angle)
 		modelStack.translate(0.0f, -0.25f, 0.0f);
 	}
 
-	// upper arm
-	draw_right_upper_arm(modelStack, shader);
+	if (_showRightUpperArm) {
 
-	// shoulder
-	draw_right_shoulder(modelStack, shader);
+		// upper arm
+		draw_right_upper_arm(modelStack, shader);
+		
+		// shoulder
+		draw_right_shoulder(modelStack, shader);
+	}
 
 	if (_animation == WALK || _animation == SPRINT) {
 		modelStack.translate(0.0f, 0.1f, 0.0f);
@@ -59,8 +81,11 @@ void	Human::draw_right_arm(ModelStack &modelStack, Shaders &shader, float angle)
 		modelStack.translate(0.0f, -0.1f, 0.0f);
 	}
 
-	// forearm
-	draw_right_forearm(modelStack, shader);
+	if (_showRightForearm) {
+
+		// forearm
+		draw_right_forearm(modelStack, shader);
+	}
 
 	if (_animation) modelStack.pop();
 }
@@ -75,11 +100,13 @@ void	Human::draw_left_arm(ModelStack &modelStack, Shaders &shader, float angle)
 		modelStack.translate(0.0f, -0.25f, 0.0f);
 	}
 
-	// upper arm
-	draw_left_upper_arm(modelStack, shader);
-
-	// shoulder
-	draw_left_shoulder(modelStack, shader);
+	if (_showLeftUpperArm) {
+		// upper arm
+		draw_left_upper_arm(modelStack, shader);
+	
+		// shoulder
+		draw_left_shoulder(modelStack, shader);
+	}
 
 	if (_animation == WALK || _animation == SPRINT) {
 		modelStack.translate(0.0f, 0.1f, 0.0f);
@@ -87,8 +114,10 @@ void	Human::draw_left_arm(ModelStack &modelStack, Shaders &shader, float angle)
 		modelStack.translate(0.0f, -0.1f, 0.0f);
 	}
 
-	// forearm
-	draw_left_forearm(modelStack, shader);
+	if (_showLeftForearm) {
+		// forearm
+		draw_left_forearm(modelStack, shader);
+	}
 
 	if (_animation) modelStack.pop();
 }
@@ -107,8 +136,10 @@ void	Human::draw_right_leg(ModelStack &modelStack, Shaders &shader, float angle)
 		modelStack.translate(0.0f, 0.1f, 0.0f);
 	}
 
-	// thigh
-	draw_right_thigh(modelStack, shader);
+	if (_showRightTigh) {
+		// thigh
+		draw_right_thigh(modelStack, shader);
+	}
 
 	if (_animation == JUMP) modelStack.pop();
 
@@ -124,11 +155,15 @@ void	Human::draw_right_leg(ModelStack &modelStack, Shaders &shader, float angle)
 		modelStack.translate(0.0f, 0.5f, 0.0f);
 	}
 
-	// lower part
-	draw_right_lower_leg(modelStack, shader);
+	if (_showRightLowerLeg) {
+		// lower part
+		draw_right_lower_leg(modelStack, shader);
+	}
 
-	// foot
-	draw_right_foot(modelStack, shader);
+	if (_showRightFoot) {
+		// foot
+		draw_right_foot(modelStack, shader);
+	}
 
 	if (_animation) modelStack.pop();
 }
@@ -147,8 +182,10 @@ void	Human::draw_left_leg(ModelStack &modelStack, Shaders &shader, float angle)
 		modelStack.translate(0.0f, 0.1f, 0.0f);
 	}
 
-	// thigh
-	draw_left_thigh(modelStack, shader);
+	if (_showLeftTigh) {
+		// thigh
+		draw_left_thigh(modelStack, shader);
+	}
 
 	if (_animation == JUMP) modelStack.pop();
 
@@ -164,11 +201,15 @@ void	Human::draw_left_leg(ModelStack &modelStack, Shaders &shader, float angle)
 		modelStack.translate(0.0f, 0.5f, 0.0f);
 	}
 
+	if (_showLeftLowerLeg) {
 		// lower part
-	draw_left_lower_leg(modelStack, shader);
+		draw_left_lower_leg(modelStack, shader);
+	}
 
+	if (_showLeftFoot) {
 		// foot
-	draw_left_foot(modelStack, shader);
+		draw_left_foot(modelStack, shader);
+	}
 
 	if (_animation) modelStack.pop();
 }

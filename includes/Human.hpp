@@ -25,6 +25,22 @@ class Human
 
 	public:
 
+		bool	_showBody;
+		bool	_showHead;
+
+		bool	_showRightUpperArm;
+		bool	_showRightForearm;
+		bool	_showLeftUpperArm;
+		bool	_showLeftForearm;
+
+		bool	_showRightTigh;
+		bool	_showRightLowerLeg;
+		bool	_showLeftTigh;
+		bool	_showLeftLowerLeg;
+
+		bool	_showRightFoot;
+		bool	_showLeftFoot;
+
 		Human();
 		~Human();
 
@@ -64,7 +80,7 @@ class Human
 		void	draw_right_thigh(ModelStack &modelStack, Shaders &shader);
 		void	draw_right_lower_leg(ModelStack &modelStack, Shaders &shader);
 		void	draw_right_foot(ModelStack &modelStack, Shaders &shader);
-		
+
 		/*Left leg*/
 		void	draw_left_leg(ModelStack &modelStack, Shaders &shader, float angle);
 		void	draw_left_thigh(ModelStack &modelStack, Shaders &shader);
