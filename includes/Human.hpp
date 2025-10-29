@@ -59,6 +59,9 @@ class Human
 		float	*get_skin_color()		{ return _skin_color; }
 		int		&get_animation()		{ return _animation; }
 		double	&get_animation_frame()	{ return _animation_frame; }
+		bool	&get_has_texture()		{ return _has_texture; }
+		bool	&get_use_texture()		{ return _use_texture; }
+		GLuint	&get_texture()			{ return _tex; }
 
 		void	set_foots_color(float r, float g, float b)	{ _foots_color[0] = r, _foots_color[1] = g, _foots_color[2] = b; };
 		void	set_legs_color(float r, float g, float b)	{ _legs_color[0]  = r, _legs_color[1]  = g, _legs_color[2]  = b; };
