@@ -199,17 +199,24 @@ void	imgui_set_window()
 	}
 
 
-	ImVec2 size3(650,218);
-	ImVec2 pos3(1271,0);
-	SetNextWindowSize(size2, ImGuiCond_FirstUseEver);
-	SetNextWindowPos(pos2, ImGuiCond_FirstUseEver);
+	ImVec2 size3(768,249);
+	ImVec2 pos3(1144,11);
+	SetNextWindowSize(size3, ImGuiCond_FirstUseEver);
+	SetNextWindowPos(pos3, ImGuiCond_FirstUseEver);
 	if (showDebug3) {
 		Begin(" Fingers Angles ");
-		SliderFloat3("Thumb Finger", human._rightHand->thumbFingerPhalangeAngle, -90.0f, 90.0f);
-		SliderFloat3("Index Finger", human._rightHand->indexFingerPhalangeAngle, -90.0f, 90.0f);
-		SliderFloat3("Middle Finger", human._rightHand->middleFingerPhalangeAngle, -90.0f, 90.0f);
-		SliderFloat3("Ring Finger", human._rightHand->ringFingerPhalangeAngle, -90.0f, 90.0f);
-		SliderFloat3("Little Finger", human._rightHand->littleFingerPhalangeAngle, -90.0f, 90.0f);
+		SliderFloat2("Thumb Finger", human._rightHand->thumbFingerPhalangeAngle, -90.0f, 90.0f); SameLine();
+		if (Button("T_Reset")) human._rightHand->reset(0);
+		SliderFloat3("Index Finger", human._rightHand->indexFingerPhalangeAngle, -90.0f, 90.0f); SameLine();
+		if (Button("I_Reset")) human._rightHand->reset(1);
+		SliderFloat3("Middle Finger", human._rightHand->middleFingerPhalangeAngle, -90.0f, 90.0f); SameLine();
+		if (Button("M_Reset")) human._rightHand->reset(2);
+		SliderFloat3("Ring Finger", human._rightHand->ringFingerPhalangeAngle, -90.0f, 90.0f); SameLine();
+		if (Button("R_Reset")) human._rightHand->reset(3);
+		SliderFloat3("Little Finger", human._rightHand->littleFingerPhalangeAngle, -90.0f, 90.0f); SameLine();
+		if (Button("L_Reset")) human._rightHand->reset(4);
+
+		if (Button("Reset All")) human._rightHand->reset(-1);
 		End();
 	}
 }
@@ -306,7 +313,7 @@ int main()
 
 	human.get_rotY() = 4.0f; // DEBUG
 	human.get_rotX() = -89.0f; // DEBUG
-	human.get_zoom() = 20.5f; // DEBUG
+	human.get_zoom() = 20.6f; // DEBUG
 	while (!glfwWindowShouldClose(window)) {
 		glfwPollEvents();
 
