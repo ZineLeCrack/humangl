@@ -2,8 +2,8 @@
 
 static Human	human;
 
-static int	lastMouseX = 0;
-static int	lastMouseY = 0;
+static int	lastMouseX = 659;
+static int	lastMouseY = 354;
 static bool	isDragging = false;
 
 static bool	cube = false;
@@ -128,6 +128,7 @@ void	imgui_set_window()
 
 	SeparatorText(" Info ");
 	Text("fps: %d", (int)GetIO().Framerate);
+	Text("Cursor Pos: (%d, %d)", lastMouseX, lastMouseY);
 
 	SeparatorText(" Rotation ");
 	Text("Rotation: x = %d, y = %d", (int)human.get_rotX(), (int)human.get_rotY());
@@ -279,6 +280,9 @@ int main()
 	GLint	projLoc = glGetUniformLocation(shader.shaderProgram, "uProjection");
 	glUniformMatrix4fv(projLoc, 1, GL_FALSE, proj.data());
 
+	human.get_rotY() = 4.0f; // DEBUG
+	human.get_rotX() = -89.0f; // DEBUG
+	human.get_zoom() = 20.5f; // DEBUG
 	while (!glfwWindowShouldClose(window)) {
 		glfwPollEvents();
 

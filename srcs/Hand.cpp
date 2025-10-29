@@ -10,19 +10,24 @@ void Hand::draw(float _skin_color[3], ModelStack &modelStack, Shaders &shader)
 {
 	//base
 
+	(void)_skin_color;
+	// (void)shader;
+	// (void)modelStack;
 	modelStack.push();
 	modelStack.translate(-0.175f, -0.1001f, 0.0f);
 	// draw_paving_shape({-0.05f, -0.0001f, -0.05f}, {0.05f, -0.0f,  0.05f}, _skin_color, shader, modelStack);
 
+	float red[3] ={1.0f, 0.0f, 0.0f};
 	modelStack.push();
-	modelStack.translate(-0.02f, 0.0f, 0.0f);
-	// modelStack.rotate(-30, 'X');
-	draw_paving_shape({-0.03f, -0.02f, 0.05f}, {-0.01f, -0.0f,  0.03f}, _skin_color, shader, modelStack);
+	modelStack.translate(-0.042f, -0.007f, 0.042f);
+	// draw_point({0.0f, 0.0f, 0.0f}, red, shader, modelStack);
+	draw_paving_shape({-0.001f,  -0.001f, 0.001f}, { 0.001f, 0.001f, -0.001f}, red, shader, modelStack);
+	draw_paving_shape({-0.012f, -0.005f, 0.01f}, {0.0f, -0.0f,  0.0f}, _skin_color, shader, modelStack);
 
 	modelStack.push();
 	modelStack.translate(-0.02f, 0.0f, -0.02f);
 	// modelStack.rotate(10, 'X');
-	draw_paving_shape({-0.01f, -0.02f, 0.05f}, {0.01f, -0.0f,  0.025f}, _skin_color, shader, modelStack);
+	// draw_paving_shape({-0.01f, -0.02f, 0.05f}, {0.01f, -0.0f,  0.025f}, _skin_color, shader, modelStack);
 
 	modelStack.pop(); // second phalange
 	modelStack.pop(); // first phalange
