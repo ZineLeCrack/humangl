@@ -1,6 +1,6 @@
 #include "Includes.hpp"
 
-static Human	human;
+Human	human;
 
 static int	lastMouseX = 0;
 static int	lastMouseY = 0;
@@ -127,6 +127,9 @@ void	imgui_set_window()
 	SeparatorText(" Info ");
 	Text("fps: %d", (int)GetIO().Framerate);
 
+	SeparatorText(" Skin ");
+	if (Button("Use skin")) human.change_texture();
+
 	SeparatorText(" Rotation ");
 	Text("Rotation: x = %d, y = %d", (int)human.get_rotX(), (int)human.get_rotY());
 
@@ -198,8 +201,13 @@ static void	scroll_callback(GLFWwindow* window, double x, double y)
 	if (y < 0 && zoom > 0.0f)  human.get_zoom() -= (zoom > 0.4f ? 0.4f : zoom);
 }
 
-int main()
+int main(int ac, char **av)
 {
+	if (ac > 2) {
+		cerr << RED "Error: usage: ./humangl (skin.png)" RESET << endl;
+		return 1;
+	}
+
 	if (!glfwInit()) {
 		cerr << RED "Error: init error" << RESET << endl;
 		return 1;
@@ -276,6 +284,12 @@ int main()
 	Matrix	proj = Matrix::perspective(45, width / (float)height, 0.1f, 100.0f);
 	GLint	projLoc = glGetUniformLocation(shader.shaderProgram, "uProjection");
 	glUniformMatrix4fv(projLoc, 1, GL_FALSE, proj.data());
+
+	if (ac == 2) {
+		if (!load_image(av[1]))
+			return 1;
+		human.set_texture(true);
+	}
 
 	while (!glfwWindowShouldClose(window)) {
 		glfwPollEvents();
