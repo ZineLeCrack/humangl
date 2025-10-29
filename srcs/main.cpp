@@ -6,6 +6,14 @@ static int	lastMouseX = 659;
 static int	lastMouseY = 354;
 static bool	isDragging = false;
 
+static bool	showDebug1 = false;
+static bool	showDebug2 = false;
+static bool	showDebug3 = false;
+
+static bool key1Released = true;
+static bool key2Released = true;
+static bool key3Released = true;
+
 static bool	cube = false;
 
 static GLuint cubeVAO = 0, cubeVBO = 0;
@@ -115,6 +123,21 @@ void	keypress(GLFWwindow* window)
 		human.get_animation() = STAY;
 		human.get_animation_frame() = glfwGetTime();
 	}
+
+	if (glfwGetKey(window, GLFW_KEY_1) == GLFW_PRESS) {
+		if (key1Released) { showDebug1 = !showDebug1; key1Released = false; }
+	}
+	else key1Released = true;
+
+	if (glfwGetKey(window, GLFW_KEY_2) == GLFW_PRESS) {
+		if (key2Released) { showDebug2 = !showDebug2; key2Released = false; }
+	}
+	else key2Released = true;
+
+	if (glfwGetKey(window, GLFW_KEY_3) == GLFW_PRESS) {
+		if (key3Released) { showDebug3 = !showDebug3; key3Released = false; }
+	}
+	else key3Released = true;
 }
 
 void	imgui_set_window()
@@ -124,70 +147,71 @@ void	imgui_set_window()
 	SetNextWindowSize(size1, ImGuiCond_FirstUseEver);
 	SetNextWindowPos(pos1, ImGuiCond_FirstUseEver);
 
-	Begin("Settings");
+	if (showDebug1) {
+		Begin("Settings");
+		SeparatorText(" Info ");
+		Text("fps: %d", (int)GetIO().Framerate);
+		Text("Cursor Pos: (%d, %d)", lastMouseX, lastMouseY);
 
-	SeparatorText(" Info ");
-	Text("fps: %d", (int)GetIO().Framerate);
-	Text("Cursor Pos: (%d, %d)", lastMouseX, lastMouseY);
+		SeparatorText(" Rotation ");
+		Text("Rotation: x = %d, y = %d", (int)human.get_rotX(), (int)human.get_rotY());
 
-	SeparatorText(" Rotation ");
-	Text("Rotation: x = %d, y = %d", (int)human.get_rotX(), (int)human.get_rotY());
+		if (Button("Reset  rotation")) human.get_rotX() = human.get_rotY() = 0.0f;
+		SameLine();
+		if (Button("Display  cube")) cube = !cube;
 
-	if (Button("Reset  rotation")) human.get_rotX() = human.get_rotY() = 0.0f;
-	SameLine();
-	if (Button("Display  cube")) cube = !cube;
+		SeparatorText(" Size ");
+		SliderFloat("Zoom", &human.get_zoom(), 0.0f, 20.0f);
 
-	SeparatorText(" Size ");
-	SliderFloat("Zoom", &human.get_zoom(), 0.0f, 20.0f);
-
-	SeparatorText(" Animations ");
-	if (Button("Reset")) {
-		human.get_animation() = STAY;
-		human.get_animation_frame() = 0;
+		SeparatorText(" Animations ");
+		if (Button("Reset")) { human.get_animation() = STAY; human.get_animation_frame() = 0; } SameLine();
+		if (Button("Walk")) { human.get_animation() = WALK; human.get_animation_frame() = glfwGetTime(); } SameLine();
+		if (Button("Sprint")) { human.get_animation() = SPRINT; human.get_animation_frame() = glfwGetTime(); } SameLine();
+		if (Button("Jump")) { human.get_animation() = JUMP; human.get_animation_frame() = glfwGetTime(); }
+		End();
 	}
-	SameLine();
-	if (Button("Walk")) {
-		human.get_animation() = WALK;
-		human.get_animation_frame() = glfwGetTime();
-	}
-	SameLine();
-	if (Button("Sprint")) {
-		human.get_animation() = SPRINT;
-		human.get_animation_frame() = glfwGetTime();
-	}
-	SameLine();
-	if (Button("Jump")) {
-		human.get_animation() = JUMP;
-		human.get_animation_frame() = glfwGetTime();
-	}
-
-	End();
 
 	ImVec2 size2(400, 590);
 	ImVec2 pos2(20, 390);
 	SetNextWindowSize(size2, ImGuiCond_FirstUseEver);
 	SetNextWindowPos(pos2, ImGuiCond_FirstUseEver);
 
-	Begin(" Colors ");
+	if (showDebug2) {
+		Begin(" Colors ");
+		ColorEdit3(" Skin ", human.get_skin_color());
+		ColorEdit3(" Body ", human.get_body_color());
+		ColorEdit3(" Legs ", human.get_legs_color());
+		ColorEdit3(" Foots ", human.get_foots_color());
 
-	ColorEdit3(" Skin ", human.get_skin_color());
-	ColorEdit3(" Body ", human.get_body_color());
-	ColorEdit3(" Legs ", human.get_legs_color());
-	ColorEdit3(" Foots ", human.get_foots_color());
+		Checkbox("Head", &human._showHead);
+		Checkbox("Body", &human._showBody);
+		Checkbox("Right Upper Arm", &human._showRightUpperArm);
+		Checkbox("Left Upper Arm", &human._showLeftUpperArm);
+		Checkbox("Right Forearm Arm", &human._showRightForearm);
+		Checkbox("Left Forearm Arm", &human._showLeftForearm);
+		Checkbox("Right Tigh", &human._showRightTigh);
+		Checkbox("Left Tigh", &human._showLeftTigh);
+		Checkbox("Right Lower Leg", &human._showRightLowerLeg);
+		Checkbox("Left Lower Leg", &human._showLeftLowerLeg);
+		Checkbox("Right Foot", &human._showRightFoot);
+		Checkbox("Left Foot", &human._showLeftFoot);
+		End();
+	}
 
-	Checkbox("Head", &human._showHead);
-	Checkbox("Body", &human._showBody);
-	Checkbox("Right Upper Arm", &human._showRightUpperArm);
-	Checkbox("Left Upper Arm", &human._showLeftUpperArm);
-	Checkbox("Right Forearm Arm", &human._showRightForearm);
-	Checkbox("Left Forearm Arm", &human._showLeftForearm);
-	Checkbox("Right Tigh", &human._showRightTigh);
-	Checkbox("Left Tigh", &human._showLeftTigh);
-	Checkbox("Right Lower Leg", &human._showRightLowerLeg);
-	Checkbox("Left Lower Leg", &human._showLeftLowerLeg);
-	Checkbox("Right Foot", &human._showRightFoot);
-	Checkbox("Left Foot", &human._showLeftFoot);
-	End();
+
+	ImVec2 size3(650,218);
+	ImVec2 pos3(1271,0);
+	SetNextWindowSize(size2, ImGuiCond_FirstUseEver);
+	SetNextWindowPos(pos2, ImGuiCond_FirstUseEver);
+	if (showDebug3) {
+		Begin(" Fingers Angles ");
+		SliderFloat3("Thumb Finger", human._rightHand->thumbFingerPhalangeAngle, -90.0f, 90.0f);
+		SliderFloat3("Index Finger", human._rightHand->indexFingerPhalangeAngle, -90.0f, 90.0f);
+		SliderFloat3("Middle Finger", human._rightHand->middleFingerPhalangeAngle, -90.0f, 90.0f);
+		SliderFloat3("Ring Finger", human._rightHand->ringFingerPhalangeAngle, -90.0f, 90.0f);
+		SliderFloat3("Little Finger", human._rightHand->littleFingerPhalangeAngle, -90.0f, 90.0f);
+		End();
+	}
 }
 
 static void	scroll_callback(GLFWwindow* window, double x, double y)

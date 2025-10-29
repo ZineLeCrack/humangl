@@ -21,8 +21,6 @@ class Human
 		int		_animation			= STAY;
 		double	_animation_frame	= 0;
 
-		Hand	*_rightHand;
-
 	public:
 
 		bool	_showBody;
@@ -40,6 +38,8 @@ class Human
 
 		bool	_showRightFoot;
 		bool	_showLeftFoot;
+
+		Hand	*_rightHand;
 
 		Human();
 		~Human();
