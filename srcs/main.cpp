@@ -288,9 +288,11 @@ int main(int ac, char **av)
 	if (ac == 2) {
 		if (!load_image(av[1]))
 			return 1;
-		human.set_texture(true);
-		glUniform1i(glGetUniformLocation(shader.shaderProgram, "uUseTexture"), 0);
+	} else {
+		if (!load_image("skins/default.png"))
+			return 1;
 	}
+	glUniform1i(glGetUniformLocation(shader.shaderProgram, "uUseTexture"), 0);
 
 	while (!glfwWindowShouldClose(window)) {
 		glfwPollEvents();
@@ -299,12 +301,10 @@ int main(int ac, char **av)
 		ImGui_ImplGlfw_NewFrame();
 		NewFrame();
 
-		if (ac == 2) {
-			glUseProgram(shader.shaderProgram);
-			glUniform1i(glGetUniformLocation(shader.shaderProgram, "uUseTexture"), human.get_use_texture());
-			glActiveTexture(GL_TEXTURE0);
-			glBindTexture(GL_TEXTURE_2D, human.get_texture());
-		}
+		glUseProgram(shader.shaderProgram);
+		glUniform1i(glGetUniformLocation(shader.shaderProgram, "uUseTexture"), human.get_use_texture());
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, human.get_texture());
 
 		glfwSetScrollCallback(window, scroll_callback);
 		keypress(window);
