@@ -25,10 +25,10 @@ Human::~Human()	{delete _rightHand;}
 void	Human::draw(ModelStack &modelStack, Shaders &shader)
 {
 	float angle = sin((glfwGetTime() - _animation_frame) * (_animation == SPRINT ? 10.0f : 5.0f)) * 30.0f;
-	
+
 	if (_showHead) draw_head(modelStack, shader);
 	if (_showBody) draw_body(modelStack, shader);
-	
+
 	draw_left_arm(modelStack, shader, angle);
 	draw_right_arm(modelStack, shader, angle);
 
@@ -71,7 +71,7 @@ void	Human::draw_right_arm(ModelStack &modelStack, Shaders &shader, float angle)
 
 		// upper arm
 		draw_right_upper_arm(modelStack, shader);
-		
+
 		// shoulder
 		draw_right_shoulder(modelStack, shader);
 	}
@@ -104,7 +104,7 @@ void	Human::draw_left_arm(ModelStack &modelStack, Shaders &shader, float angle)
 	if (_showLeftUpperArm) {
 		// upper arm
 		draw_left_upper_arm(modelStack, shader);
-	
+
 		// shoulder
 		draw_left_shoulder(modelStack, shader);
 	}
@@ -172,7 +172,7 @@ void	Human::draw_right_leg(ModelStack &modelStack, Shaders &shader, float angle)
 void	Human::draw_left_leg(ModelStack &modelStack, Shaders &shader, float angle)
 {
 	if (_animation) modelStack.push();
-	
+
 	if (_animation == WALK || _animation == SPRINT) {
 		modelStack.translate(0.0f, -0.1f * _size, 0.0f);
 		modelStack.rotate(-angle, 'X');
@@ -316,9 +316,9 @@ void	Human::draw_left_foot(ModelStack &modelStack, Shaders &shader)
 
 void	Human::draw_right_foot(ModelStack &modelStack, Shaders &shader)
 {
-	draw_rect( {-0.025f, -0.50f * _size,  0.05f}, {-0.125f, -0.50f * _size, -0.05f}, _foots_color, 0.1250f, 0.500000f, 0.0625f, 0.125000f, false, shader, modelStack);
-	draw_rect( {-0.125f, -0.45f * _size,  0.05f}, {-0.125f, -0.50f * _size, -0.05f}, _foots_color, 0.0000f, 0.953125f, 0.0625f, 0.046875f,  true, shader, modelStack);
-	draw_rect( {-0.025f, -0.45f * _size,  0.05f}, {-0.025f, -0.50f * _size, -0.05f}, _foots_color, 0.1250f, 0.953125f, 0.0625f, 0.046875f, false, shader, modelStack);
-	draw_rect( {-0.025f, -0.45f * _size,  0.05f}, {-0.125f, -0.50f * _size,  0.05f}, _foots_color, 0.0625f, 0.953125f, 0.0625f, 0.046875f,  true, shader, modelStack);
-	draw_rect( {-0.025f, -0.45f * _size, -0.05f}, {-0.125f, -0.50f * _size, -0.05f}, _foots_color, 0.1875f, 0.953125f, 0.0625f, 0.046875f, false, shader, modelStack);
+	draw_rect({-0.025f, -0.50f * _size,  0.05f}, {-0.125f, -0.50f * _size, -0.05f}, _foots_color, 0.1250f, 0.500000f, 0.0625f, 0.125000f, false, shader, modelStack);
+	draw_rect({-0.125f, -0.45f * _size,  0.05f}, {-0.125f, -0.50f * _size, -0.05f}, _foots_color, 0.0000f, 0.953125f, 0.0625f, 0.046875f,  true, shader, modelStack);
+	draw_rect({-0.025f, -0.45f * _size,  0.05f}, {-0.025f, -0.50f * _size, -0.05f}, _foots_color, 0.1250f, 0.953125f, 0.0625f, 0.046875f, false, shader, modelStack);
+	draw_rect({-0.025f, -0.45f * _size,  0.05f}, {-0.125f, -0.50f * _size,  0.05f}, _foots_color, 0.0625f, 0.953125f, 0.0625f, 0.046875f,  true, shader, modelStack);
+	draw_rect({-0.025f, -0.45f * _size, -0.05f}, {-0.125f, -0.50f * _size, -0.05f}, _foots_color, 0.1875f, 0.953125f, 0.0625f, 0.046875f, false, shader, modelStack);
 }

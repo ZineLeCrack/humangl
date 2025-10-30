@@ -6,7 +6,9 @@ using namespace std;
 class Vec3
 {
 	public:
+
 		float x, y, z;
+
 	public:
 
 		Vec3(/* args */);

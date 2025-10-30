@@ -87,7 +87,7 @@ class Human
 		void	draw_left_upper_arm(ModelStack &modelStack, Shaders &shader);
 		void	draw_left_shoulder(ModelStack &modelStack, Shaders &shader);
 		void	draw_left_forearm(ModelStack &modelStack, Shaders &shader);
-		
+
 		/*Right leg*/
 		void	draw_right_leg(ModelStack &modelStack, Shaders &shader, float angle);
 		void	draw_right_thigh(ModelStack &modelStack, Shaders &shader);
@@ -99,5 +99,4 @@ class Human
 		void	draw_left_thigh(ModelStack &modelStack, Shaders &shader);
 		void	draw_left_lower_leg(ModelStack &modelStack, Shaders &shader);
 		void	draw_left_foot(ModelStack &modelStack, Shaders &shader);
-
 };
