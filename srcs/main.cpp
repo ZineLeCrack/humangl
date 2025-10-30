@@ -129,6 +129,8 @@ void	imgui_set_window()
 
 	SeparatorText(" Skin ");
 	if (Button("Use skin")) human.change_texture();
+	SameLine();
+	if (Button("Slim")) human.change_slim();
 
 	SeparatorText(" Rotation ");
 	Text("Rotation: x = %d, y = %d", (int)human.get_rotX(), (int)human.get_rotY());
