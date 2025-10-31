@@ -44,9 +44,6 @@ class Human
 		bool	_showLeftTigh;
 		bool	_showLeftLowerLeg;
 
-		bool	_showRightFoot;
-		bool	_showLeftFoot;
-
 		Human();
 		~Human();
 

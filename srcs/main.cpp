@@ -187,8 +187,6 @@ void	imgui_set_window()
 	Checkbox("Left Tigh", &human._showLeftTigh);
 	Checkbox("Right Lower Leg", &human._showRightLowerLeg);
 	Checkbox("Left Lower Leg", &human._showLeftLowerLeg);
-	Checkbox("Right Foot", &human._showRightFoot);
-	Checkbox("Left Foot", &human._showLeftFoot);
 	End();
 }
 

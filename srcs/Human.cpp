@@ -15,9 +15,6 @@ Human::Human()
 	_showRightLowerLeg = true;
 	_showLeftTigh = true;
 	_showLeftLowerLeg = true;
-
-	_showRightFoot = true;
-	_showLeftFoot = true;
 }
 
 Human::~Human()	{delete _rightHand;}
@@ -154,11 +151,8 @@ void	Human::draw_right_leg(ModelStack &modelStack, Shaders &shader, float angle)
 	if (_showRightLowerLeg) {
 		// lower part
 		draw_right_lower_leg(modelStack, shader);
-	}
-
-	if (_showRightFoot) {
-		// foot
 		draw_right_foot(modelStack, shader);
+
 	}
 
 	if (_animation) modelStack.pop();
@@ -200,11 +194,8 @@ void	Human::draw_left_leg(ModelStack &modelStack, Shaders &shader, float angle)
 	if (_showLeftLowerLeg) {
 		// lower part
 		draw_left_lower_leg(modelStack, shader);
-	}
-
-	if (_showLeftFoot) {
-		// foot
 		draw_left_foot(modelStack, shader);
+
 	}
 
 	if (_animation) modelStack.pop();
@@ -266,6 +257,7 @@ void	Human::draw_left_upper_arm(ModelStack &modelStack, Shaders &shader)
 	float	gap1 = 0.6875f + uscale;
 	float	gap2 = 0.0625f + gap1;
 
+	draw_rect({0.125f,  0.1f * _size, -0.05f}, { width,  0.1f * _size,  0.05f}, _skin_color,    gap1, 0.50000f,  uscale, 0.12500f, false, shader, modelStack);
 	draw_rect({ width,  0.1f * _size, -0.05f}, { width,  0.2f * _size,  0.05f}, _skin_color, 0.6250f, 0.71875f, 0.0625f, 0.12500f,  true, shader, modelStack);
 	draw_rect({0.125f,  0.1f * _size, -0.05f}, {0.125f,  0.2f * _size,  0.05f}, _skin_color,    gap1, 0.71875f, 0.0625f, 0.09375f, false, shader, modelStack);
 	draw_rect({0.125f,  0.1f * _size,  0.05f}, { width,  0.2f * _size,  0.05f}, _skin_color, 0.6875f, 0.71875f,  uscale, 0.09375f, false, shader, modelStack);
@@ -279,6 +271,7 @@ void	Human::draw_right_upper_arm(ModelStack &modelStack, Shaders &shader)
 	float	gap1 = 0.6875f + uscale;
 	float	gap2 = 0.0625f + gap1;
 
+	draw_rect({-0.125f,  0.1f * _size, -0.05f}, {  width,  0.1f * _size,  0.05f}, _skin_color,    gap1, 0.50000f,  uscale, 0.12500f, false, shader, modelStack);
 	draw_rect({  width,  0.1f * _size, -0.05f}, {  width,  0.2f * _size,  0.05f}, _skin_color, 0.6250f, 0.71875f, 0.0625f, 0.12500f,  true, shader, modelStack);
 	draw_rect({-0.125f,  0.1f * _size, -0.05f}, {-0.125f,  0.2f * _size,  0.05f}, _skin_color,    gap1, 0.71875f, 0.0625f, 0.09375f, false, shader, modelStack);
 	draw_rect({-0.125f,  0.1f * _size,  0.05f}, {  width,  0.2f * _size,  0.05f}, _skin_color, 0.6875f, 0.71875f,  uscale, 0.09375f, false, shader, modelStack);
@@ -292,6 +285,7 @@ void	Human::draw_left_forearm(ModelStack &modelStack, Shaders &shader)
 	float	gap1 = 0.6875f + uscale;
 	float	gap2 = 0.0625f + gap1;
 
+	draw_rect({0.125f,  0.10f * _size, -0.05f}, {  width,  0.10f * _size,  0.05f}, _skin_color,    gap1, 0.5000f,  uscale, 0.1250f, false, shader, modelStack);
 	draw_rect({0.125f, -0.10f * _size, -0.05f}, {  width, -0.10f * _size,  0.05f}, _skin_color,    gap1, 0.5000f,  uscale, 0.1250f, false, shader, modelStack);
 	draw_rect({ width, -0.10f * _size, -0.05f}, {  width,  0.10f * _size,  0.05f}, _skin_color, 0.6250f, 0.8125f, 0.0625f, 0.1875f,  true, shader, modelStack);
 	draw_rect({0.125f, -0.10f * _size, -0.05f}, { 0.125f,  0.10f * _size,  0.05f}, _skin_color,    gap1, 0.8125f, 0.0625f, 0.1875f, false, shader, modelStack);
@@ -306,6 +300,7 @@ void	Human::draw_right_forearm(ModelStack &modelStack, Shaders &shader)
 	float	gap1 = 0.6875f + uscale;
 	float	gap2 = 0.0625f + gap1;
 
+	draw_rect({-0.125f,  0.10f * _size, -0.05f}, {  width,  0.10f * _size,  0.05f}, _skin_color,    gap1, 0.5000f,  uscale, 0.1250f, false, shader, modelStack);
 	draw_rect({-0.125f, -0.10f * _size, -0.05f}, {  width, -0.10f * _size,  0.05f}, _skin_color,    gap1, 0.5000f,  uscale, 0.1250f, false, shader, modelStack);
 	draw_rect({  width, -0.10f * _size, -0.05f}, {  width,  0.10f * _size,  0.05f}, _skin_color, 0.6250f, 0.8125f, 0.0625f, 0.1875f,  true, shader, modelStack);
 	draw_rect({-0.125f, -0.10f * _size, -0.05f}, {-0.125f,  0.10f * _size,  0.05f}, _skin_color,    gap1, 0.8125f, 0.0625f, 0.1875f, false, shader, modelStack);
