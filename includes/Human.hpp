@@ -22,9 +22,10 @@ class Human
 		int		_animation			= STAY;
 		double	_animation_frame	= 0;
 
-		bool	_has_texture	= false;
 		bool	_use_texture	= false;
 		GLuint	_tex			= 0;
+
+		bool	_slim = false;
 
 		Hand	*_rightHand;
 
@@ -59,18 +60,18 @@ class Human
 		float	*get_skin_color()		{ return _skin_color; }
 		int		&get_animation()		{ return _animation; }
 		double	&get_animation_frame()	{ return _animation_frame; }
-		bool	&get_has_texture()		{ return _has_texture; }
 		bool	&get_use_texture()		{ return _use_texture; }
 		GLuint	&get_texture()			{ return _tex; }
+		bool	&get_slim()				{ return _slim; }
 
 		void	set_foots_color(float r, float g, float b)	{ _foots_color[0] = r, _foots_color[1] = g, _foots_color[2] = b; };
 		void	set_legs_color(float r, float g, float b)	{ _legs_color[0]  = r, _legs_color[1]  = g, _legs_color[2]  = b; };
 		void	set_body_color(float r, float g, float b)	{ _body_color[0]  = r, _body_color[1]  = g, _body_color[2]  = b; };
 		void	set_skin_color(float r, float g, float b)	{ _skin_color[0]  = r, _skin_color[1]  = g, _skin_color[2]  = b; };
-
-		void	set_has_texture(bool has_texture)	{ _has_texture = has_texture; }
 		void	set_texture(GLuint tex)				{ _tex = tex; }
+
 		void	change_texture()					{ _use_texture = !_use_texture; }
+		void	change_slim()						{ _slim = !_slim; }
 
 		void	draw(ModelStack &modelStack, Shaders &shader);
 		void	draw_body(ModelStack &modelStack, Shaders &shader);
