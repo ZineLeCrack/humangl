@@ -115,6 +115,15 @@ void	keypress(GLFWwindow* window)
 		human.get_animation() = STAY;
 		human.get_animation_frame() = glfwGetTime();
 	}
+	if (glfwGetKey(window, GLFW_KEY_O) == GLFW_PRESS) {
+		if (!human._okeypressed) {
+			human.get_open_wings() = !human.get_open_wings();
+			human.get_opening_frame() = 0.0f;
+			human._okeypressed = true;
+		}
+	} else {
+		human._okeypressed = false;
+	}
 }
 
 void	imgui_set_window()
