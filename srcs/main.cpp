@@ -2,8 +2,8 @@
 
 static Human	human;
 
-static int	lastMouseX = 659;
-static int	lastMouseY = 354;
+static int	lastMouseX = 659; // DEBUG (Default: 0) 
+static int	lastMouseY = 354; // DEBUG (Default: 0)
 static bool	isDragging = false;
 
 static bool	showDebug1 = false;
@@ -151,7 +151,6 @@ void	imgui_set_window()
 		Begin("Settings");
 		SeparatorText(" Info ");
 		Text("fps: %d", (int)GetIO().Framerate);
-		Text("Cursor Pos: (%d, %d)", lastMouseX, lastMouseY);
 
 		SeparatorText(" Rotation ");
 		Text("Rotation: x = %d, y = %d", (int)human.get_rotX(), (int)human.get_rotY());
