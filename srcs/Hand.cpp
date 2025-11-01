@@ -57,30 +57,47 @@ void Hand::reset(int idx)
 void Hand::drawThumbFinger(float _skin_color[3], ModelStack &modelStack, Shaders &shader)
 {
 	(void)_skin_color, (void)modelStack, (void)shader;
-	// to be implemented
+	modelStack.push();
+	modelStack.translate(0.043f, -0.007f, -0.0382f);
+	modelStack.rotate(thumbFingerPhalangeAngle[0], 'Z');
+	draw_paving_shape({-0.001f,  -0.001f, 0.001f}, { 0.001f, 0.001f, -0.001f}, red, shader, modelStack); //debug
+	draw_paving_shape({-0.021f, -0.007f, -0.0114f}, {0.007f, 0.007f, 0.0114f}, _skin_color, shader, modelStack);
+
+
+	modelStack.push();
+	modelStack.translate(-0.0214f, 0.00f, 0.0f);
+	modelStack.rotate(thumbFingerPhalangeAngle[1], 'Z');
+	draw_paving_shape({-0.001f,  -0.001f, 0.001f}, { 0.001f, 0.001f, -0.001f}, red, shader, modelStack); //debug
+	draw_paving_shape({-0.0217f, -0.007f, -0.0114f}, {0.01f, 0.007f, 0.0114f}, _skin_color, shader, modelStack);
+
+	modelStack.pop();
+	modelStack.pop();
 }
 
 void Hand::drawIndexFinger(float _skin_color[3], ModelStack &modelStack, Shaders &shader)
 {
+	//Z max 59 / 3 -> 19.6
 	(void)_skin_color;
 	modelStack.push();
 	modelStack.translate(0.035f, -0.007f, 0.043f);
 	modelStack.rotate(indexFingerPhalangeAngle[0], 'X');
 	draw_paving_shape({-0.001f,  -0.001f, 0.001f}, { 0.001f, 0.001f, -0.001f}, red, shader, modelStack); //debug
-
-	draw_paving_shape({-0.01f, -0.007f, -0.017f}, {0.01f, 0.007f, 0.007f}, _skin_color, shader, modelStack);
-	// draw_paving_shape({-0.01f, -0.007f, -0.017f}, {0.01f, 0.007f, 0.007f}, _skin_color, shader, modelStack);
+	draw_paving_shape({-0.01f, -0.007f, -0.0196f}, {0.015f, 0.007f, 0.007f}, _skin_color, shader, modelStack);
 
 	modelStack.push();
-	modelStack.translate(0.0f, 0.0f, -0.024f);
+	modelStack.translate(0.0f, 0.0f, -0.0206f);
 	modelStack.rotate(indexFingerPhalangeAngle[1], 'X');
-	// draw_paving_shape({-0.008f, -0.009f, 0.012f}, {0.008f, 0.009f, -0.012f}, _skin_color, shader, modelStack);
-	
+	draw_paving_shape({-0.001f,  -0.001f, 0.001f}, { 0.001f, 0.001f, -0.001f}, red, shader, modelStack); //debug
+
+	draw_paving_shape({-0.01f, -0.007f, -0.0196f}, {0.015f, 0.007f, 0.001f}, _skin_color, shader, modelStack);
+
 	modelStack.push();
-	modelStack.translate(0.0f, 0.0f, -0.024f);
+	modelStack.translate(0.0f, 0.0f, -0.0206f);
 	modelStack.rotate(indexFingerPhalangeAngle[2], 'X');
-	// draw_paving_shape({-0.008f, -0.009f, 0.012f}, {0.008f, 0.009f, -0.012f}, _skin_color, shader, modelStack);
-	
+	draw_paving_shape({-0.001f,  -0.001f, 0.001f}, { 0.001f, 0.001f, -0.001f}, red, shader, modelStack); //debug
+
+	draw_paving_shape({-0.01f, -0.007f, -0.0196f}, {0.015f, 0.007f, 0.001f}, _skin_color, shader, modelStack);
+
 	modelStack.pop();
 	modelStack.pop();
 	modelStack.pop();
@@ -88,6 +105,7 @@ void Hand::drawIndexFinger(float _skin_color[3], ModelStack &modelStack, Shaders
 
 void Hand::drawMiddleFinger(float _skin_color[3], ModelStack &modelStack, Shaders &shader)
 {
+	//Z max 68 / 3 -> 22.6
 	(void)_skin_color;
 
 	modelStack.push();
@@ -95,18 +113,22 @@ void Hand::drawMiddleFinger(float _skin_color[3], ModelStack &modelStack, Shader
 	modelStack.rotate(middleFingerPhalangeAngle[0], 'X');
 	draw_paving_shape({-0.001f,  -0.001f, 0.001f}, { 0.001f, 0.001f, -0.001f}, red, shader, modelStack); //debug
 	
-	draw_paving_shape({-0.01f, -0.007f, -0.017f}, {0.01f, 0.007f, 0.007f}, _skin_color, shader, modelStack);
+	draw_paving_shape({-0.01f, -0.007f, -0.0226f}, {0.015f, 0.007f, 0.007f}, _skin_color, shader, modelStack);
 
 	modelStack.push();
-	modelStack.translate(0.0f, 0.0f, -0.028f);
+	modelStack.translate(0.0f, 0.0f, -0.0236f);
 	modelStack.rotate(middleFingerPhalangeAngle[1], 'X');
-	// draw_paving_shape({-0.008f, -0.009f, 0.014f}, {0.008f, 0.009f, -0.014f}, _skin_color, shader, modelStack);
+	draw_paving_shape({-0.001f,  -0.001f, 0.001f}, { 0.001f, 0.001f, -0.001f}, red, shader, modelStack); //debug
+
+	draw_paving_shape({-0.01f, -0.007f, -0.0226f}, {0.015f, 0.007f, 0.001f}, _skin_color, shader, modelStack);
 
 	modelStack.push();
-	modelStack.translate(0.0f, 0.0f, -0.028f);
+	modelStack.translate(0.0f, 0.0f, -0.0236f);
 	modelStack.rotate(middleFingerPhalangeAngle[2], 'X');
-	// draw_paving_shape({-0.008f, -0.009f, 0.014f}, {0.008f, 0.009f, -0.014f}, _skin_color, shader, modelStack);
-	
+	draw_paving_shape({-0.001f,  -0.001f, 0.001f}, { 0.001f, 0.001f, -0.001f}, red, shader, modelStack); //debug
+
+	draw_paving_shape({-0.01f, -0.007f, -0.0226f}, {0.015f, 0.007f, 0.001f}, _skin_color, shader, modelStack);
+
 	modelStack.pop();
 	modelStack.pop();
 	modelStack.pop();
@@ -114,23 +136,28 @@ void Hand::drawMiddleFinger(float _skin_color[3], ModelStack &modelStack, Shader
 
 void Hand::drawRingFinger(float _skin_color[3], ModelStack &modelStack, Shaders &shader)
 {
+	//Z max 62 / 3 -> 20.6
 	(void)_skin_color;
 	modelStack.push();
 	modelStack.translate(-0.015f, -0.007f, 0.043f);
 	modelStack.rotate(ringFingerPhalangeAngle[0], 'X');
 	draw_paving_shape({-0.001f,  -0.001f, 0.001f}, { 0.001f, 0.001f, -0.001f}, red, shader, modelStack); //debug
 
-	draw_paving_shape({-0.01f, -0.007f, -0.017f}, {0.01f, 0.007f, 0.007f}, _skin_color, shader, modelStack);
+	draw_paving_shape({-0.01f, -0.007f, -0.0206f}, {0.015f, 0.007f, 0.007f}, _skin_color, shader, modelStack);
 
 	modelStack.push();
-	modelStack.translate(0.0f, 0.0f, -0.026f);
+	modelStack.translate(0.0f, 0.0f, -0.0216f);
 	modelStack.rotate(ringFingerPhalangeAngle[1], 'X');
-	// draw_paving_shape({-0.008f, -0.008f, 0.013f}, {0.008f, 0.008f, -0.013f}, _skin_color, shader, modelStack);
+	draw_paving_shape({-0.001f,  -0.001f, 0.001f}, { 0.001f, 0.001f, -0.001f}, red, shader, modelStack); //debug
+
+	draw_paving_shape({-0.01f, -0.007f, -0.0206f}, {0.015f, 0.007f, 0.001f}, _skin_color, shader, modelStack);
 
 	modelStack.push();
-	modelStack.translate(0.0f, 0.0f, -0.026f);
+	modelStack.translate(0.0f, 0.0f, -0.0216f);
 	modelStack.rotate(ringFingerPhalangeAngle[2], 'X');
-	// draw_paving_shape({-0.008f, -0.008f, 0.013f}, {0.008f, 0.008f, -0.013f}, _skin_color, shader, modelStack);
+	draw_paving_shape({-0.001f,  -0.001f, 0.001f}, { 0.001f, 0.001f, -0.001f}, red, shader, modelStack); //debug
+
+	draw_paving_shape({-0.01f, -0.007f, -0.0206f}, {0.015f, 0.007f, 0.001f}, _skin_color, shader, modelStack);
 
 	modelStack.pop();
 	modelStack.pop();
@@ -139,26 +166,28 @@ void Hand::drawRingFinger(float _skin_color[3], ModelStack &modelStack, Shaders 
 
 void Hand::drawLittleFinger(float _skin_color[3], ModelStack &modelStack, Shaders &shader)
 {
+
+	//Z max 42 / 3 -> 14
 	(void)_skin_color;
 	modelStack.push();
 	modelStack.translate(-0.039f, -0.007f, 0.043f);
 	modelStack.rotate(littleFingerPhalangeAngle[0], 'X');
 	draw_paving_shape({-0.001f,  -0.001f, 0.001f}, { 0.001f, 0.001f, -0.001f}, red, shader, modelStack); //debug
-	draw_paving_shape({-0.01f, -0.007f, -0.017f}, {0.01f, 0.007f, 0.007f}, _skin_color, shader, modelStack);
+	draw_paving_shape({-0.01f, -0.007f, -0.014f}, {0.015f, 0.007f, 0.007f}, _skin_color, shader, modelStack);
 
 	modelStack.push();
-	modelStack.translate(0.0f, -0.0f, -0.018f);
+	modelStack.translate(0.0f, -0.0f, -0.015f);
 	modelStack.rotate(littleFingerPhalangeAngle[1], 'X');
-	draw_paving_shape({-0.001f,  -0.001f, 0.001f}, { 0.001f, 0.001f, -0.001f}, red, shader, modelStack); //debug
+	draw_paving_shape({-0.001f, -0.001f, 0.001f}, { 0.001f, 0.001f, -0.001f}, red, shader, modelStack); //debug
 
-	// draw_paving_shape({-0.01f, -0.007f, -0.017f}, {0.01f, 0.007f, 0.001f}, _skin_color, shader, modelStack);
+	draw_paving_shape({-0.01f, -0.007f, -0.014f}, {0.015f, 0.007f, 0.001f}, _skin_color, shader, modelStack);
 
 	modelStack.push();
-	modelStack.translate(0.0f, 0.0f, -0.018f);
+	modelStack.translate(0.0f, 0.0f, -0.015f);
 	modelStack.rotate(littleFingerPhalangeAngle[2], 'X');
-	draw_paving_shape({-0.001f,  -0.001f, 0.001f}, { 0.001f, 0.001f, -0.001f}, red, shader, modelStack); //debug
+	draw_paving_shape({-0.001f, -0.001f, 0.001f}, { 0.001f, 0.001f, -0.001f}, red, shader, modelStack); //debug
 
-	// draw_paving_shape({-0.01f, -0.007f, -0.017f}, {0.01f, 0.007f, 0.001f}, _skin_color, shader, modelStack);
+	draw_paving_shape({-0.01f, -0.007f, -0.014f}, {0.015f, 0.007f, 0.001f}, _skin_color, shader, modelStack);
 
 	modelStack.pop(); // third phalange
 	modelStack.pop(); // second phalange
@@ -175,7 +204,7 @@ void Hand::draw(float _skin_color[3], ModelStack &modelStack, Shaders &shader)
 	drawRingFinger(_skin_color, modelStack, shader);
 	drawMiddleFinger(_skin_color, modelStack, shader);
 	drawIndexFinger(_skin_color, modelStack, shader);
-	// drawThumbFinger(_skin_color, modelStack, shader);
+	drawThumbFinger(_skin_color, modelStack, shader);
 
 	modelStack.pop(); // base
 }
