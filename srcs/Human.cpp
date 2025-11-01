@@ -23,11 +23,20 @@ void	Human::draw(ModelStack &modelStack, Shaders &shader)
 {
 	float angle = sin((glfwGetTime() - _animation_frame) * (_animation == SPRINT ? 10.0f : 5.0f)) * 30.0f;
 
+	if (_animation == SPRINT) {
+		modelStack.push();
+		modelStack.translate(0.0f, -0.1f * _size, -0.05f);
+		modelStack.rotate(10.0f, 'X');
+		modelStack.translate(0.0f, 0.1f * _size, 0.05f);
+	}
+
 	if (_showHead) draw_head(modelStack, shader);
 	if (_showBody) draw_body(modelStack, shader);
 
 	draw_left_arm(modelStack, shader, angle);
 	draw_right_arm(modelStack, shader, angle);
+
+	if (_animation == SPRINT) modelStack.pop();
 
 	draw_right_leg(modelStack, shader, angle);
 	draw_left_leg(modelStack, shader, angle);
@@ -37,13 +46,17 @@ void	Human::draw_right_arm(ModelStack &modelStack, Shaders &shader, float angle)
 {
 	if (_animation) modelStack.push();
 
-	if (_animation == WALK || _animation == SPRINT) {
+	if (_animation == WALK) {
 		modelStack.translate(0.0f, 0.25f * _size, 0.0f);
 		modelStack.rotate(-angle, 'X');
 		modelStack.translate(0.0f, -0.25f * _size, 0.0f);
 	} else if (_animation == JUMP) {
 		modelStack.translate(0.0f, 0.25f * _size, 0.0f);
 		modelStack.rotate(angle < 0.0f ? angle : 0.0f, 'X');
+		modelStack.translate(0.0f, -0.25f * _size, 0.0f);
+	} else if (_animation == SPRINT) {
+		modelStack.translate(0.0f, 0.25f * _size, 0.0f);
+		modelStack.rotate(-angle * 1.5f, 'X');
 		modelStack.translate(0.0f, -0.25f * _size, 0.0f);
 	}
 
@@ -56,13 +69,17 @@ void	Human::draw_right_arm(ModelStack &modelStack, Shaders &shader, float angle)
 		draw_right_shoulder(modelStack, shader);
 	}
 
-	if (_animation == WALK || _animation == SPRINT) {
+	if (_animation == WALK) {
 		modelStack.translate(0.0f, 0.1f * _size, -0.05f);
-		modelStack.rotate(-angle < 0 ? -angle / 2 : 0, 'X');
+		modelStack.rotate(-angle < 0.0f ? -angle * 0.5f : 0.0f, 'X');
 		modelStack.translate(0.0f, -0.1f * _size, 0.05f);
 	} else if (_animation == JUMP) {
 		modelStack.translate(0.0f, 0.1f * _size, -0.05f);
-		modelStack.rotate(angle < 0.0f ? angle * 2 : 0.0f, 'X');
+		modelStack.rotate(angle < 0.0f ? angle * 2.0f : 0.0f, 'X');
+		modelStack.translate(0.0f, -0.1f * _size, 0.05f);
+	} else if (_animation == SPRINT) {
+		modelStack.translate(0.0f, 0.1f * _size, -0.05f);
+		modelStack.rotate(-60.0f - angle, 'X');
 		modelStack.translate(0.0f, -0.1f * _size, 0.05f);
 	}
 
@@ -79,13 +96,17 @@ void	Human::draw_left_arm(ModelStack &modelStack, Shaders &shader, float angle)
 {
 	if (_animation) modelStack.push();
 
-	if (_animation == WALK || _animation == SPRINT) {
+	if (_animation == WALK) {
 		modelStack.translate(0.0f, 0.25f * _size, 0.0f);
 		modelStack.rotate(angle, 'X');
 		modelStack.translate(0.0f, -0.25f * _size, 0.0f);
 	} else if (_animation == JUMP) {
 		modelStack.translate(0.0f, 0.25f * _size, 0.0f);
 		modelStack.rotate(angle < 0.0f ? angle : 0.0f, 'X');
+		modelStack.translate(0.0f, -0.25f * _size, 0.0f);
+	} else if (_animation == SPRINT) {
+		modelStack.translate(0.0f, 0.25f * _size, 0.0f);
+		modelStack.rotate(angle * 1.5f, 'X');
 		modelStack.translate(0.0f, -0.25f * _size, 0.0f);
 	}
 
@@ -97,13 +118,17 @@ void	Human::draw_left_arm(ModelStack &modelStack, Shaders &shader, float angle)
 		draw_left_shoulder(modelStack, shader);
 	}
 
-	if (_animation == WALK || _animation == SPRINT) {
+	if (_animation == WALK) {
 		modelStack.translate(0.0f, 0.1f * _size, -0.05f);
 		modelStack.rotate(angle < 0 ? angle / 2 : 0, 'X');
 		modelStack.translate(0.0f, -0.1f * _size, 0.05f);
 	} else if (_animation == JUMP) {
 		modelStack.translate(0.0f, 0.1f * _size, -0.05f);
 		modelStack.rotate(angle < 0.0f ? angle * 2 : 0.0f, 'X');
+		modelStack.translate(0.0f, -0.1f * _size, 0.05f);
+	} else if (_animation == SPRINT) {
+		modelStack.translate(0.0f, 0.1f * _size, -0.05f);
+		modelStack.rotate(-60.0f + angle, 'X');
 		modelStack.translate(0.0f, -0.1f * _size, 0.05f);
 	}
 
@@ -119,13 +144,17 @@ void	Human::draw_right_leg(ModelStack &modelStack, Shaders &shader, float angle)
 {
 	if (_animation) modelStack.push();
 
-	if (_animation == WALK || _animation == SPRINT) {
+	if (_animation == WALK) {
 		modelStack.translate(0.0f, -0.1f * _size, 0.0f);
 		modelStack.rotate(angle, 'X');
 		modelStack.translate(0.0f, 0.1f * _size, 0.0f);
 	} else if (_animation == JUMP) {
 		modelStack.translate(0.0f, -0.1f * _size, 0.0f);
-		modelStack.rotate(-angle < 0 ? -angle / 2 : 0.0f, 'X');
+		modelStack.rotate(-angle < 0.0f ? -angle * 0.5f : 0.0f, 'X');
+		modelStack.translate(0.0f, 0.1f * _size, 0.0f);
+	} else if (_animation == SPRINT) {
+		modelStack.translate(0.0f, -0.1f * _size, 0.0f);
+		modelStack.rotate(angle * 2.0f, 'X');
 		modelStack.translate(0.0f, 0.1f * _size, 0.0f);
 	}
 
@@ -138,14 +167,18 @@ void	Human::draw_right_leg(ModelStack &modelStack, Shaders &shader, float angle)
 
 	if (_animation == JUMP) modelStack.push();
 
-	if (_animation == WALK || _animation == SPRINT) {
+	if (_animation == WALK) {
 		modelStack.translate(0.0f, -0.3f * _size, 0.05f);
-		modelStack.rotate(angle < 0 ? -angle / 2 : 0.0f, 'X');
+		modelStack.rotate(angle < 0.0f ? -angle * 0.5f : 0.0f, 'X');
 		modelStack.translate(0.0f, 0.3f * _size, -0.05f);
 	} else if (_animation == JUMP) {
-		modelStack.translate(0.0f, (-angle < 0 ? -0.5f + (angle * 0.001f) : -0.5f) * _size, 0.05f);
-		modelStack.rotate(-angle < 0 ? angle / 2 : 0.0f, 'X');
+		modelStack.translate(0.0f, (-angle < 0.0f ? -0.5f + (angle * 0.001f) : -0.5f) * _size, 0.05f);
+		modelStack.rotate(-angle < 0.0f ? angle * 0.5f : 0.0f, 'X');
 		modelStack.translate(0.0f, 0.5f * _size, -0.05f);
+	} else if (_animation == SPRINT) {
+		modelStack.translate(0.0f, -0.3f * _size, 0.05f);
+		modelStack.rotate(angle < 0.0f ? -angle * 2.0f : 0.0f, 'X');
+		modelStack.translate(0.0f, 0.3f * _size, -0.05f);
 	}
 
 	if (_showRightLowerLeg) {
@@ -162,13 +195,17 @@ void	Human::draw_left_leg(ModelStack &modelStack, Shaders &shader, float angle)
 {
 	if (_animation) modelStack.push();
 
-	if (_animation == WALK || _animation == SPRINT) {
+	if (_animation == WALK) {
 		modelStack.translate(0.0f, -0.1f * _size, 0.0f);
 		modelStack.rotate(-angle, 'X');
 		modelStack.translate(0.0f, 0.1f * _size, 0.0f);
 	} else if (_animation == JUMP) {
 		modelStack.translate(0.0f, -0.1f * _size, 0.0f);
-		modelStack.rotate(-angle < 0 ? -angle / 2 : 0.0f, 'X');
+		modelStack.rotate(-angle < 0.0f ? -angle * 0.5f : 0.0f, 'X');
+		modelStack.translate(0.0f, 0.1f * _size, 0.0f);
+	} else if (_animation == SPRINT) {
+		modelStack.translate(0.0f, -0.1f * _size, 0.0f);
+		modelStack.rotate(-angle * 2.0f, 'X');
 		modelStack.translate(0.0f, 0.1f * _size, 0.0f);
 	}
 
@@ -181,14 +218,18 @@ void	Human::draw_left_leg(ModelStack &modelStack, Shaders &shader, float angle)
 
 	if (_animation == JUMP) modelStack.push();
 
-	if (_animation == WALK || _animation == SPRINT) {
+	if (_animation == WALK) {
 		modelStack.translate(0.0f, -0.3f * _size, 0.05f);
-		modelStack.rotate(-angle < 0 ? angle / 2 : 0.0f, 'X');
+		modelStack.rotate(-angle < 0.0f ? angle * 0.5f : 0.0f, 'X');
 		modelStack.translate(0.0f, 0.3f * _size, -0.05f);
 	} else if (_animation == JUMP) {
-		modelStack.translate(0.0f, (-angle < 0 ? -0.5f + (angle * 0.001f) : -0.5f) * _size, 0.05f);
-		modelStack.rotate(-angle < 0 ? angle / 2 : 0.0f, 'X');
+		modelStack.translate(0.0f, (-angle < 0.0f ? -0.5f + (angle * 0.001f) : -0.5f) * _size, 0.05f);
+		modelStack.rotate(-angle < 0.0f ? angle * 0.5f : 0.0f, 'X');
 		modelStack.translate(0.0f, 0.5f * _size, -0.05f);
+	} else if (_animation == SPRINT) {
+		modelStack.translate(0.0f, -0.3f * _size, 0.05f);
+		modelStack.rotate(-angle < 0.0f ? angle * 2.0f : 0.0f, 'X');
+		modelStack.translate(0.0f, 0.3f * _size, -0.05f);
 	}
 
 	if (_showLeftLowerLeg) {
