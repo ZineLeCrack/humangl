@@ -127,7 +127,7 @@ Matrix	Matrix::rotateAxis(const Vec3& axis, float radians)
 Matrix	Matrix::perspective(float fov_deg, float aspect, float near, float far)
 {
 	assert(near > 0.0f && far > near);
-	float fov_rad = fov_deg * (M_PI / 180.0f);
+	float fov_rad = fov_deg * (M_PIf / 180.0f);
 	float f = 1.0f / tan(fov_rad * 0.5f);
 
 	Matrix P;

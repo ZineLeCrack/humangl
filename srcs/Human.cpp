@@ -120,11 +120,11 @@ void	Human::draw_left_arm(ModelStack &modelStack, Shaders &shader, float angle)
 
 	if (_animation == WALK) {
 		modelStack.translate(0.0f, 0.1f * _size, -0.05f);
-		modelStack.rotate(angle < 0 ? angle / 2 : 0, 'X');
+		modelStack.rotate(angle < 0.0f ? angle * 0.5f : 0.0f, 'X');
 		modelStack.translate(0.0f, -0.1f * _size, 0.05f);
 	} else if (_animation == JUMP) {
 		modelStack.translate(0.0f, 0.1f * _size, -0.05f);
-		modelStack.rotate(angle < 0.0f ? angle * 2 : 0.0f, 'X');
+		modelStack.rotate(angle < 0.0f ? angle * 2.0f : 0.0f, 'X');
 		modelStack.translate(0.0f, -0.1f * _size, 0.05f);
 	} else if (_animation == SPRINT) {
 		modelStack.translate(0.0f, 0.1f * _size, -0.05f);

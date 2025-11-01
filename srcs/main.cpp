@@ -29,7 +29,7 @@ static const float cubeVertices[] = {
 
 ModelStack modelStack;
 
-static float toRadians = M_PI / 180.0f;
+static float toRadians = M_PIf / 180.0f;
 
 void framebuffer_size_callback(GLFWwindow *window, int width, int heigth)
 {
