@@ -191,12 +191,11 @@ void	imgui_set_window()
 		Checkbox("Left Tigh", &human._showLeftTigh);
 		Checkbox("Right Lower Leg", &human._showRightLowerLeg);
 		Checkbox("Left Lower Leg", &human._showLeftLowerLeg);
+		Checkbox("Hands", &human._showHands);
 		End();
 	}
 
-	ImVec2 size3(894,518);
-	ImVec2 pos3(1025,1);
-	SetNextWindowSize(size3, ImGuiCond_FirstUseEver);
+	ImVec2 pos3(7,449);
 	SetNextWindowPos(pos3, ImGuiCond_FirstUseEver);
 	if (showDebug3) {
 		Begin(" Fingers Angles ", NULL, ImGuiWindowFlags_AlwaysAutoResize);

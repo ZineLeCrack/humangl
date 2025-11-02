@@ -36,6 +36,7 @@ class Human
 		bool	_showRightForearm;
 		bool	_showLeftUpperArm;
 		bool	_showLeftForearm;
+		bool	_showHands;
 
 		bool	_showRightTigh;
 		bool	_showRightLowerLeg;
