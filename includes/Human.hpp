@@ -40,6 +40,7 @@ class Human
 		bool	_showLeftFoot;
 
 		Hand	*_rightHand;
+		Hand	*_leftHand;
 
 		Human();
 		~Human();

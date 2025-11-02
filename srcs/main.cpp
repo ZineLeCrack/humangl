@@ -2,17 +2,19 @@
 
 static Human	human;
 
-static int	lastMouseX = 659; // DEBUG (Default: 0) 
-static int	lastMouseY = 354; // DEBUG (Default: 0)
+static int	lastMouseX = 0;
+static int	lastMouseY = 0;
 static bool	isDragging = false;
 
 static bool	showDebug1 = false;
 static bool	showDebug2 = false;
 static bool	showDebug3 = false;
+static bool	showDebug4 = false;
 
 static bool key1Released = true;
 static bool key2Released = true;
 static bool key3Released = true;
+static bool key4Released = true;
 
 static bool	cube = false;
 
@@ -138,6 +140,11 @@ void	keypress(GLFWwindow* window)
 		if (key3Released) { showDebug3 = !showDebug3; key3Released = false; }
 	}
 	else key3Released = true;
+
+	if (glfwGetKey(window, GLFW_KEY_4) == GLFW_PRESS) {
+		if (key4Released) { showDebug4 = !showDebug4; key4Released = false; }
+	}
+	else key4Released = true;
 }
 
 void	imgui_set_window()
@@ -177,11 +184,14 @@ void	imgui_set_window()
 
 	if (showDebug2) {
 		Begin(" Colors ");
+
+		SeparatorText(" Change Colors ");
 		ColorEdit3(" Skin ", human.get_skin_color());
 		ColorEdit3(" Body ", human.get_body_color());
 		ColorEdit3(" Legs ", human.get_legs_color());
 		ColorEdit3(" Foots ", human.get_foots_color());
 
+		SeparatorText(" Show / Hide Body Parts ");
 		Checkbox("Head", &human._showHead);
 		Checkbox("Body", &human._showBody);
 		Checkbox("Right Upper Arm", &human._showRightUpperArm);
@@ -197,25 +207,39 @@ void	imgui_set_window()
 		End();
 	}
 
-
-	ImVec2 size3(768,249);
-	ImVec2 pos3(1144,11);
+	ImVec2 size3(894,518);
+	ImVec2 pos3(1025,1);
 	SetNextWindowSize(size3, ImGuiCond_FirstUseEver);
 	SetNextWindowPos(pos3, ImGuiCond_FirstUseEver);
 	if (showDebug3) {
 		Begin(" Fingers Angles ");
-		SliderFloat2("Thumb Finger", human._rightHand->thumbFingerPhalangeAngle, -90.0f, 90.0f); SameLine();
-		if (Button("T_Reset")) human._rightHand->reset(0);
-		SliderFloat3("Index Finger", human._rightHand->indexFingerPhalangeAngle, -90.0f, 90.0f); SameLine();
-		if (Button("I_Reset")) human._rightHand->reset(1);
-		SliderFloat3("Middle Finger", human._rightHand->middleFingerPhalangeAngle, -90.0f, 90.0f); SameLine();
-		if (Button("M_Reset")) human._rightHand->reset(2);
-		SliderFloat3("Ring Finger", human._rightHand->ringFingerPhalangeAngle, -90.0f, 90.0f); SameLine();
-		if (Button("R_Reset")) human._rightHand->reset(3);
-		SliderFloat3("Little Finger", human._rightHand->littleFingerPhalangeAngle, -90.0f, 90.0f); SameLine();
-		if (Button("L_Reset")) human._rightHand->reset(4);
+		SeparatorText(" Right Hand ");
+		SliderFloat2("R_Thumb Finger", human._rightHand->thumbFingerPhalangeAngle, -90.0f, 90.0f); SameLine();
+		if (Button("R_T_Reset")) human._rightHand->reset(0);
+		SliderFloat3("R_Index Finger", human._rightHand->indexFingerPhalangeAngle, -90.0f, 90.0f); SameLine();
+		if (Button("R_I_Reset")) human._rightHand->reset(1);
+		SliderFloat3("R_Middle Finger", human._rightHand->middleFingerPhalangeAngle, -90.0f, 90.0f); SameLine();
+		if (Button("R_M_Reset")) human._rightHand->reset(2);
+		SliderFloat3("R_Ring Finger", human._rightHand->ringFingerPhalangeAngle, -90.0f, 90.0f); SameLine();
+		if (Button("R_R_Reset")) human._rightHand->reset(3);
+		SliderFloat3("R_Little Finger", human._rightHand->littleFingerPhalangeAngle, -90.0f, 90.0f); SameLine();
+		if (Button("R_L_Reset")) human._rightHand->reset(4);
 
-		if (Button("Reset All")) human._rightHand->reset(-1);
+		if (Button("R_Reset All")) human._rightHand->reset(-1);
+
+		SeparatorText(" Left Hand ");
+		SliderFloat2("L_Thumb Finger", human._leftHand->thumbFingerPhalangeAngle, -90.0f, 90.0f); SameLine();
+		if (Button("L_T_Reset")) human._leftHand->reset(0);
+		SliderFloat3("L_Index Finger", human._leftHand->indexFingerPhalangeAngle, -90.0f, 90.0f); SameLine();
+		if (Button("L_I_Reset")) human._leftHand->reset(1);
+		SliderFloat3("L_Middle Finger", human._leftHand->middleFingerPhalangeAngle, -90.0f, 90.0f); SameLine();
+		if (Button("L_M_Reset")) human._leftHand->reset(2);
+		SliderFloat3("L_Ring Finger", human._leftHand->ringFingerPhalangeAngle, -90.0f, 90.0f); SameLine();
+		if (Button("L_R_Reset")) human._leftHand->reset(3);
+		SliderFloat3("L_Little Finger", human._leftHand->littleFingerPhalangeAngle, -90.0f, 90.0f); SameLine();
+		if (Button("L_L_Reset")) human._leftHand->reset(4);
+
+		if (Button("L_Reset All")) human._leftHand->reset(-1);
 		End();
 	}
 }
@@ -310,9 +334,9 @@ int main()
 	GLint	projLoc = glGetUniformLocation(shader.shaderProgram, "uProjection");
 	glUniformMatrix4fv(projLoc, 1, GL_FALSE, proj.data());
 
-	human.get_rotY() = 4.0f; // DEBUG
-	human.get_rotX() = -89.0f; // DEBUG
-	human.get_zoom() = 20.6f; // DEBUG
+	// human.get_rotY() = 4.0f; // DEBUG
+	// human.get_rotX() = -89.0f; // DEBUG
+	// human.get_zoom() = 20.6f; // DEBUG
 	while (!glfwWindowShouldClose(window)) {
 		glfwPollEvents();
 
