@@ -40,6 +40,7 @@ extern Human human;
 
 /*------- FUNCTIONS ------ */
 bool	load_image(const char *path);
+void	draw_cube(Shaders &shader, const Matrix &model);
 void	set_color(float color[3]);
 void	draw_rect(const Vec3 &a, const Vec3 &b, const float color[3], const float u, const float v, const float uscale, const float vscale, bool swap, Shaders &shader, ModelStack &modelStack);
 

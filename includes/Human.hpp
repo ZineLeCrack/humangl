@@ -70,7 +70,7 @@ class Human
 		void	change_texture()					{ _use_texture = !_use_texture; }
 		void	change_slim()						{ _slim = !_slim; }
 
-		void	draw(ModelStack &modelStack, Shaders &shader);
+		void	draw(ModelStack &modelStack, Shaders &shader, bool draw_cube);
 		void	draw_body(ModelStack &modelStack, Shaders &shader);
 		void	draw_head(ModelStack &modelStack, Shaders &shader);
 

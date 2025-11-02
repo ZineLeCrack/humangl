@@ -37,7 +37,7 @@ void framebuffer_size_callback(GLFWwindow *window, int width, int heigth)
 	glViewport(0, 0, width, heigth);
 }
 
-static void	draw_cube(Shaders &shader, const Matrix &model)
+void	draw_cube(Shaders &shader, const Matrix &model)
 {
 	glLineWidth(2.0f);
 	if (cubeVAO == 0) {
@@ -65,7 +65,7 @@ static void	draw_cube(Shaders &shader, const Matrix &model)
 
 void	display(Shaders &shader)
 {
-	glClearColor(0.0, 0.0, 0.0, 1);
+	glClearColor(0.1, 0.1, 0.1, 1);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	Matrix view = Matrix::lookAt({0.0f, 0.0f, 21.0f - human.get_zoom()}, {0.0f, 0.0f, 0.0f}, {0.0f, 1.0f, 0.0f});
@@ -82,18 +82,8 @@ void	display(Shaders &shader)
 	modelStack.loadIdentity();
 	modelStack.push();
 	modelStack.current() = model;
-	if (human.get_animation() == JUMP) {
-		float angle = -sin((glfwGetTime() - human.get_animation_frame()) * 5.0f);
-		modelStack.push();
-		if (angle > 0.0f) modelStack.translate(0.0f, angle * 0.5f, 0.0f);
-		else modelStack.translate(0.0f, angle * 0.05f, 0.0f);
-	}
 
-	human.draw(modelStack, shader);
-
-	if (human.get_animation() == JUMP) modelStack.pop();
-
-	if (cube) draw_cube(shader, model);
+	human.draw(modelStack, shader, cube);
 }
 
 void	keypress(GLFWwindow* window)

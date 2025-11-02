@@ -19,9 +19,16 @@ Human::Human()
 
 Human::~Human()	{delete _rightHand;}
 
-void	Human::draw(ModelStack &modelStack, Shaders &shader)
+void	Human::draw(ModelStack &modelStack, Shaders &shader, bool cube)
 {
 	float angle = sin((glfwGetTime() - _animation_frame) * (_animation == SPRINT ? 10.0f : 5.0f)) * 30.0f;
+
+	if (human.get_animation() == JUMP) {
+		float angle = -sin((glfwGetTime() - human.get_animation_frame()) * 5.0f);
+		modelStack.push();
+		if (angle > 0.0f) modelStack.translate(0.0f, angle * 0.5f, 0.0f);
+		else modelStack.translate(0.0f, angle * 0.05f, 0.0f);
+	}
 
 	if (_animation == SPRINT) {
 		modelStack.push();
@@ -30,8 +37,8 @@ void	Human::draw(ModelStack &modelStack, Shaders &shader)
 		modelStack.translate(0.0f, 0.1f * _size, 0.05f);
 	}
 
-	if (_showHead) draw_head(modelStack, shader);
 	if (_showBody) draw_body(modelStack, shader);
+	if (_showHead) draw_head(modelStack, shader);
 
 	draw_left_arm(modelStack, shader, angle);
 	draw_right_arm(modelStack, shader, angle);
@@ -40,6 +47,10 @@ void	Human::draw(ModelStack &modelStack, Shaders &shader)
 
 	draw_right_leg(modelStack, shader, angle);
 	draw_left_leg(modelStack, shader, angle);
+
+	if (cube) draw_cube(shader, modelStack.current());
+
+	if (human.get_animation() == JUMP) modelStack.pop();
 }
 
 void	Human::draw_right_arm(ModelStack &modelStack, Shaders &shader, float angle)
