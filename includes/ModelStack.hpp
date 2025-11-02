@@ -6,8 +6,11 @@
 class ModelStack
 {
 	private:
+
 		vector<Matrix> mstack;
+
 	public:
+
 		ModelStack();
 		~ModelStack();
 

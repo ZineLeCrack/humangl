@@ -71,7 +71,7 @@ Matrix	Matrix::scale(float sx, float sy, float sz)
 	S(1, 1) = sy;
 	S(2, 2) = sz;
 	S(3, 3) = 1.0f;
-	return S;	
+	return S;
 }
 
 Matrix	Matrix::rotateX(float radians)
@@ -127,7 +127,7 @@ Matrix	Matrix::rotateAxis(const Vec3& axis, float radians)
 Matrix	Matrix::perspective(float fov_deg, float aspect, float near, float far)
 {
 	assert(near > 0.0f && far > near);
-	float fov_rad = fov_deg * (M_PI / 180.0f);
+	float fov_rad = fov_deg * (M_PIf / 180.0f);
 	float f = 1.0f / tan(fov_rad * 0.5f);
 
 	Matrix P;
@@ -137,7 +137,7 @@ Matrix	Matrix::perspective(float fov_deg, float aspect, float near, float far)
 	P(2, 2) = (far + near) / (near - far);
 	P(2, 3) = (2.0f * far * near) / (near - far);
 	P(3, 2) = -1.0f;
-	
+
 	return P;
 }
 

@@ -1,6 +1,6 @@
 #include "Includes.hpp"
 
-static Human	human;
+Human	human;
 
 static int	lastMouseX = 0;
 static int	lastMouseY = 0;
@@ -39,7 +39,7 @@ static const float cubeVertices[] = {
 
 ModelStack modelStack;
 
-static float toRadians = M_PI / 180.0f;
+static float toRadians = M_PIf / 180.0f;
 
 void framebuffer_size_callback(GLFWwindow *window, int width, int heigth)
 {
@@ -47,7 +47,7 @@ void framebuffer_size_callback(GLFWwindow *window, int width, int heigth)
 	glViewport(0, 0, width, heigth);
 }
 
-static void	draw_cube(Shaders &shader, const Matrix &model)
+void	draw_cube(Shaders &shader, const Matrix &model)
 {
 	glLineWidth(2.0f);
 	if (cubeVAO == 0) {
@@ -75,7 +75,7 @@ static void	draw_cube(Shaders &shader, const Matrix &model)
 
 void	display(Shaders &shader)
 {
-	glClearColor(0.0, 0.0, 0.0, 1);
+	glClearColor(0.1, 0.1, 0.1, 1);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	Matrix view = Matrix::lookAt({0.0f, 0.0f, 21.0f - human.get_zoom()}, {0.0f, 0.0f, 0.0f}, {0.0f, 1.0f, 0.0f});
@@ -92,18 +92,8 @@ void	display(Shaders &shader)
 	modelStack.loadIdentity();
 	modelStack.push();
 	modelStack.current() = model;
-	if (human.get_animation() == JUMP) {
-		float angle = -sin((glfwGetTime() - human.get_animation_frame()) * 5.0f);
-		modelStack.push();
-		if (angle > 0.0f) modelStack.translate(0.0f, angle * 0.5f, 0.0f);
-		else modelStack.translate(0.0f, angle * 0.05f, 0.0f);
-	}
 
-	human.draw(modelStack, shader);
-
-	if (human.get_animation() == JUMP) modelStack.pop();
-
-	if (cube) draw_cube(shader, model);
+	human.draw(modelStack, shader, cube);
 }
 
 void	keypress(GLFWwindow* window)
@@ -149,25 +139,25 @@ void	keypress(GLFWwindow* window)
 
 void	imgui_set_window()
 {
-	ImVec2 size1(400, 350);
 	ImVec2 pos1(20, 20);
-	SetNextWindowSize(size1, ImGuiCond_FirstUseEver);
 	SetNextWindowPos(pos1, ImGuiCond_FirstUseEver);
 
 	if (showDebug1) {
-		Begin("Settings");
+		Begin("Settings", NULL, ImGuiWindowFlags_AlwaysAutoResize);
 		SeparatorText(" Info ");
 		Text("fps: %d", (int)GetIO().Framerate);
+
+		SeparatorText(" Skin ");
+		if (Button("Use skin")) human.change_texture();
+		SameLine();
+		if (Button("Slim")) human.change_slim();
 
 		SeparatorText(" Rotation ");
 		Text("Rotation: x = %d, y = %d", (int)human.get_rotX(), (int)human.get_rotY());
 
-		if (Button("Reset  rotation")) human.get_rotX() = human.get_rotY() = 0.0f;
-		SameLine();
-		if (Button("Display  cube")) cube = !cube;
-
 		SeparatorText(" Size ");
 		SliderFloat("Zoom", &human.get_zoom(), 0.0f, 20.0f);
+		SliderFloat("Size", &human.get_size(), 0.5f, 2.0f);
 
 		SeparatorText(" Animations ");
 		if (Button("Reset")) { human.get_animation() = STAY; human.get_animation_frame() = 0; } SameLine();
@@ -177,13 +167,12 @@ void	imgui_set_window()
 		End();
 	}
 
-	ImVec2 size2(400, 590);
-	ImVec2 pos2(20, 390);
-	SetNextWindowSize(size2, ImGuiCond_FirstUseEver);
+	ImVec2 pos2(1420, 20);
+	// SetNextWindowCollapsed(true, ImGuiCond_FirstUseEver);
 	SetNextWindowPos(pos2, ImGuiCond_FirstUseEver);
 
 	if (showDebug2) {
-		Begin(" Colors ");
+		Begin(" Colors ", NULL, ImGuiWindowFlags_AlwaysAutoResize);
 
 		SeparatorText(" Change Colors ");
 		ColorEdit3(" Skin ", human.get_skin_color());
@@ -202,8 +191,6 @@ void	imgui_set_window()
 		Checkbox("Left Tigh", &human._showLeftTigh);
 		Checkbox("Right Lower Leg", &human._showRightLowerLeg);
 		Checkbox("Left Lower Leg", &human._showLeftLowerLeg);
-		Checkbox("Right Foot", &human._showRightFoot);
-		Checkbox("Left Foot", &human._showLeftFoot);
 		End();
 	}
 
@@ -212,7 +199,7 @@ void	imgui_set_window()
 	SetNextWindowSize(size3, ImGuiCond_FirstUseEver);
 	SetNextWindowPos(pos3, ImGuiCond_FirstUseEver);
 	if (showDebug3) {
-		Begin(" Fingers Angles ");
+		Begin(" Fingers Angles ", NULL, ImGuiWindowFlags_AlwaysAutoResize);
 		SeparatorText(" Right Hand ");
 		SliderFloat2("R_Thumb Finger", human._rightHand->thumbFingerPhalangeAngle, -90.0f, 90.0f); SameLine();
 		if (Button("R_T_Reset")) human._rightHand->reset(0);
@@ -255,8 +242,13 @@ static void	scroll_callback(GLFWwindow* window, double x, double y)
 	if (y < 0 && zoom > 0.0f)  human.get_zoom() -= (zoom > 0.4f ? 0.4f : zoom);
 }
 
-int main()
+int main(int ac, char **av)
 {
+	if (ac > 2) {
+		cerr << RED "Error: usage: ./humangl (skin.png)" RESET << endl;
+		return 1;
+	}
+
 	if (!glfwInit()) {
 		cerr << RED "Error: init error" << RESET << endl;
 		return 1;
@@ -334,15 +326,26 @@ int main()
 	GLint	projLoc = glGetUniformLocation(shader.shaderProgram, "uProjection");
 	glUniformMatrix4fv(projLoc, 1, GL_FALSE, proj.data());
 
-	// human.get_rotY() = 4.0f; // DEBUG
-	// human.get_rotX() = -89.0f; // DEBUG
-	// human.get_zoom() = 20.6f; // DEBUG
+	if (ac == 2) {
+		if (!load_image(av[1]))
+			return 1;
+	} else {
+		if (!load_image("skins/default.png"))
+			return 1;
+	}
+	glUniform1i(glGetUniformLocation(shader.shaderProgram, "uUseTexture"), 0);
+
 	while (!glfwWindowShouldClose(window)) {
 		glfwPollEvents();
 
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
 		NewFrame();
+
+		glUseProgram(shader.shaderProgram);
+		glUniform1i(glGetUniformLocation(shader.shaderProgram, "uUseTexture"), human.get_use_texture());
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, human.get_texture());
 
 		glfwSetScrollCallback(window, scroll_callback);
 		keypress(window);
