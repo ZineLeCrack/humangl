@@ -14,7 +14,7 @@ class Human
 		float	_zoom = 16.0f;
 		float	_size = 1.0f;
 
-		float	_head_szie				= 1.0f;
+		float	_head_size				= 1.0f;
 		float	_body_size				= 1.0f;
 		float	_left_upper_arm_size	= 1.0f;
 		float	_right_upper_arm_size	= 1.0f;
@@ -60,19 +60,29 @@ class Human
 		Human();
 		~Human();
 
-		float	&get_rotX() 			{ return _rotX; }
-		float	&get_rotY() 			{ return _rotY; }
-		float	&get_zoom() 			{ return _zoom; }
-		float	&get_size()				{ return _size; }
-		float	*get_foots_color()		{ return _foots_color; }
-		float	*get_legs_color()		{ return _legs_color; }
-		float	*get_body_color()		{ return _body_color; }
-		float	*get_skin_color()		{ return _skin_color; }
-		int		&get_animation()		{ return _animation; }
-		double	&get_animation_frame()	{ return _animation_frame; }
-		bool	&get_use_texture()		{ return _use_texture; }
-		GLuint	&get_texture()			{ return _tex; }
-		bool	&get_slim()				{ return _slim; }
+		float	&get_rotX() 				{ return _rotX; }
+		float	&get_rotY() 				{ return _rotY; }
+		float	&get_zoom() 				{ return _zoom; }
+		float	&get_size()					{ return _size; }
+		float	&get_head_size()			{ return _head_size; }
+		float	&get_body_size()			{ return _body_size; }
+		float	&get_left_upper_arm_size()	{ return _left_upper_arm_size; }
+		float	&get_right_upper_arm_size()	{ return _right_upper_arm_size; }
+		float	&get_left_forearm_size()	{ return _left_forearm_size; }
+		float	&get_right_forearm_size()	{ return _right_forearm_size; }
+		float	&get_left_tigh_size()		{ return _left_tigh; }
+		float	&get_right_tigh_size()		{ return _right_tigh; }
+		float	&get_left_lower_leg_size()	{ return _left_lower_leg; }
+		float	&get_right_lower_leg_size()	{ return _right_lower_leg; }
+		float	*get_foots_color()			{ return _foots_color; }
+		float	*get_legs_color()			{ return _legs_color; }
+		float	*get_body_color()			{ return _body_color; }
+		float	*get_skin_color()			{ return _skin_color; }
+		int		&get_animation()			{ return _animation; }
+		double	&get_animation_frame()		{ return _animation_frame; }
+		bool	&get_use_texture()			{ return _use_texture; }
+		GLuint	&get_texture()				{ return _tex; }
+		bool	&get_slim()					{ return _slim; }
 
 		void	set_foots_color(float r, float g, float b)	{ _foots_color[0] = r, _foots_color[1] = g, _foots_color[2] = b; };
 		void	set_legs_color(float r, float g, float b)	{ _legs_color[0]  = r, _legs_color[1]  = g, _legs_color[2]  = b; };
