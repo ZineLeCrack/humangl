@@ -61,8 +61,6 @@ void	Human::draw(ModelStack &modelStack, Shaders &shader, bool cube)
 	draw_left_leg(modelStack, shader, angle);
 	draw_right_leg(modelStack, shader, angle);
 
-	if (_animation == FLY) modelStack.pop();
-
 	if (cube) draw_cube(shader, modelStack.current());
 
 	if (human.get_animation() == JUMP) modelStack.pop();
