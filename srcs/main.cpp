@@ -176,7 +176,7 @@ void	imgui_set_window()
 		if (Button("Walk")) { human.get_animation() = WALK; human.get_animation_frame() = glfwGetTime(); } SameLine();
 		if (Button("Sprint")) { human.get_animation() = SPRINT; human.get_animation_frame() = glfwGetTime(); } SameLine();
 		if (Button("Jump")) { human.get_animation() = JUMP; human.get_animation_frame() = glfwGetTime(); } SameLine();
-		if (Button("Disco Dance")) {human.get_animation() = Disco_Dance; human.get_animation_frame() = glfwGetTime();}
+		if (Button("Disco Dance")) {human.get_animation() = DISCO_DANCE; human.get_animation_frame() = glfwGetTime();}
 		End();
 	}
 
