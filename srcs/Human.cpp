@@ -43,7 +43,6 @@ void	Human::draw(ModelStack &modelStack, Shaders &shader, bool cube)
 	if (_animation == FLY) {
 		modelStack.push();
 		modelStack.translate(0.0f, -0.1f * _size, -0.05f);
-		modelStack.rotate(0.0f, 'X');
 		modelStack.translate(0.0f, 0.3f + angle * 0.001f * _size, 0.05f);
 	}
 
