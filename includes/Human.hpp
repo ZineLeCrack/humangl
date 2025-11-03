@@ -14,6 +14,17 @@ class Human
 		float	_zoom = 16.0f;
 		float	_size = 1.0f;
 
+		float	_head_szie				= 1.0f;
+		float	_body_size				= 1.0f;
+		float	_left_upper_arm_size	= 1.0f;
+		float	_right_upper_arm_size	= 1.0f;
+		float	_left_forearm_size		= 1.0f;
+		float	_right_forearm_size		= 1.0f;
+		float	_left_tigh				= 1.0f;
+		float	_right_tigh				= 1.0f;
+		float	_left_lower_leg			= 1.0f;
+		float	_right_lower_leg		= 1.0f;
+
 		float	_foots_color[3]	= { 0.20f, 0.20f, 0.20f };
 		float	_legs_color[3]	= { 0.00f, 0.00f, 1.00f };
 		float	_body_color[3]	= { 0.00f, 0.70f, 0.00f };
