@@ -21,5 +21,7 @@ class ModelStack
 		void	translate(float tx, float ty, float tz);
 		void	rotate(float angle_deg, char axis);
 
+		void	scale(float sx, float sy, float sz);
+
 		Matrix	&current();
 };

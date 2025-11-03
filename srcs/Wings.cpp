@@ -86,7 +86,7 @@ void Human::draw_right_wing1_1(float *wings_color, Shaders &shader, ModelStack &
 	// modelStack.translate(-0.05f, 0.25f * _size, -0.051f);
 	// modelStack.translate(0.05f, -0.2f * _size, 0.0f);
 	_opening_frame += 0.1f;
-	float angle1_1 = _opening_frame * 5 * 3;
+	float angle1_1 = sin(_opening_frame * 1.1) * 15;
 	if (_open_wings == true) {
 		modelStack.translate(-0.05f, 0.25f * _size, -0.051f);
 		if (angle1_1 >= 20.0f)
@@ -285,7 +285,7 @@ void Human::draw_right_wing1_2(float *wings_color, Shaders &shader, ModelStack &
 {
 	// modelStack.translate(-0.2f, 0.2f * _size, 0.0f);
 	// modelStack.translate(0.27f, -0.2f * _size, 0.0f);
-	float angle1_2 = _opening_frame * 7 * 3;
+	float angle1_2 = sin(_opening_frame * 1.1) * 20;
 	if (_open_wings == true) {
 		modelStack.translate(-0.2f, 0.2f * _size, 0.0f);
 		modelStack.rotate(-40.0f, 'Z');//-
@@ -312,48 +312,6 @@ void Human::draw_right_wing1_2(float *wings_color, Shaders &shader, ModelStack &
 		modelStack.translate(0.27f, -0.2f * _size, 0.0f);
 	}
 	// draw_paving_shape({-0.5, 0.15, 0.0}, {-0.25, 0.2, -0.02}, wings_color, shader, modelStack);
-	(void)shader;
-	(void)modelStack;
-	(void)wings_color;
-}
-
-void Human::draw_right_wing1_3(float *wings_color, Shaders &shader, ModelStack &modelStack)
-{
-	// modelStack.translate(-0.5f, 0.2f * _size, 0.00f);
-	// modelStack.translate(0.52f, -0.2f * _size, 0.0f);
-	float angle1_3 = _opening_frame * 9 * 3;
-	if (_open_wings == true) {
-		modelStack.translate(-0.5f, 0.2f * _size, 0.0f);
-		if (angle1_3 >= 50.0f)
-			modelStack.rotate(40.0f, 'Z');//-
-		else
-			modelStack.rotate(-10.0f + angle1_3, 'Z');//-
-		if (angle1_3 >= 50.0f)
-			modelStack.rotate(30.0f, 'Y');
-		else
-			modelStack.rotate(80.0f - angle1_3, 'Y');
-		if (angle1_3 >= 40.0f)
-			modelStack.rotate(0.0f, 'X');
-		else
-			modelStack.rotate(-40.0f + angle1_3, 'X');
-		modelStack.translate(0.52f, -0.2f * _size, 0.0f);
-	} else {
-		modelStack.translate(-0.5f, 0.2f * _size, 0.00f);
-		if (angle1_3 >= 50.0f)
-			modelStack.rotate(-10.0f, 'Z');//-
-		else
-			modelStack.rotate(40.0f - angle1_3, 'Z');//-
-		if (angle1_3 >= 50.0f)
-			modelStack.rotate(80.0f, 'Y');
-		else
-			modelStack.rotate(30.0f + angle1_3, 'Y');
-		if (angle1_3 >= 40.0f)
-			modelStack.rotate(-40.0f, 'X');
-		else
-			modelStack.rotate(0.0f - angle1_3, 'X');
-		modelStack.translate(0.52f, -0.2f * _size, 0.0f);
-	}
-	// draw_paving_shape({-1.0, 0.15, 0.0}, {-0.5, 0.2, -0.02}, wings_color, shader, modelStack);
 	(void)shader;
 	(void)modelStack;
 	(void)wings_color;
@@ -416,17 +374,35 @@ void Human::draw_right_wing(float wings_color, Shaders &shader, ModelStack &mode
 	// modelStack.pop();
 }
 
+void Human::draw_left_wing(float wings_color, Shaders &shader, ModelStack &modelStack)
+{
+	modelStack.push();
+	modelStack.scale(-1, 1, 1);
+	draw_right_wing(wings_color, shader, modelStack);
+	modelStack.pop();
+}
+
 void	Human::draw_wings(ModelStack &modelStack, Shaders &shader)
 {
-	float	wings_color	= 0.0f;
+	float	wings_color	= 1.0f;
 
 	modelStack.push();
 	draw_right_wing(wings_color, shader, modelStack);
 	modelStack.pop();
 
+	// modelStack.push();
+	// modelStack.rotate(-175.0f, 'Z');
+	// modelStack.translate(0.0f, -0.15f * _size, 0.0f);
+	// draw_right_wing(wings_color, shader, modelStack);
+	// modelStack.pop();
+
 	modelStack.push();
-	modelStack.rotate(20.0f, 'Z');
-	modelStack.translate(0.0f, -0.15f * _size, 0.0f);
-	draw_right_wing(wings_color, shader, modelStack);
+	draw_left_wing(wings_color, shader, modelStack);
 	modelStack.pop();
+
+	// modelStack.push();
+	// modelStack.rotate(175.0f, 'Z');
+	// modelStack.translate(0.0f, -0.15f * _size, 0.0f);
+	// draw_left_wing(wings_color, shader, modelStack);
+	// modelStack.pop();
 }

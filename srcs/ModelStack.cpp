@@ -23,4 +23,9 @@ void	ModelStack::rotate(float angle_deg, char axis)
 	else if (axis == 'Z') mstack.back() = mstack.back() * Matrix::rotateZ(rad);
 }
 
+void	ModelStack::scale(float sx, float sy, float sz)
+{
+    mstack.back() = mstack.back() * Matrix::scale(sx, sy, sz);
+}
+
 Matrix &ModelStack::current() { return mstack.back(); }
