@@ -55,9 +55,8 @@ void    draw_paving_shape(const Vec3 &a, const Vec3 &b, const float color[3], co
 
 /*--------- DEFINES --------*/
 
-#define STAY	0
-#define WALK	1
-#define JUMP	2
-#define SPRINT	3
-
-#define KEY_ESC	27
+#define STAY		0
+#define WALK		1
+#define JUMP		2
+#define SPRINT		3
+#define Disco_Dance	4
