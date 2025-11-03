@@ -11,7 +11,7 @@ Human::Human()
 	_showRightForearm = true;
 	_showLeftUpperArm = true;
 	_showLeftForearm = true;
-	_showHands = false;
+	_showHands = true;
 
 	_showRightTigh = true;
 	_showRightLowerLeg = true;
