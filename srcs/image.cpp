@@ -9,6 +9,10 @@ bool	load_image(const char *path) {
 	if (!data) {
 		std::cerr << RED "Error: cannot load image" RESET << std::endl;
 		return false;
+	} else if (width != 64 || (height != 32 && height != 64)) {
+		std::cerr << RED "Error: image must be a 64x32 or 64x64 format" RESET << std::endl;
+		stbi_image_free(data);
+		return false;
 	}
 
 	GLenum format = (channels == 4) ? GL_RGBA : GL_RGB;

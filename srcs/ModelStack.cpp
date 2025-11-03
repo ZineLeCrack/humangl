@@ -17,7 +17,7 @@ void	ModelStack::translate(float tx, float ty, float tz)
 
 void	ModelStack::rotate(float angle_deg, char axis)
 {
-	float rad = angle_deg * (M_PI / 180.0f);
+	float rad = angle_deg * (M_PIf / 180.0f);
 	if (axis == 'X') mstack.back() = mstack.back() * Matrix::rotateX(rad);
 	else if (axis == 'Y') mstack.back() = mstack.back() * Matrix::rotateY(rad);
 	else if (axis == 'Z') mstack.back() = mstack.back() * Matrix::rotateZ(rad);
