@@ -32,12 +32,12 @@ void	Human::draw(ModelStack &modelStack, Shaders &shader, bool cube)
 		else modelStack.translate(0.0f, angle * 0.05f, 0.0f);
 	}
 
-	if (_animation == SPRINT) {
-		modelStack.push();
-		modelStack.translate(0.0f, -0.1f * _size, -0.05f);
-		modelStack.rotate(10.0f, 'X');
-		modelStack.translate(0.0f, 0.1f * _size, 0.05f);
-	}
+	// if (_animation == SPRINT) {
+	// 	modelStack.push();
+	// 	modelStack.translate(0.0f, -0.1f * _size, -0.05f);
+	// 	modelStack.rotate(10.0f, 'X');
+	// 	modelStack.translate(0.0f, 0.1f * _size, 0.05f);
+	// }
 
 	if (_showBody) draw_body(modelStack, shader);
 	if (_showHead) draw_head(modelStack, shader);
