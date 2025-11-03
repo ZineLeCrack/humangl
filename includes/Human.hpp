@@ -20,10 +20,10 @@ class Human
 		float	_right_upper_arm_size	= 1.0f;
 		float	_left_forearm_size		= 1.0f;
 		float	_right_forearm_size		= 1.0f;
-		float	_left_tigh				= 1.0f;
-		float	_right_tigh				= 1.0f;
-		float	_left_lower_leg			= 1.0f;
-		float	_right_lower_leg		= 1.0f;
+		float	_left_thigh_size			= 1.0f;
+		float	_right_thigh_size		= 1.0f;
+		float	_left_lower_leg_size	= 1.0f;
+		float	_right_lower_leg_size	= 1.0f;
 
 		float	_foots_color[3]	= { 0.20f, 0.20f, 0.20f };
 		float	_legs_color[3]	= { 0.00f, 0.00f, 1.00f };
@@ -49,9 +49,9 @@ class Human
 		bool	_showLeftForearm;
 		bool	_showHands;
 
-		bool	_showRightTigh;
+		bool	_showRightthigh;
 		bool	_showRightLowerLeg;
-		bool	_showLeftTigh;
+		bool	_showLeftthigh;
 		bool	_showLeftLowerLeg;
 
 		Hand	*_rightHand;
@@ -70,10 +70,10 @@ class Human
 		float	&get_right_upper_arm_size()	{ return _right_upper_arm_size; }
 		float	&get_left_forearm_size()	{ return _left_forearm_size; }
 		float	&get_right_forearm_size()	{ return _right_forearm_size; }
-		float	&get_left_tigh_size()		{ return _left_tigh; }
-		float	&get_right_tigh_size()		{ return _right_tigh; }
-		float	&get_left_lower_leg_size()	{ return _left_lower_leg; }
-		float	&get_right_lower_leg_size()	{ return _right_lower_leg; }
+		float	&get_left_thigh_size()		{ return _left_thigh_size; }
+		float	&get_right_thigh_size()		{ return _right_thigh_size; }
+		float	&get_left_lower_leg_size()	{ return _left_lower_leg_size; }
+		float	&get_right_lower_leg_size()	{ return _right_lower_leg_size; }
 		float	*get_foots_color()			{ return _foots_color; }
 		float	*get_legs_color()			{ return _legs_color; }
 		float	*get_body_color()			{ return _body_color; }
