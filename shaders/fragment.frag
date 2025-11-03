@@ -15,5 +15,5 @@ void main()
 	if (uUseTexture)
 		FragColor = texture(uTexture, vertexTex);
 	else
-		FragColor = vec4(uColor, 1.0); 
+		FragColor = vec4(uColor, 1.0);
 }
