@@ -38,6 +38,10 @@ class Human
 
 		bool	_slim = false;
 
+		float	_discoAngle = 0.0f;
+		float	_discoTranslate	= 0.0f;
+		float	_discoStartFinished = 0.0f;
+
 	public:
 
 		bool	_showBody;
@@ -88,10 +92,10 @@ class Human
 		void	set_legs_color(float r, float g, float b)	{ _legs_color[0]  = r, _legs_color[1]  = g, _legs_color[2]  = b; };
 		void	set_body_color(float r, float g, float b)	{ _body_color[0]  = r, _body_color[1]  = g, _body_color[2]  = b; };
 		void	set_skin_color(float r, float g, float b)	{ _skin_color[0]  = r, _skin_color[1]  = g, _skin_color[2]  = b; };
-		void	set_texture(GLuint tex)				{ _tex = tex; }
+		void	set_texture(GLuint tex)						{ _tex = tex; }
 
-		void	change_texture()					{ _use_texture = !_use_texture; }
-		void	change_slim()						{ _slim = !_slim; }
+		void	change_texture()	{ _use_texture = !_use_texture; }
+		void	change_slim()		{ _slim = !_slim; }
 
 		void	draw(ModelStack &modelStack, Shaders &shader, bool draw_cube);
 		void	draw_body(ModelStack &modelStack, Shaders &shader);

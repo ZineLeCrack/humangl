@@ -115,6 +115,10 @@ void	keypress(GLFWwindow* window)
 		human.get_animation() = STAY;
 		human.get_animation_frame() = glfwGetTime();
 	}
+	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
+		human.get_animation() = DISCO_DANCE;
+		human.get_animation_frame() = glfwGetTime();
+	}
 
 	if (glfwGetKey(window, GLFW_KEY_1) == GLFW_PRESS) {
 		if (key1Released) { showDebug1 = !showDebug1; key1Released = false; }
