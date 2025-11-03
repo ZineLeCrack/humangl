@@ -106,7 +106,7 @@ class Human
 
 		void	draw_wings(ModelStack &modelStack, Shaders &shader);
 
-		void	draw_right_wing(float *wings_color, Shaders &shader, ModelStack &modelStack);
+		void	draw_right_wing(float wings_color, Shaders &shader, ModelStack &modelStack);
 
 		void	draw_right_wing1_1(float *wings_color, Shaders &shader, ModelStack &modelStack);
 		void	draw_right_wing1_1_1(float *wings_color, Shaders &shader, ModelStack &modelStack);
