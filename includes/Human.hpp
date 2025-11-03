@@ -20,10 +20,10 @@ class Human
 		float	_right_upper_arm_size	= 1.0f;
 		float	_left_forearm_size		= 1.0f;
 		float	_right_forearm_size		= 1.0f;
-		float	_left_tigh				= 1.0f;
-		float	_right_tigh				= 1.0f;
-		float	_left_lower_leg			= 1.0f;
-		float	_right_lower_leg		= 1.0f;
+		float	_left_thigh_size			= 1.0f;
+		float	_right_thigh_size		= 1.0f;
+		float	_left_lower_leg_size	= 1.0f;
+		float	_right_lower_leg_size	= 1.0f;
 
 		float	_foots_color[3]	= { 0.20f, 0.20f, 0.20f };
 		float	_legs_color[3]	= { 0.00f, 0.00f, 1.00f };
@@ -52,10 +52,11 @@ class Human
 		bool	_showLeftUpperArm;
 		bool	_showLeftForearm;
 		bool	_showHands;
+		bool	_showWings;
 
-		bool	_showRightTigh;
+		bool	_showRightthigh;
 		bool	_showRightLowerLeg;
-		bool	_showLeftTigh;
+		bool	_showLeftthigh;
 		bool	_showLeftLowerLeg;
 
 		Hand	*_rightHand;
@@ -74,10 +75,10 @@ class Human
 		float	&get_right_upper_arm_size()	{ return _right_upper_arm_size; }
 		float	&get_left_forearm_size()	{ return _left_forearm_size; }
 		float	&get_right_forearm_size()	{ return _right_forearm_size; }
-		float	&get_left_tigh_size()		{ return _left_tigh; }
-		float	&get_right_tigh_size()		{ return _right_tigh; }
-		float	&get_left_lower_leg_size()	{ return _left_lower_leg; }
-		float	&get_right_lower_leg_size()	{ return _right_lower_leg; }
+		float	&get_left_thigh_size()		{ return _left_thigh_size; }
+		float	&get_right_thigh_size()		{ return _right_thigh_size; }
+		float	&get_left_lower_leg_size()	{ return _left_lower_leg_size; }
+		float	&get_right_lower_leg_size()	{ return _right_lower_leg_size; }
 		float	*get_foots_color()			{ return _foots_color; }
 		float	*get_legs_color()			{ return _legs_color; }
 		float	*get_body_color()			{ return _body_color; }
@@ -124,4 +125,22 @@ class Human
 		void	draw_left_thigh(ModelStack &modelStack, Shaders &shader);
 		void	draw_left_lower_leg(ModelStack &modelStack, Shaders &shader);
 		void	draw_left_foot(ModelStack &modelStack, Shaders &shader);
+
+		void	draw_wings(ModelStack &modelStack, Shaders &shader, float angle);
+
+		void	draw_right_wing(float wings_color, Shaders &shader, ModelStack &modelStack, float angle);
+
+		void	draw_left_wing(float wings_color, Shaders &shader, ModelStack &modelStack, float angle);
+
+		void	draw_wing(float wings_color, Shaders &shader, ModelStack &modelStack, float angle);
+
+		void	draw_wing1_1_1(float *wings_color, Shaders &shader, ModelStack &modelStack);
+		void	draw_wing1_1_2(float *wings_color, Shaders &shader, ModelStack &modelStack);
+		void	draw_wing1_1_3(float *wings_color, Shaders &shader, ModelStack &modelStack);
+
+		void	draw_wing1_2_1(float *wings_color, Shaders &shader, ModelStack &modelStack);
+		void	draw_wing1_2_2(float *wings_color, Shaders &shader, ModelStack &modelStack);
+		void	draw_wing1_2_3(float *wings_color, Shaders &shader, ModelStack &modelStack);
+
+		void	draw_paving_shape_for_wing(const Vec3 &a, const Vec3 &b, const float color[3], Shaders &shader, ModelStack &modelStack);
 };

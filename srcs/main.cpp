@@ -113,6 +113,10 @@ void	keypress(GLFWwindow* window)
 		human.get_animation() = JUMP;
 		human.get_animation_frame() = glfwGetTime();
 	}
+	if (glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS) {
+		human.get_animation() = FLY;
+		human.get_animation_frame() = glfwGetTime();
+	}
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
 		human.get_animation() = WALK;
 		human.get_animation_frame() = glfwGetTime();
@@ -180,8 +184,8 @@ void	imgui_set_window()
 		SliderFloat("Right upper arm size", &human.get_right_upper_arm_size(), 0.5f, 2.0f);
 		SliderFloat("Left forearm size", &human.get_left_forearm_size(), 0.5f, 2.0f);
 		SliderFloat("Right forearm size", &human.get_right_forearm_size(), 0.5f, 2.0f);
-		SliderFloat("Left tigh size", &human.get_left_tigh_size(), 0.5f, 2.0f);
-		SliderFloat("Right tigh size", &human.get_right_tigh_size(), 0.5f, 2.0f);
+		SliderFloat("Left thigh size", &human.get_left_thigh_size(), 0.5f, 2.0f);
+		SliderFloat("Right thigh size", &human.get_right_thigh_size(), 0.5f, 2.0f);
 		SliderFloat("Left lower leg size", &human.get_left_lower_leg_size(), 0.5f, 2.0f);
 		SliderFloat("Right lower leg size", &human.get_right_lower_leg_size(), 0.5f, 2.0f);
 
@@ -213,11 +217,12 @@ void	imgui_set_window()
 		Checkbox("Left Upper Arm", &human._showLeftUpperArm);
 		Checkbox("Right Forearm Arm", &human._showRightForearm);
 		Checkbox("Left Forearm Arm", &human._showLeftForearm);
-		Checkbox("Right Tigh", &human._showRightTigh);
-		Checkbox("Left Tigh", &human._showLeftTigh);
+		Checkbox("Right thigh", &human._showRightthigh);
+		Checkbox("Left thigh", &human._showLeftthigh);
 		Checkbox("Right Lower Leg", &human._showRightLowerLeg);
 		Checkbox("Left Lower Leg", &human._showLeftLowerLeg);
 		Checkbox("Hands", &human._showHands);
+		Checkbox("Wings", &human._showWings);
 		End();
 	}
 

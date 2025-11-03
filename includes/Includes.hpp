@@ -61,3 +61,4 @@ void    draw_paving_shape(const Vec3 &a, const Vec3 &b, const float color[3], co
 #define JUMP		2
 #define SPRINT		3
 #define DISCO_DANCE	4
+#define FLY			5
