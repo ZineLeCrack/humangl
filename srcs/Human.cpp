@@ -81,13 +81,13 @@ void	Human::draw_right_arm(ModelStack &modelStack, Shaders &shader, float angle)
 		modelStack.rotate(-angle * 1.5f, 'X');
 		modelStack.translate(0.0f, -0.25f * _size, 0.0f);
 	} else if (_animation == DISCO_DANCE) {
-		modelStack.translate(0.0f, 0.25f * _size, 0.0f);
-		modelStack.rotate(_discoAngle * 11.42f, 'Z');
+		modelStack.translate(-0.15f, 0.25f * _size, 0.0f);
+		modelStack.rotate(-250.0f * angle * 0.013f, 'Z');
 
 		float red[3] ={1.0f, 0.0f, 0.0f};
 		draw_paving_shape({-0.001f,  -0.001f, 0.001f}, { 0.001f, 0.001f, -0.001f}, red, _size, shader, modelStack); //debug
 
-		modelStack.translate(0.0f, -0.25f * _size, 0.0f);
+		modelStack.translate(0.15f, -0.25f * _size, 0.0f);
 
 		float green[3] ={0.0f, 1.0f, 0.0f};
 		draw_paving_shape({-0.001f,  -0.001f, 0.001f}, { 0.001f, 0.001f, -0.001f}, green, _size, shader, modelStack); //debug
