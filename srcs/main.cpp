@@ -155,6 +155,7 @@ void	imgui_set_window()
 
 		SeparatorText(" Rotation ");
 		Text("Rotation: x = %d, y = %d", (int)human.get_rotX(), (int)human.get_rotY());
+		if (Button("Reset  rotation")) human.get_rotX() = human.get_rotY() = 0.0f;
 
 		SeparatorText(" Size ");
 		SliderFloat("Zoom", &human.get_zoom(), 0.0f, 20.0f);
@@ -174,12 +175,12 @@ void	imgui_set_window()
 		if (Button("Reset")) { human.get_animation() = STAY; human.get_animation_frame() = 0; } SameLine();
 		if (Button("Walk")) { human.get_animation() = WALK; human.get_animation_frame() = glfwGetTime(); } SameLine();
 		if (Button("Sprint")) { human.get_animation() = SPRINT; human.get_animation_frame() = glfwGetTime(); } SameLine();
-		if (Button("Jump")) { human.get_animation() = JUMP; human.get_animation_frame() = glfwGetTime(); }
+		if (Button("Jump")) { human.get_animation() = JUMP; human.get_animation_frame() = glfwGetTime(); } SameLine();
+		if (Button("Disco Dance")) {human.get_animation() = Disco_Dance; human.get_animation_frame() = glfwGetTime();}
 		End();
 	}
 
 	ImVec2 pos2(1420, 20);
-	// SetNextWindowCollapsed(true, ImGuiCond_FirstUseEver);
 	SetNextWindowPos(pos2, ImGuiCond_FirstUseEver);
 
 	if (showDebug2) {
