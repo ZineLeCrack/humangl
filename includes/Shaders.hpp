@@ -10,6 +10,7 @@ class Shaders
 
 	public:
 
+		Shaders();
 		Shaders(string vertexFilePath, string fragmentFilePath);
 		string readShaderFile(string filePath);
 		GLuint compileShader(string filePath, GLenum type);

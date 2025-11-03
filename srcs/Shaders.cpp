@@ -11,6 +11,7 @@ string Shaders::readShaderFile(string filePath)
 	buf << file.rdbuf();
 	return buf.str();
 }
+Shaders::Shaders():shaderProgram(0) {}
 
 Shaders::Shaders(string vertexFilePath, string fragmentFilePath)
 {

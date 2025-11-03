@@ -5,7 +5,7 @@ void	set_color(float color[3])
 	glColor3f(color[0], color[1], color[2]);
 }
 
-void	draw_rect(const Vec3 &a, const Vec3 &b, const float color[3], const float u, const float v, const float uscale, const float vscale, bool swap, Shaders &shader, ModelStack &modelStack)
+void	draw_rect(const Vec3 &a, const Vec3 &b, const float color[3], const float u, const float v, const float uscale, const float vscale, bool swap, Shaders &shader, bool colorShader, ModelStack &modelStack)
 {
 	std::vector<float> vertices;
 	float	du = u + uscale;
@@ -67,14 +67,16 @@ void	draw_rect(const Vec3 &a, const Vec3 &b, const float color[3], const float u
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float), vertices.data(), GL_STATIC_DRAW);
 
-	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), NULL);
+	if (colorShader) {
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), NULL);
+	} else {
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), NULL);
 
-	// glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void *)(3 * sizeof(float)));
-	// glEnableVertexAttribArray(1);
-
-	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void *)(3 * sizeof(float)));
-	glEnableVertexAttribArray(2);
+		glEnableVertexAttribArray(2);
+		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+	}
 
 	glUseProgram(shader.shaderProgram);
 	GLint colorLoc = glGetUniformLocation(shader.shaderProgram, "uColor");
@@ -90,14 +92,14 @@ void	draw_rect(const Vec3 &a, const Vec3 &b, const float color[3], const float u
 	glDeleteVertexArrays(1, &VAO);
 }
 
-void draw_paving_shape(const Vec3 &a, const Vec3 &b, const float color[3], const float _size, Shaders &shader, ModelStack &modelStack)
+void draw_paving_shape(const Vec3 &a, const Vec3 &b, const float color[3], const float _size, Shaders &shader, bool colorShader, ModelStack &modelStack)
 {
-	draw_rect({a.x, a.y * _size, a.z}, {b.x, b.y * _size, a.z}, color, 0, 0, 0, 0, false, shader, modelStack);
-	draw_rect({a.x, a.y * _size, b.z}, {b.x, b.y * _size, b.z}, color, 0, 0, 0, 0, false, shader, modelStack);
+	draw_rect({a.x, a.y * _size, a.z}, {b.x, b.y * _size, a.z}, color, 0, 0, 0, 0, false, shader, colorShader, modelStack);
+	draw_rect({a.x, a.y * _size, b.z}, {b.x, b.y * _size, b.z}, color, 0, 0, 0, 0, false, shader, colorShader,modelStack);
 
-	draw_rect({a.x, a.y * _size, a.z}, {a.x, b.y * _size, b.z}, color, 0, 0, 0, 0, false, shader, modelStack);
-	draw_rect({b.x, a.y * _size, a.z}, {b.x, b.y * _size, b.z}, color, 0, 0, 0, 0, false, shader, modelStack);
+	draw_rect({a.x, a.y * _size, a.z}, {a.x, b.y * _size, b.z}, color, 0, 0, 0, 0, false, shader, colorShader, modelStack);
+	draw_rect({b.x, a.y * _size, a.z}, {b.x, b.y * _size, b.z}, color, 0, 0, 0, 0, false, shader, colorShader, modelStack);
 
-	draw_rect({a.x, a.y * _size, a.z}, {b.x, a.y * _size, b.z}, color, 0, 0, 0, 0, false, shader, modelStack);
-	draw_rect({a.x, b.y * _size, a.z}, {b.x, b.y * _size, b.z}, color, 0, 0, 0, 0, false, shader, modelStack);
+	draw_rect({a.x, a.y * _size, a.z}, {b.x, a.y * _size, b.z}, color, 0, 0, 0, 0, false, shader, colorShader, modelStack);
+	draw_rect({a.x, b.y * _size, a.z}, {b.x, b.y * _size, b.z}, color, 0, 0, 0, 0, false, shader, colorShader, modelStack);
 }

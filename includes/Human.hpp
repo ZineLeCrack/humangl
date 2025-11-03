@@ -97,18 +97,18 @@ class Human
 		void	change_texture()	{ _use_texture = !_use_texture; }
 		void	change_slim()		{ _slim = !_slim; }
 
-		void	draw(ModelStack &modelStack, Shaders &shader, bool draw_cube);
+	void	draw(ModelStack &modelStack, Shaders &modelShader, Shaders &colorShader, bool draw_cube);
 		void	draw_body(ModelStack &modelStack, Shaders &shader);
 		void	draw_head(ModelStack &modelStack, Shaders &shader);
 
 		/*Right arm*/
-		void	draw_right_arm(ModelStack &modelStack, Shaders &shader, float angle);
+		void	draw_right_arm(ModelStack &modelStack, Shaders &shader, Shaders &colorShader, float angle);
 		void	draw_right_upper_arm(ModelStack &modelStack, Shaders &shader);
 		void	draw_right_shoulder(ModelStack &modelStack, Shaders &shader);
 		void	draw_right_forearm(ModelStack &modelStack, Shaders &shader);
 
 		/*Left arm*/
-		void	draw_left_arm(ModelStack &modelStack, Shaders &shader, float angle);
+		void	draw_left_arm(ModelStack &modelStack, Shaders &shader, Shaders &colorShader, float angle);
 		void	draw_left_upper_arm(ModelStack &modelStack, Shaders &shader);
 		void	draw_left_shoulder(ModelStack &modelStack, Shaders &shader);
 		void	draw_left_forearm(ModelStack &modelStack, Shaders &shader);

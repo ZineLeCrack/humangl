@@ -64,7 +64,11 @@ void	draw_cube(Shaders &shader, const Matrix &model)
 
 	glUseProgram(shader.shaderProgram);
 	GLint modelLoc = glGetUniformLocation(shader.shaderProgram, "uModel");
+	GLint viewLoc = glGetUniformLocation(shader.shaderProgram, "uView");
 	GLint colorLoc = glGetUniformLocation(shader.shaderProgram, "uColor");
+
+	Matrix view = Matrix::lookAt({0.0f, 0.0f, 21.0f - human.get_zoom()}, {0.0f, 0.0f, 0.0f}, {0.0f, 1.0f, 0.0f});
+	glUniformMatrix4fv(viewLoc, 1, GL_FALSE, view.data());
 	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, model.data());
 	glUniform3f(colorLoc, 1.0f, 0.0f, 0.0f);
 
@@ -73,27 +77,33 @@ void	draw_cube(Shaders &shader, const Matrix &model)
 	glBindVertexArray(0);
 }
 
-void	display(Shaders &shader)
+void	display(Shaders &modelShader, Shaders &cubeShader)
 {
-	glClearColor(0.1, 0.1, 0.1, 1);
+	glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	Matrix view = Matrix::lookAt({0.0f, 0.0f, 21.0f - human.get_zoom()}, {0.0f, 0.0f, 0.0f}, {0.0f, 1.0f, 0.0f});
-	GLint viewLoc = glGetUniformLocation(shader.shaderProgram, "uView");
+
+	glUseProgram(modelShader.shaderProgram);
+	GLint viewLoc = glGetUniformLocation(modelShader.shaderProgram, "uView");
 	glUniformMatrix4fv(viewLoc, 1, GL_FALSE, view.data());
+
+	glUseProgram(cubeShader.shaderProgram);
+	GLint viewLoc2 = glGetUniformLocation(cubeShader.shaderProgram, "uView");
+	glUniformMatrix4fv(viewLoc2, 1, GL_FALSE, view.data());
+
+	glUseProgram(modelShader.shaderProgram);
 
 	Matrix Rx = Matrix::rotateX(human.get_rotX() * toRadians);
 	Matrix Ry = Matrix::rotateY(human.get_rotY() * toRadians);
 
 	Matrix model = Ry * Rx;
-	GLint modelLoc = glGetUniformLocation(shader.shaderProgram, "uModel");
-	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, model.data());
 
 	modelStack.loadIdentity();
 	modelStack.push();
 	modelStack.current() = model;
 
-	human.draw(modelStack, shader, cube);
+	human.draw(modelStack, modelShader, cubeShader, cube);
 }
 
 void	keypress(GLFWwindow* window)
@@ -288,7 +298,15 @@ int main(int ac, char **av)
 		throw runtime_error ("failed to initialize Glew\n");
 	}
 
-	Shaders shader("shaders/vertex.vert", "shaders/fragment.frag");
+	Shaders modelShader;
+	Shaders cubeShader;
+	try {
+		modelShader = Shaders("shaders/model.vert", "shaders/model.frag");
+		cubeShader = Shaders("shaders/color.vert", "shaders/color.frag");
+	} catch(const std::exception& e) {
+		std::cerr << e.what() << '\n';
+		return 1;
+	}
 
 	glfwSetCursorPosCallback(window, [](GLFWwindow* w, double xpos, double ypos) {
 		(void)w;
@@ -336,10 +354,15 @@ int main(int ac, char **av)
 	glfwGetFramebufferSize(window, &width, &height);
 	glViewport(0, 0, width, height);
 
-	glUseProgram(shader.shaderProgram);
+	glUseProgram(modelShader.shaderProgram);
 	Matrix	proj = Matrix::perspective(45, width / (float)height, 0.1f, 100.0f);
-	GLint	projLoc = glGetUniformLocation(shader.shaderProgram, "uProjection");
+	GLint	projLoc = glGetUniformLocation(modelShader.shaderProgram, "uProjection");
 	glUniformMatrix4fv(projLoc, 1, GL_FALSE, proj.data());
+
+	glUseProgram(cubeShader.shaderProgram);
+	Matrix	cubeProj = Matrix::perspective(45, width / (float)height, 0.1f, 100.0f);
+	GLint	cubeProjLoc = glGetUniformLocation(cubeShader.shaderProgram, "uProjection");
+	glUniformMatrix4fv(cubeProjLoc, 1, GL_FALSE, cubeProj.data());
 
 	if (ac == 2) {
 		if (!load_image(av[1]))
@@ -348,7 +371,7 @@ int main(int ac, char **av)
 		if (!load_image("skins/default.png"))
 			return 1;
 	}
-	glUniform1i(glGetUniformLocation(shader.shaderProgram, "uUseTexture"), 0);
+	glUniform1i(glGetUniformLocation(modelShader.shaderProgram, "uUseTexture"), 0);
 
 	while (!glfwWindowShouldClose(window)) {
 		glfwPollEvents();
@@ -357,15 +380,15 @@ int main(int ac, char **av)
 		ImGui_ImplGlfw_NewFrame();
 		NewFrame();
 
-		glUseProgram(shader.shaderProgram);
-		glUniform1i(glGetUniformLocation(shader.shaderProgram, "uUseTexture"), human.get_use_texture());
+		glUseProgram(modelShader.shaderProgram);
+		glUniform1i(glGetUniformLocation(modelShader.shaderProgram, "uUseTexture"), human.get_use_texture());
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, human.get_texture());
 
 		glfwSetScrollCallback(window, scroll_callback);
 		keypress(window);
 
-		display(shader);
+		display(modelShader, cubeShader);
 
 		imgui_set_window();
 
