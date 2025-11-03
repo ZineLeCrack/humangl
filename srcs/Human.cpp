@@ -94,7 +94,7 @@ void	Human::draw_right_arm(ModelStack &modelStack, Shaders &shader, float angle)
 	}
 
 	if (_showRightForearm) draw_right_forearm(modelStack, shader);
-	
+
 	if (_showHands) _rightHand->draw(_skin_color, _size, modelStack, shader);
 
 	if (_animation) modelStack.pop();

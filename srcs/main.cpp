@@ -146,6 +146,7 @@ void	imgui_set_window()
 		Begin("Settings", NULL, ImGuiWindowFlags_AlwaysAutoResize);
 		SeparatorText(" Info ");
 		Text("fps: %d", (int)GetIO().Framerate);
+		if (Button("Display cube")) cube = !cube;
 
 		SeparatorText(" Skin ");
 		if (Button("Use skin")) human.change_texture();
