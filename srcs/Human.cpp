@@ -45,7 +45,6 @@ void	Human::draw(ModelStack &modelStack, Shaders &shader, bool cube)
 			_discoAngle -= 0.5f; 
 		if (_discoTranslate >= -0.02f)
 			_discoTranslate += -0.001f;
-		angle = _discoAngle;
 		if (_discoAngle <= -10.0f && _discoTranslate <= -0.02f) _discoStartFinished = true;
 	}
 
@@ -82,8 +81,16 @@ void	Human::draw_right_arm(ModelStack &modelStack, Shaders &shader, float angle)
 		modelStack.rotate(-angle * 1.5f, 'X');
 		modelStack.translate(0.0f, -0.25f * _size, 0.0f);
 	} else if (_animation == DISCO_DANCE) {
-		modelStack.translate(_discoTranslate * 21 * _size, -_discoTranslate * 3.75f * _size, 0.0f);
-		modelStack.rotate(angle * 8.57f, 'Z');
+		modelStack.translate(0.0f, 0.25f * _size, 0.0f);
+		modelStack.rotate(_discoAngle * 11.42f, 'Z');
+
+		float red[3] ={1.0f, 0.0f, 0.0f};
+		draw_paving_shape({-0.001f,  -0.001f, 0.001f}, { 0.001f, 0.001f, -0.001f}, red, _size, shader, modelStack); //debug
+
+		modelStack.translate(0.0f, -0.25f * _size, 0.0f);
+
+		float green[3] ={0.0f, 1.0f, 0.0f};
+		draw_paving_shape({-0.001f,  -0.001f, 0.001f}, { 0.001f, 0.001f, -0.001f}, green, _size, shader, modelStack); //debug
 	}
 
 	if (_showRightUpperArm) {
@@ -105,7 +112,7 @@ void	Human::draw_right_arm(ModelStack &modelStack, Shaders &shader, float angle)
 		modelStack.translate(0.0f, -0.1f * _size, 0.05f);
 	} else if (_animation == DISCO_DANCE) {
 		modelStack.translate(_discoTranslate * 3.5f * _size, _discoTranslate * 2.5f * _size, 0.0f);
-		modelStack.rotate(angle * 2.85f, 'Z');
+		modelStack.rotate(_discoAngle * 2.85f, 'Z');
 	}
 
 	if (_showRightForearm) draw_right_forearm(modelStack, shader);
@@ -132,8 +139,9 @@ void	Human::draw_left_arm(ModelStack &modelStack, Shaders &shader, float angle)
 		modelStack.rotate(angle * 1.5f, 'X');
 		modelStack.translate(0.0f, -0.25f * _size, 0.0f);
 	}  else if (_animation == DISCO_DANCE) {
-		modelStack.translate(-_discoTranslate * 5.0f * _size, (_discoTranslate - 0.01f) * _size, 0.0f);
-		modelStack.rotate(-angle * 2.0f, 'Z');
+		modelStack.translate(-_discoTranslate * 5.0f, (_discoTranslate - 0.01f) * _size, 0.0f);
+		modelStack.rotate(-_discoAngle * 2.0f, 'Z');
+		// modelStack.translate(0.0f, -0.25f * _size, 0.0f);
 	}
 
 	if (_showLeftUpperArm) {
@@ -155,7 +163,8 @@ void	Human::draw_left_arm(ModelStack &modelStack, Shaders &shader, float angle)
 		modelStack.translate(0.0f, -0.1f * _size, 0.05f);
 	} else if (_animation == DISCO_DANCE) {
 		modelStack.translate(0.0f, _discoTranslate * -8 * _size, 0.0f);
-		modelStack.rotate(angle * 4.0f, 'Z');
+		modelStack.rotate(_discoAngle * 4.0f, 'Z');
+		// modelStack.translate(0.0f, -0.1f * _size, 0.05f);
 	}
 
 	if (_showLeftForearm) draw_left_forearm(modelStack, shader);
@@ -182,8 +191,8 @@ void	Human::draw_right_leg(ModelStack &modelStack, Shaders &shader, float angle)
 		modelStack.rotate(angle * 2.0f, 'X');
 		modelStack.translate(0.0f, 0.1f * _size, 0.0f);
 	} else if (_animation == DISCO_DANCE) {
-		modelStack.rotate(angle, 'Z');
 		modelStack.translate(0.0f, _discoTranslate * _size, 0.0f);
+		modelStack.rotate(_discoAngle, 'Z');
 	}
 
 	if (_showRightTigh) draw_right_thigh(modelStack, shader);
@@ -231,8 +240,8 @@ void	Human::draw_left_leg(ModelStack &modelStack, Shaders &shader, float angle)
 		modelStack.rotate(-angle * 2.0f, 'X');
 		modelStack.translate(0.0f, 0.1f * _size, 0.0f);
 	} else if (_animation == DISCO_DANCE) {
-		modelStack.rotate(-angle, 'Z');
 		modelStack.translate(0.0f, _discoTranslate * _size, 0.0f);
+		modelStack.rotate(-_discoAngle, 'Z');
 	}
 
 	if (_showLeftTigh) draw_left_thigh(modelStack, shader);
