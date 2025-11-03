@@ -45,7 +45,7 @@ void	Human::draw(ModelStack &modelStack, Shaders &shader, bool cube)
 			_discoAngle -= 0.5f;
 		if (_discoTranslate >= -0.02f)
 			_discoTranslate += -0.001f;
-		if (_discoAngle <= -10.0f && _discoTranslate <= -0.02f) _discoStartFinished = true;
+		if (_discoAngle <= -10.0f && _discoTranslate <= -0.02f) {_discoStartFinished = true; _rightHand->indexFingerPhalangeAngle[0] = -90.0f; }
 	}
 
 	if (_showBody) draw_body(modelStack, shader);
@@ -82,37 +82,29 @@ void	Human::draw_right_arm(ModelStack &modelStack, Shaders &shader, float angle)
 		modelStack.translate(0.0f, -0.25f * _size, 0.0f);
 	} else if (_animation == DISCO_DANCE) {
 		if (_discoStartFinished) {
-			 modelStack.translate(-0.15f, 0.25f * _size, 0.0f);
-			float blue[3] ={0.0f, 0.0f, 1.0f};
-			draw_paving_shape({-0.001f,  -0.001f, 0.001f}, { 0.001f, 0.001f, -0.001f}, blue, _size, shader, modelStack); //debug
-			{
-				float t = (float)(glfwGetTime() - _animation_frame);
-				float freq = 0.8f;
-				float u = 0.5f * (1.0f - cosf(2.0f * M_PIf * freq * t));
-				if (u < 0.0f) u = 0.0f;
-				if (u > 1.0f) u = 1.0f;
+			modelStack.translate(-0.15f, 0.25f * _size, 0.0f);
+			// float blue[3] ={0.0f, 0.0f, 1.0f};
+			// draw_paving_shape({-0.001f,  -0.001f, 0.001f}, { 0.001f, 0.001f, -0.001f}, blue, _size, shader, modelStack); //debug
+			float t = (float)(glfwGetTime() - _animation_frame);
+			float freq = 0.8f;
 
-				float rx = 90.0f * u;
-				float ry = 70.0f * u;
-				float rz = -90.0f * u;
+			float u = 0.5f * (1.0f - cosf(2.0f * M_PIf * freq * t));
+			if (u < 0.0f) u = 0.0f;
+			if (u > 1.0f) u = 1.0f;
 
-				modelStack.rotate(rx, 'X');
-				modelStack.rotate(rz, 'Z');
-				modelStack.rotate(ry, 'Y');
-			}
+			float rx = 90.0f * u;
+			float ry = 60.0f * u;
+			float rz = -90.0f * u;
+
+			modelStack.rotate(rx, 'X');
+			modelStack.rotate(rz, 'Z');
+			modelStack.rotate(ry, 'Y');
 
 			modelStack.translate(0.15f, -0.25f * _size, 0.0f);
 		}
 		modelStack.translate(-0.15f, 0.25f * _size, 0.0f);
 		modelStack.rotate(_discoAngle * 11.42f, 'Z');
-
-		float red[3] ={1.0f, 0.0f, 0.0f};
-		draw_paving_shape({-0.001f,  -0.001f, 0.001f}, { 0.001f, 0.001f, -0.001f}, red, _size, shader, modelStack); //debug
-
 		modelStack.translate(0.15f, -0.25f * _size, 0.0f);
-
-		// float green[3] ={0.0f, 1.0f, 0.0f};
-		// draw_paving_shape({-0.001f,  -0.001f, 0.001f}, { 0.001f, 0.001f, -0.001f}, green, _size, shader, modelStack); //debug
 	}
 
 	if (_showRightUpperArm) {
@@ -133,8 +125,17 @@ void	Human::draw_right_arm(ModelStack &modelStack, Shaders &shader, float angle)
 		modelStack.rotate(-60.0f - angle, 'X');
 		modelStack.translate(0.0f, -0.1f * _size, 0.05f);
 	} else if (_animation == DISCO_DANCE) {
-		modelStack.translate(_discoTranslate * 3.5f * _size, _discoTranslate * 2.5f * _size, 0.0f);
-		modelStack.rotate(_discoAngle * 2.85f, 'Z');
+		if (_discoStartFinished) {
+			float red[3] ={1.0f, 0.0f, 0.0f};
+			modelStack.translate(-0.175f, 0.1f * _size, 0.0f);
+			draw_paving_shape({-0.001f,  -0.001f, 0.001f}, { 0.001f, 0.001f, -0.001f}, red, _size, shader, modelStack); //debug
+			modelStack.rotate(180.0f, 'Y');
+			modelStack.translate(0.175f, -0.1f * _size, 0.0f);
+		}
+		// modelStack.translate(_discoTranslate * 3.5f * _size, _discoTranslate * 2.5f * _size, 0.0f);
+		modelStack.translate(-0.22f, 0.08f * _size, 0.0f);
+		modelStack.rotate(-_discoAngle * 2.85f, 'Z');
+		modelStack.translate(0.22f, -0.08f * _size, 0.0f);
 	}
 
 	if (_showRightForearm) draw_right_forearm(modelStack, shader);
