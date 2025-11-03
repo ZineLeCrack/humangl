@@ -37,12 +37,7 @@ class Human
 		GLuint	_tex			= 0;
 
 		bool	_slim = false;
-
-		Hand	*_rightHand;
 	
-		bool	_open_wings		= true;
-		double	_opening_frame	= 0;
-
 	public:
 
 		bool	_showBody;
@@ -53,6 +48,7 @@ class Human
 		bool	_showLeftUpperArm;
 		bool	_showLeftForearm;
 		bool	_showHands;
+		bool	_showWings;
 
 		bool	_showRightTigh;
 		bool	_showRightLowerLeg;
@@ -126,27 +122,21 @@ class Human
 		void	draw_left_lower_leg(ModelStack &modelStack, Shaders &shader);
 		void	draw_left_foot(ModelStack &modelStack, Shaders &shader);
 
-		void	draw_wings(ModelStack &modelStack, Shaders &shader);
+		void	draw_wings(ModelStack &modelStack, Shaders &shader, float angle);
 
-		void	draw_right_wing(float wings_color, Shaders &shader, ModelStack &modelStack);
+		void	draw_right_wing(float wings_color, Shaders &shader, ModelStack &modelStack, float angle);
 
-		void	draw_left_wing(float wings_color, Shaders &shader, ModelStack &modelStack);
+		void	draw_left_wing(float wings_color, Shaders &shader, ModelStack &modelStack, float angle);
 
-		void	draw_right_wing1_1(float *wings_color, Shaders &shader, ModelStack &modelStack);
-		void	draw_right_wing1_1_1(float *wings_color, Shaders &shader, ModelStack &modelStack);
-		void	draw_right_wing1_1_2(float *wings_color, Shaders &shader, ModelStack &modelStack);
-		void	draw_right_wing1_1_3(float *wings_color, Shaders &shader, ModelStack &modelStack);
+		void	draw_wing(float wings_color, Shaders &shader, ModelStack &modelStack, float angle);
 
-		void	draw_right_wing1_2(float *wings_color, Shaders &shader, ModelStack &modelStack);
-		void	draw_right_wing1_2_1(float *wings_color, Shaders &shader, ModelStack &modelStack);
-		void	draw_right_wing1_2_2(float *wings_color, Shaders &shader, ModelStack &modelStack);
-		void	draw_right_wing1_2_3(float *wings_color, Shaders &shader, ModelStack &modelStack);
+		void	draw_wing1_1_1(float *wings_color, Shaders &shader, ModelStack &modelStack);
+		void	draw_wing1_1_2(float *wings_color, Shaders &shader, ModelStack &modelStack);
+		void	draw_wing1_1_3(float *wings_color, Shaders &shader, ModelStack &modelStack);
 
-		void	draw_right_wing1_3(float *wings_color, Shaders &shader, ModelStack &modelStack);
+		void	draw_wing1_2_1(float *wings_color, Shaders &shader, ModelStack &modelStack);
+		void	draw_wing1_2_2(float *wings_color, Shaders &shader, ModelStack &modelStack);
+		void	draw_wing1_2_3(float *wings_color, Shaders &shader, ModelStack &modelStack);
 
-		void	draw_paving_shape(const Vec3 &a, const Vec3 &b, const float color[3], Shaders &shader, ModelStack &modelStack);
-
-		bool	&get_open_wings()		{ return _open_wings; };
-		double	&get_opening_frame()	{ return _opening_frame; };
-		bool	_okeypressed = false;
+		void	draw_paving_shape_for_wing(const Vec3 &a, const Vec3 &b, const float color[3], Shaders &shader, ModelStack &modelStack);
 };

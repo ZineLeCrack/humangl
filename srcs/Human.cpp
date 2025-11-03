@@ -12,6 +12,7 @@ Human::Human()
 	_showLeftUpperArm = true;
 	_showLeftForearm = true;
 	_showHands = false;
+	_showWings = true;
 
 	_showRightTigh = true;
 	_showRightLowerLeg = true;
@@ -39,7 +40,17 @@ void	Human::draw(ModelStack &modelStack, Shaders &shader, bool cube)
 		modelStack.translate(0.0f, 0.1f * _size, 0.05f);
 	}
 
+	if (_animation == FLY) {
+		modelStack.push();
+		modelStack.translate(0.0f, -0.1f * _size, -0.05f);
+		modelStack.rotate(0.0f, 'X');
+		modelStack.translate(0.0f, 0.1f * _size, 0.05f);
+	}
+
 	if (_showBody) draw_body(modelStack, shader);
+
+	draw_wings(modelStack, shader, angle);
+
 	if (_showHead) draw_head(modelStack, shader);
 
 	draw_left_arm(modelStack, shader, angle);
@@ -51,7 +62,7 @@ void	Human::draw(ModelStack &modelStack, Shaders &shader, bool cube)
 	draw_right_leg(modelStack, shader, angle);
 	draw_left_leg(modelStack, shader, angle);
 
-	draw_wings(modelStack, shader);
+	if (_animation == FLY) modelStack.pop();
 
 	if (cube) draw_cube(shader, modelStack.current());
 
@@ -74,6 +85,10 @@ void	Human::draw_right_arm(ModelStack &modelStack, Shaders &shader, float angle)
 		modelStack.translate(0.0f, 0.25f * _size, 0.0f);
 		modelStack.rotate(-angle * 1.5f, 'X');
 		modelStack.translate(0.0f, -0.25f * _size, 0.0f);
+	} else if (_animation == FLY) {
+		modelStack.translate(-0.15f, 0.25f * _size, 0.0f);
+		modelStack.rotate(-10 + angle * -0.3f, 'Z');
+		modelStack.translate(0.15f, -0.25f * _size, 0.0f);
 	}
 
 	if (_showRightUpperArm) {
@@ -118,6 +133,10 @@ void	Human::draw_left_arm(ModelStack &modelStack, Shaders &shader, float angle)
 		modelStack.translate(0.0f, 0.25f * _size, 0.0f);
 		modelStack.rotate(angle * 1.5f, 'X');
 		modelStack.translate(0.0f, -0.25f * _size, 0.0f);
+	} else if (_animation == FLY) {
+		modelStack.translate(0.15f, 0.25f * _size, 0.0f);
+		modelStack.rotate(10 + angle * 0.3f, 'Z');
+		modelStack.translate(-0.15f, -0.25f * _size, 0.0f);
 	}
 
 	if (_showLeftUpperArm) {
@@ -162,6 +181,10 @@ void	Human::draw_right_leg(ModelStack &modelStack, Shaders &shader, float angle)
 		modelStack.translate(0.0f, -0.1f * _size, 0.0f);
 		modelStack.rotate(angle * 2.0f, 'X');
 		modelStack.translate(0.0f, 0.1f * _size, 0.0f);
+	} else if (_animation == FLY) {
+		modelStack.translate(0.0f, -0.1f * _size, 0.0f);
+		modelStack.rotate(5 + (sin((glfwGetTime() + 1000 - _animation_frame) * 5.0f) * 30.0f) * 0.1f, 'X');
+		modelStack.translate(0.0f, 0.1f * _size, 0.0f);
 	}
 
 	if (_showRightTigh) draw_right_thigh(modelStack, shader);
@@ -181,6 +204,10 @@ void	Human::draw_right_leg(ModelStack &modelStack, Shaders &shader, float angle)
 	} else if (_animation == SPRINT) {
 		modelStack.translate(0.0f, -0.3f * _size, 0.05f);
 		modelStack.rotate(angle < 0.0f ? -angle * 2.0f : 0.0f, 'X');
+		modelStack.translate(0.0f, 0.3f * _size, -0.05f);
+	} else if (_animation == FLY) {
+		modelStack.translate(0.0f, -0.3f * _size, 0.05f);
+		modelStack.rotate(40 + (sin((glfwGetTime() + 1000 - _animation_frame) * 5.0f) * 30.0f) * 0.2f, 'X');
 		modelStack.translate(0.0f, 0.3f * _size, -0.05f);
 	}
 
@@ -208,6 +235,10 @@ void	Human::draw_left_leg(ModelStack &modelStack, Shaders &shader, float angle)
 		modelStack.translate(0.0f, -0.1f * _size, 0.0f);
 		modelStack.rotate(-angle * 2.0f, 'X');
 		modelStack.translate(0.0f, 0.1f * _size, 0.0f);
+	} else if (_animation == FLY) {
+		modelStack.translate(0.0f, -0.1f * _size, 0.0f);
+		modelStack.rotate(10 + angle * 0.1f, 'X');
+		modelStack.translate(0.0f, 0.1f * _size, 0.0f);
 	}
 
 	if (_showLeftTigh) draw_left_thigh(modelStack, shader);
@@ -227,6 +258,10 @@ void	Human::draw_left_leg(ModelStack &modelStack, Shaders &shader, float angle)
 	} else if (_animation == SPRINT) {
 		modelStack.translate(0.0f, -0.3f * _size, 0.05f);
 		modelStack.rotate(-angle < 0.0f ? angle * 2.0f : 0.0f, 'X');
+		modelStack.translate(0.0f, 0.3f * _size, -0.05f);
+	} else if (_animation == FLY) {
+		modelStack.translate(0.0f, -0.3f * _size, 0.05f);
+		modelStack.rotate(20 + angle * 0.3f, 'X');
 		modelStack.translate(0.0f, 0.3f * _size, -0.05f);
 	}
 
@@ -398,16 +433,4 @@ void	Human::draw_right_foot(ModelStack &modelStack, Shaders &shader)
 	draw_rect({-0.025f, -0.45f * _size,  0.05f}, {-0.025f, -0.50f * _size, -0.05f}, _foots_color, 0.1250f, 0.953125f, 0.0625f, 0.046875f, false, shader, modelStack);
 	draw_rect({-0.025f, -0.45f * _size,  0.05f}, {-0.125f, -0.50f * _size,  0.05f}, _foots_color, 0.0625f, 0.953125f, 0.0625f, 0.046875f,  true, shader, modelStack);
 	draw_rect({-0.025f, -0.45f * _size, -0.05f}, {-0.125f, -0.50f * _size, -0.05f}, _foots_color, 0.1875f, 0.953125f, 0.0625f, 0.046875f, false, shader, modelStack);
-}
-
-void Human::draw_paving_shape(const Vec3 &a, const Vec3 &b, const float color[3], Shaders &shader, ModelStack &modelStack)
-{
-	draw_rect({a.x, a.y * _size, a.z}, {b.x, b.y * _size, a.z}, color, 0, 0, 0, 0, false, shader, modelStack);
-	draw_rect({a.x, a.y * _size, b.z}, {b.x, b.y * _size, b.z}, color, 0, 0, 0, 0, false, shader, modelStack);
-
-	draw_rect({a.x, a.y * _size, a.z}, {a.x, b.y * _size, b.z}, color, 0, 0, 0, 0, false, shader, modelStack);
-	draw_rect({b.x, a.y * _size, a.z}, {b.x, b.y * _size, b.z}, color, 0, 0, 0, 0, false, shader, modelStack);
-
-	draw_rect({a.x, a.y * _size, a.z}, {b.x, a.y * _size, b.z}, color, 0, 0, 0, 0, false, shader, modelStack);
-	draw_rect({a.x, b.y * _size, a.z}, {b.x, b.y * _size, b.z}, color, 0, 0, 0, 0, false, shader, modelStack);
 }

@@ -16,7 +16,7 @@ static bool key2Released = true;
 static bool key3Released = true;
 static bool key4Released = true;
 
-static bool	cube = false;
+static bool	cube = true;
 
 static GLuint cubeVAO = 0, cubeVBO = 0;
 
@@ -101,6 +101,10 @@ void	keypress(GLFWwindow* window)
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) glfwSetWindowShouldClose(window, true);
 	if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS) {
 		human.get_animation() = JUMP;
+		human.get_animation_frame() = glfwGetTime();
+	}
+	if (glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS) {
+		human.get_animation() = FLY;
 		human.get_animation_frame() = glfwGetTime();
 	}
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
@@ -203,6 +207,7 @@ void	imgui_set_window()
 		Checkbox("Right Lower Leg", &human._showRightLowerLeg);
 		Checkbox("Left Lower Leg", &human._showLeftLowerLeg);
 		Checkbox("Hands", &human._showHands);
+		Checkbox("Wings", &human._showWings);
 		End();
 	}
 
