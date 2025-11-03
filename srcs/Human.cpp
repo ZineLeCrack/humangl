@@ -3,6 +3,7 @@
 Human::Human()
 {
 	_rightHand = new Hand("right");
+	_leftHand = new Hand("left");
 	_showBody = true;
 	_showHead = true;
 
@@ -10,6 +11,7 @@ Human::Human()
 	_showRightForearm = true;
 	_showLeftUpperArm = true;
 	_showLeftForearm = true;
+	_showHands = false;
 
 	_showRightTigh = true;
 	_showRightLowerLeg = true;
@@ -17,7 +19,7 @@ Human::Human()
 	_showLeftLowerLeg = true;
 }
 
-Human::~Human()	{delete _rightHand;}
+Human::~Human()	{delete _rightHand; delete _leftHand;}
 
 void	Human::draw(ModelStack &modelStack, Shaders &shader, bool cube)
 {
@@ -42,6 +44,7 @@ void	Human::draw(ModelStack &modelStack, Shaders &shader, bool cube)
 
 	draw_left_arm(modelStack, shader, angle);
 	draw_right_arm(modelStack, shader, angle);
+	draw_left_arm(modelStack, shader, angle);
 
 	if (_animation == SPRINT) modelStack.pop();
 
@@ -72,11 +75,7 @@ void	Human::draw_right_arm(ModelStack &modelStack, Shaders &shader, float angle)
 	}
 
 	if (_showRightUpperArm) {
-
-		// upper arm
 		draw_right_upper_arm(modelStack, shader);
-
-		// shoulder
 		draw_right_shoulder(modelStack, shader);
 	}
 
@@ -94,11 +93,9 @@ void	Human::draw_right_arm(ModelStack &modelStack, Shaders &shader, float angle)
 		modelStack.translate(0.0f, -0.1f * _size, 0.05f);
 	}
 
-	if (_showRightForearm) {
-
-		// forearm
-		draw_right_forearm(modelStack, shader);
-	}
+	if (_showRightForearm) draw_right_forearm(modelStack, shader);
+	
+	if (_showHands) _rightHand->draw(_skin_color, _size, modelStack, shader);
 
 	if (_animation) modelStack.pop();
 }
@@ -122,10 +119,7 @@ void	Human::draw_left_arm(ModelStack &modelStack, Shaders &shader, float angle)
 	}
 
 	if (_showLeftUpperArm) {
-		// upper arm
 		draw_left_upper_arm(modelStack, shader);
-
-		// shoulder
 		draw_left_shoulder(modelStack, shader);
 	}
 
@@ -143,10 +137,9 @@ void	Human::draw_left_arm(ModelStack &modelStack, Shaders &shader, float angle)
 		modelStack.translate(0.0f, -0.1f * _size, 0.05f);
 	}
 
-	if (_showLeftForearm) {
-		// forearm
-		draw_left_forearm(modelStack, shader);
-	}
+	if (_showLeftForearm) draw_left_forearm(modelStack, shader);
+
+	if (_showHands) _leftHand->draw(_skin_color, _size, modelStack, shader);
 
 	if (_animation) modelStack.pop();
 }
@@ -169,10 +162,7 @@ void	Human::draw_right_leg(ModelStack &modelStack, Shaders &shader, float angle)
 		modelStack.translate(0.0f, 0.1f * _size, 0.0f);
 	}
 
-	if (_showRightTigh) {
-		// thigh
-		draw_right_thigh(modelStack, shader);
-	}
+	if (_showRightTigh) draw_right_thigh(modelStack, shader);
 
 	if (_animation == JUMP) modelStack.pop();
 
@@ -193,10 +183,8 @@ void	Human::draw_right_leg(ModelStack &modelStack, Shaders &shader, float angle)
 	}
 
 	if (_showRightLowerLeg) {
-		// lower part
 		draw_right_lower_leg(modelStack, shader);
 		draw_right_foot(modelStack, shader);
-
 	}
 
 	if (_animation) modelStack.pop();
@@ -220,10 +208,7 @@ void	Human::draw_left_leg(ModelStack &modelStack, Shaders &shader, float angle)
 		modelStack.translate(0.0f, 0.1f * _size, 0.0f);
 	}
 
-	if (_showLeftTigh) {
-		// thigh
-		draw_left_thigh(modelStack, shader);
-	}
+	if (_showLeftTigh) draw_left_thigh(modelStack, shader);
 
 	if (_animation == JUMP) modelStack.pop();
 
@@ -244,10 +229,8 @@ void	Human::draw_left_leg(ModelStack &modelStack, Shaders &shader, float angle)
 	}
 
 	if (_showLeftLowerLeg) {
-		// lower part
 		draw_left_lower_leg(modelStack, shader);
 		draw_left_foot(modelStack, shader);
-
 	}
 
 	if (_animation) modelStack.pop();
@@ -261,7 +244,6 @@ void	Human::draw_head(ModelStack &modelStack, Shaders &shader)
 	draw_rect({ 0.1f,  0.3f * _size, -0.1f}, { 0.1f, 0.5f * _size,  0.1f}, _skin_color, 0.250f, 0.250f, 0.125f, 0.25f, false, shader, modelStack);
 	draw_rect({-0.1f,  0.3f * _size,  0.1f}, { 0.1f, 0.5f * _size,  0.1f}, _skin_color, 0.125f, 0.250f, 0.125f, 0.25f,  true, shader, modelStack);
 	draw_rect({-0.1f,  0.3f * _size, -0.1f}, { 0.1f, 0.5f * _size, -0.1f}, _skin_color, 0.375f, 0.250f, 0.125f, 0.25f, false, shader, modelStack);
-
 }
 
 void	Human::draw_body(ModelStack &modelStack, Shaders &shader)

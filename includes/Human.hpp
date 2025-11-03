@@ -38,8 +38,6 @@ class Human
 
 		bool	_slim = false;
 
-		Hand	*_rightHand;
-
 	public:
 
 		bool	_showBody;
@@ -49,11 +47,15 @@ class Human
 		bool	_showRightForearm;
 		bool	_showLeftUpperArm;
 		bool	_showLeftForearm;
+		bool	_showHands;
 
 		bool	_showRightTigh;
 		bool	_showRightLowerLeg;
 		bool	_showLeftTigh;
 		bool	_showLeftLowerLeg;
+
+		Hand	*_rightHand;
+		Hand	*_leftHand;
 
 		Human();
 		~Human();
