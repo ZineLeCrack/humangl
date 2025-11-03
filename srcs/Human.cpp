@@ -12,7 +12,7 @@ Human::Human()
 	_showLeftUpperArm = true;
 	_showLeftForearm = true;
 	_showHands = false;
-	_showWings = true;
+	_showWings = false;
 
 	_showRightthigh = true;
 	_showRightLowerLeg = true;

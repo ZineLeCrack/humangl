@@ -16,7 +16,7 @@ static bool key2Released = true;
 static bool key3Released = true;
 static bool key4Released = true;
 
-static bool	cube = true;
+static bool	cube = false;
 
 static GLuint cubeVAO = 0, cubeVBO = 0;
 
