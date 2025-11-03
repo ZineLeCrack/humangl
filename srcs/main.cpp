@@ -159,7 +159,17 @@ void	imgui_set_window()
 
 		SeparatorText(" Size ");
 		SliderFloat("Zoom", &human.get_zoom(), 0.0f, 20.0f);
-		SliderFloat("Size", &human.get_size(), 0.5f, 2.0f);
+		SliderFloat("Global size", &human.get_size(), 0.5f, 2.0f);
+		SliderFloat("Body size", &human.get_body_size(), 0.5f, 2.0f);
+		SliderFloat("Head size", &human.get_head_size(), 0.5f, 2.0f);
+		SliderFloat("Left upper arm size", &human.get_left_upper_arm_size(), 0.5f, 2.0f);
+		SliderFloat("Right upper arm size", &human.get_right_upper_arm_size(), 0.5f, 2.0f);
+		SliderFloat("Left forearm size", &human.get_left_forearm_size(), 0.5f, 2.0f);
+		SliderFloat("Right forearm size", &human.get_right_forearm_size(), 0.5f, 2.0f);
+		SliderFloat("Left tigh size", &human.get_left_tigh_size(), 0.5f, 2.0f);
+		SliderFloat("Right tigh size", &human.get_right_tigh_size(), 0.5f, 2.0f);
+		SliderFloat("Left lower leg size", &human.get_left_lower_leg_size(), 0.5f, 2.0f);
+		SliderFloat("Right lower leg size", &human.get_right_lower_leg_size(), 0.5f, 2.0f);
 
 		SeparatorText(" Animations ");
 		if (Button("Reset")) { human.get_animation() = STAY; human.get_animation_frame() = 0; } SameLine();
