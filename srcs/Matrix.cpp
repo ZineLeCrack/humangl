@@ -76,7 +76,7 @@ Matrix	Matrix::scale(float sx, float sy, float sz)
 
 Matrix	Matrix::rotateX(float radians)
 {
-	float c = std::cos(radians), s = std::sin(radians);
+	float c = cosf(radians), s = sinf(radians);
 	Matrix R = Matrix::identity();
 	R(1, 1) = c;
 	R(2, 1) = s;
@@ -87,7 +87,7 @@ Matrix	Matrix::rotateX(float radians)
 
 Matrix	Matrix::rotateY(float radians)
 {
-	float c = std::cos(radians), s = std::sin(radians);
+	float c = cosf(radians), s = sinf(radians);
 	Matrix R = Matrix::identity();
 	R(0, 0) = c;
 	R(2, 0) = -s;
@@ -98,7 +98,7 @@ Matrix	Matrix::rotateY(float radians)
 
 Matrix	Matrix::rotateZ(float radians)
 {
-	float c = std::cos(radians), s = std::sin(radians);
+	float c = cosf(radians), s = sinf(radians);
 	Matrix R = Matrix::identity();
 	R(0, 0) = c;
 	R(1, 0) = s;
@@ -111,7 +111,7 @@ Matrix	Matrix::rotateAxis(const Vec3& axis, float radians)
 {
 	Vec3 a = axis.normalized();
 	float x = a.x, y = a.y, z = a.z;
-	float c = cos(radians), s = sin(radians);
+	float c = cosf(radians), s = sinf(radians);
 	float t = 1.0f - c;
 	Matrix R;
 
