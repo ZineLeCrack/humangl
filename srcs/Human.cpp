@@ -23,6 +23,22 @@ Human::Human()
 
 Human::~Human()	{delete _rightHand; delete _leftHand;}
 
+void	Human::reset_size()
+{
+	_size = 1.0f;
+
+	_head_size				= 1.0f;
+	_body_size				= 1.0f;
+	_left_upper_arm_size	= 1.0f;
+	_right_upper_arm_size	= 1.0f;
+	_left_forearm_size		= 1.0f;
+	_right_forearm_size		= 1.0f;
+	_left_thigh_size		= 1.0f;
+	_right_thigh_size		= 1.0f;
+	_left_lower_leg_size	= 1.0f;
+	_right_lower_leg_size	= 1.0f;
+}
+
 void	Human::draw(ModelStack &modelStack, Shaders &modelShader, Shaders &colorShader, bool cube)
 {
 	float angle = sin((glfwGetTime() - _animation_frame) * (_animation == SPRINT ? 10.0f : 5.0f)) * 30.0f;

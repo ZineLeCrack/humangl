@@ -176,6 +176,7 @@ void	imgui_set_window()
 		if (Button("Reset  rotation")) human.get_rotX() = human.get_rotY() = 0.0f;
 
 		SeparatorText(" Size ");
+		if (Button("Reset Size")) human.reset_size();
 		SliderFloat("Zoom", &human.get_zoom(), 0.0f, 20.0f);
 		SliderFloat("Global size", &human.get_size(), 0.5f, 2.0f);
 		SliderFloat("Body size", &human.get_body_size(), 0.5f, 2.0f);
@@ -194,7 +195,8 @@ void	imgui_set_window()
 		if (Button("Walk")) { human.get_animation() = WALK; human.get_animation_frame() = glfwGetTime(); } SameLine();
 		if (Button("Sprint")) { human.get_animation() = SPRINT; human.get_animation_frame() = glfwGetTime(); } SameLine();
 		if (Button("Jump")) { human.get_animation() = JUMP; human.get_animation_frame() = glfwGetTime(); } SameLine();
-		if (Button("Disco Dance")) {human.get_animation() = DISCO_DANCE; human.get_animation_frame() = glfwGetTime();}
+		if (Button("Disco Dance")) {human.get_animation() = DISCO_DANCE; human.get_animation_frame() = glfwGetTime(); } SameLine();
+		if (Button("Fly")) {human.get_animation() = FLY; human.get_animation_frame() = glfwGetTime(); }
 		End();
 	}
 
