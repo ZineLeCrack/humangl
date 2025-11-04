@@ -23,12 +23,28 @@ Human::Human()
 
 Human::~Human()	{delete _rightHand; delete _leftHand;}
 
+void	Human::reset_size()
+{
+	_size = 1.0f;
+
+	_head_size				= 1.0f;
+	_body_size				= 1.0f;
+	_left_upper_arm_size	= 1.0f;
+	_right_upper_arm_size	= 1.0f;
+	_left_forearm_size		= 1.0f;
+	_right_forearm_size		= 1.0f;
+	_left_thigh_size		= 1.0f;
+	_right_thigh_size		= 1.0f;
+	_left_lower_leg_size	= 1.0f;
+	_right_lower_leg_size	= 1.0f;
+}
+
 void	Human::draw(ModelStack &modelStack, Shaders &modelShader, Shaders &colorShader, bool cube)
 {
-	float angle = sin((glfwGetTime() - _animation_frame) * (_animation == SPRINT ? 10.0f : 5.0f)) * 30.0f;
+	float angle = sinf((glfwGetTime() - _animation_frame) * (_animation == SPRINT ? 10.0f : 5.0f)) * 30.0f;
 
 	if (human.get_animation() == JUMP) {
-		float angle = -sin((glfwGetTime() - human.get_animation_frame()) * 5.0f);
+		float angle = -sinf((glfwGetTime() - human.get_animation_frame()) * 5.0f);
 		modelStack.push();
 		if (angle > 0.0f) modelStack.translate(0.0f, angle * 0.5f, 0.0f);
 		else modelStack.translate(0.0f, angle * 0.05f, 0.0f);
@@ -244,7 +260,7 @@ void	Human::draw_right_leg(ModelStack &modelStack, Shaders &shader, float angle)
 	}
 	else if (_animation == FLY) {
 		modelStack.translate(0.0f, -0.1f * _size * _body_size, 0.0f);
-		modelStack.rotate(5 + (sin((glfwGetTime() + 1000 - _animation_frame) * 5.0f) * 30.0f) * 0.1f, 'X');
+		modelStack.rotate(5 + (sinf((glfwGetTime() + 1000 - _animation_frame) * 5.0f) * 30.0f) * 0.1f, 'X');
 		modelStack.translate(0.0f, 0.1f * _size * _body_size, 0.0f);
 	} else if (_animation == DISCO_DANCE) {
 		modelStack.translate(0.0f, _discoTranslate * _size, 0.0f);
@@ -267,7 +283,7 @@ void	Human::draw_right_leg(ModelStack &modelStack, Shaders &shader, float angle)
 		modelStack.translate(0.0f, (0.1f * _size * _body_size) + (0.2f * _size * _right_thigh_size), -0.05f);
 	} else if (_animation == FLY) {
 		modelStack.translate(0.0f, (-0.1f * _size * _body_size) - (0.2f * _size * _right_thigh_size), 0.05f);
-		modelStack.rotate(40 + (sin((glfwGetTime() + 1000 - _animation_frame) * 5.0f) * 30.0f) * 0.2f, 'X');
+		modelStack.rotate(40 + (sinf((glfwGetTime() + 1000 - _animation_frame) * 5.0f) * 30.0f) * 0.2f, 'X');
 		modelStack.translate(0.0f, (0.1f * _size * _body_size) + (0.2f * _size * _right_thigh_size), -0.05f);
 	}
 

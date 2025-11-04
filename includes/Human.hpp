@@ -20,7 +20,7 @@ class Human
 		float	_right_upper_arm_size	= 1.0f;
 		float	_left_forearm_size		= 1.0f;
 		float	_right_forearm_size		= 1.0f;
-		float	_left_thigh_size			= 1.0f;
+		float	_left_thigh_size		= 1.0f;
 		float	_right_thigh_size		= 1.0f;
 		float	_left_lower_leg_size	= 1.0f;
 		float	_right_lower_leg_size	= 1.0f;
@@ -95,10 +95,12 @@ class Human
 		void	set_skin_color(float r, float g, float b)	{ _skin_color[0]  = r, _skin_color[1]  = g, _skin_color[2]  = b; };
 		void	set_texture(GLuint tex)						{ _tex = tex; }
 
+		void	reset_size();
+
 		void	change_texture()	{ _use_texture = !_use_texture; }
 		void	change_slim()		{ _slim = !_slim; }
 
-	void	draw(ModelStack &modelStack, Shaders &modelShader, Shaders &colorShader, bool draw_cube);
+		void	draw(ModelStack &modelStack, Shaders &modelShader, Shaders &colorShader, bool draw_cube);
 		void	draw_body(ModelStack &modelStack, Shaders &shader);
 		void	draw_head(ModelStack &modelStack, Shaders &shader);
 
