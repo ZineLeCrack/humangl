@@ -300,7 +300,7 @@ int main(int ac, char **av)
 	}
 
 	glfwMakeContextCurrent(window);
-	glfwSwapInterval(1);
+	glfwSwapInterval(0);
 
 	if (glewInit() != GLEW_OK) {
 		glfwTerminate();
