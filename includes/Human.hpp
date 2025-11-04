@@ -31,7 +31,7 @@ class Human
 		float	_skin_color[3]	= { 0.96f, 0.87f, 0.70f };
 
 		int		_animation			= STAY;
-		double	_animation_frame	= 0;
+		float	_animation_frame	= 0.0f;
 
 		bool	_use_texture	= false;
 		GLuint	_tex			= 0;
@@ -84,7 +84,7 @@ class Human
 		float	*get_body_color()			{ return _body_color; }
 		float	*get_skin_color()			{ return _skin_color; }
 		int		&get_animation()			{ return _animation; }
-		double	&get_animation_frame()		{ return _animation_frame; }
+		float	&get_animation_frame()		{ return _animation_frame; }
 		bool	&get_use_texture()			{ return _use_texture; }
 		GLuint	&get_texture()				{ return _tex; }
 		bool	&get_slim()					{ return _slim; }

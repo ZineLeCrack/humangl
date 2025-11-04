@@ -1,10 +1,10 @@
 #include "Vec3.hpp"
 
-Vec3::Vec3():x(0),y(0),z(0) {}
+Vec3::Vec3(): x(0), y(0), z(0) {}
 
 Vec3::~Vec3() {}
 
-Vec3::Vec3(float _x, float _y, float _z):x(_x),y(_y),z(_z) {}
+Vec3::Vec3(float _x, float _y, float _z): x(_x), y(_y), z(_z) {}
 
 Vec3 Vec3::operator+(const Vec3 &vec3) const
 {
@@ -80,11 +80,10 @@ float Vec3::length() const
 Vec3 Vec3::normalized() const
 {
 	float len = length();
-	if (len == 0.0f) return {0, 0, 0};
+	if (len == 0.0f) return {0.0f, 0.0f, 0.0f};
 	return {x / len, y / len, z / len};
 }
 
-/*Used to project one vector onto another, to calculate the angle between vectors, for lighting, etc.*/
 float Vec3::dot(const Vec3& a, const Vec3& b)
 {
 	return a.x * b.x + a.y * b.y + a.z * b.z;

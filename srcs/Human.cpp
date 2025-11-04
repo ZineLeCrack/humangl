@@ -113,7 +113,7 @@ void	Human::draw_right_arm(ModelStack &modelStack, Shaders &shader, Shaders &col
 		modelStack.translate(0.0f, -0.25f * _size * _body_size, 0.0f);
 	} else if (_animation == FLY) {
 		modelStack.translate(-0.15f, 0.25f * _size * _body_size, 0.0f);
-		modelStack.rotate(-10 + angle * -0.3f, 'Z');
+		modelStack.rotate(-10.0f + angle * -0.3f, 'Z');
 		modelStack.translate(0.15f, -0.25f * _size * _body_size, 0.0f);
 	} else if (_animation == DISCO_DANCE) {
 		if (_discoStartFinished) {
@@ -199,7 +199,7 @@ void	Human::draw_left_arm(ModelStack &modelStack, Shaders &shader, Shaders &colo
 		modelStack.translate(0.0f, -0.25f * _size * _body_size, 0.0f);
 	} else if (_animation == FLY) {
 		modelStack.translate(0.15f, 0.25f * _size * _body_size, 0.0f);
-		modelStack.rotate(10 + angle * 0.3f, 'Z');
+		modelStack.rotate(10.0f + angle * 0.3f, 'Z');
 		modelStack.translate(-0.15f, -0.25f * _size * _body_size, 0.0f);
 	}
 	else if (_animation == DISCO_DANCE) {
@@ -260,7 +260,7 @@ void	Human::draw_right_leg(ModelStack &modelStack, Shaders &shader, float angle)
 	}
 	else if (_animation == FLY) {
 		modelStack.translate(0.0f, -0.1f * _size * _body_size, 0.0f);
-		modelStack.rotate(5 + (sinf((glfwGetTime() + 1000 - _animation_frame) * 5.0f) * 30.0f) * 0.1f, 'X');
+		modelStack.rotate(5.0f + (sinf((glfwGetTime() + 1000.0f - _animation_frame) * 5.0f) * 30.0f) * 0.1f, 'X');
 		modelStack.translate(0.0f, 0.1f * _size * _body_size, 0.0f);
 	} else if (_animation == DISCO_DANCE) {
 		modelStack.translate(0.0f, _discoTranslate * _size, 0.0f);
@@ -283,7 +283,7 @@ void	Human::draw_right_leg(ModelStack &modelStack, Shaders &shader, float angle)
 		modelStack.translate(0.0f, (0.1f * _size * _body_size) + (0.2f * _size * _right_thigh_size), -0.05f);
 	} else if (_animation == FLY) {
 		modelStack.translate(0.0f, (-0.1f * _size * _body_size) - (0.2f * _size * _right_thigh_size), 0.05f);
-		modelStack.rotate(40 + (sinf((glfwGetTime() + 1000 - _animation_frame) * 5.0f) * 30.0f) * 0.2f, 'X');
+		modelStack.rotate(40.0f + (sinf((glfwGetTime() + 1000.0f - _animation_frame) * 5.0f) * 30.0f) * 0.2f, 'X');
 		modelStack.translate(0.0f, (0.1f * _size * _body_size) + (0.2f * _size * _right_thigh_size), -0.05f);
 	}
 
@@ -313,7 +313,7 @@ void	Human::draw_left_leg(ModelStack &modelStack, Shaders &shader, float angle)
 		modelStack.translate(0.0f, 0.1f * _size * _body_size, 0.0f);
 	} else if (_animation == FLY) {
 		modelStack.translate(0.0f, -0.1f * _size * _body_size, 0.0f);
-		modelStack.rotate(10 + angle * 0.1f, 'X');
+		modelStack.rotate(10.0f + angle * 0.1f, 'X');
 		modelStack.translate(0.0f, 0.1f * _size * _body_size, 0.0f);
 	} else if (_animation == DISCO_DANCE) {
 		modelStack.translate(0.0f, _discoTranslate * _size, 0.0f);
@@ -336,7 +336,7 @@ void	Human::draw_left_leg(ModelStack &modelStack, Shaders &shader, float angle)
 		modelStack.translate(0.0f, (0.1f * _size * _body_size) + (0.2f * _size * _left_thigh_size), -0.05f);
 	} else if (_animation == FLY) {
 		modelStack.translate(0.0f, (-0.1f * _size * _body_size) - (0.2f * _size * _left_thigh_size), 0.05f);
-		modelStack.rotate(20 + angle * 0.3f, 'X');
+		modelStack.rotate(20.0f + angle * 0.3f, 'X');
 		modelStack.translate(0.0f, (0.1f * _size * _body_size) + (0.2f * _size * _left_thigh_size), -0.05f);
 	}
 
