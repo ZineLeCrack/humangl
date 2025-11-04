@@ -164,12 +164,14 @@ void	imgui_set_window()
 		Begin("Settings", NULL, ImGuiWindowFlags_AlwaysAutoResize);
 		SeparatorText(" Info ");
 		Text("fps: %d", (int)GetIO().Framerate);
-		if (Button("Display cube")) cube = !cube;
+		Checkbox("Display cube", &cube);
 
 		SeparatorText(" Skin ");
-		if (Button("Use skin")) human.change_texture();
+		Checkbox("Use skin", &human.get_use_texture());
 		SameLine();
-		if (Button("Slim")) human.change_slim();
+		if (RadioButton("Classic", human.get_slim() == 0)) human.change_slim();
+		SameLine();
+		if (RadioButton("Slim", human.get_slim() == 1)) human.change_slim();
 
 		SeparatorText(" Rotation ");
 		Text("Rotation: x = %d, y = %d", (int)human.get_rotX(), (int)human.get_rotY());
