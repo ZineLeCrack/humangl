@@ -567,11 +567,12 @@ void	Human::draw_left_foot(ModelStack &modelStack, Shaders &shader)
 	float	end = -0.1f * body_mul_sizes - (0.2f * left_thigh_mul_sizes) - (0.15f * left_lower_leg_mul_sizes);
 	float	start = end - 0.05f;
 
-	draw_rect({0.025f,   end,  0.05f}, {0.125f, end, -0.05f}, _foots_color, 0.1250f, 0.500000f, 0.0625f, 0.125000f, false, shader, false, modelStack);
-	draw_rect({0.125f, start,  0.05f}, {0.125f, end, -0.05f}, _foots_color, 0.0000f, 0.953125f, 0.0625f, 0.046875f,  true, shader, false, modelStack);
-	draw_rect({0.025f, start,  0.05f}, {0.025f, end, -0.05f}, _foots_color, 0.1250f, 0.953125f, 0.0625f, 0.046875f, false, shader, false, modelStack);
-	draw_rect({0.025f, start,  0.05f}, {0.125f, end,  0.05f}, _foots_color, 0.0625f, 0.953125f, 0.0625f, 0.046875f,  true, shader, false, modelStack);
-	draw_rect({0.025f, start, -0.05f}, {0.125f, end, -0.05f}, _foots_color, 0.1875f, 0.953125f, 0.0625f, 0.046875f, false, shader, false, modelStack);
+	draw_rect({0.025f,   end,  0.05f}, {0.125f,   end, -0.05f}, _foots_color, 0.1250f, 0.500000f, 0.0625f, 0.125000f, false, shader, false, modelStack);
+	draw_rect({0.025f, start,  0.05f}, {0.125f, start, -0.05f}, _foots_color, 0.1250f, 0.500000f, 0.0625f, 0.125000f, false, shader, false, modelStack);
+	draw_rect({0.125f, start,  0.05f}, {0.125f,   end, -0.05f}, _foots_color, 0.0000f, 0.953125f, 0.0625f, 0.046875f,  true, shader, false, modelStack);
+	draw_rect({0.025f, start,  0.05f}, {0.025f,   end, -0.05f}, _foots_color, 0.1250f, 0.953125f, 0.0625f, 0.046875f, false, shader, false, modelStack);
+	draw_rect({0.025f, start,  0.05f}, {0.125f,   end,  0.05f}, _foots_color, 0.0625f, 0.953125f, 0.0625f, 0.046875f,  true, shader, false, modelStack);
+	draw_rect({0.025f, start, -0.05f}, {0.125f,   end, -0.05f}, _foots_color, 0.1875f, 0.953125f, 0.0625f, 0.046875f, false, shader, false, modelStack);
 }
 
 void	Human::draw_right_foot(ModelStack &modelStack, Shaders &shader)
@@ -582,9 +583,10 @@ void	Human::draw_right_foot(ModelStack &modelStack, Shaders &shader)
 	float	end = -0.1f * body_mul_sizes - (0.2f * right_thigh_mul_sizes) - (0.15f * right_lower_leg_mul_sizes);
 	float	start = end - 0.05f;
 
-	draw_rect({-0.025f,   end,  0.05f}, {-0.125f, end, -0.05f}, _foots_color, 0.1250f, 0.500000f, 0.0625f, 0.125000f, false, shader, false, modelStack);
-	draw_rect({-0.125f, start,  0.05f}, {-0.125f, end, -0.05f}, _foots_color, 0.0000f, 0.953125f, 0.0625f, 0.046875f,  true, shader, false, modelStack);
-	draw_rect({-0.025f, start,  0.05f}, {-0.025f, end, -0.05f}, _foots_color, 0.1250f, 0.953125f, 0.0625f, 0.046875f, false, shader, false, modelStack);
-	draw_rect({-0.025f, start,  0.05f}, {-0.125f, end,  0.05f}, _foots_color, 0.0625f, 0.953125f, 0.0625f, 0.046875f,  true, shader, false, modelStack);
-	draw_rect({-0.025f, start, -0.05f}, {-0.125f, end, -0.05f}, _foots_color, 0.1875f, 0.953125f, 0.0625f, 0.046875f, false, shader, false, modelStack);
+	draw_rect({-0.025f,   end,  0.05f}, {-0.125f,   end, -0.05f}, _foots_color, 0.1250f, 0.500000f, 0.0625f, 0.125000f, false, shader, false, modelStack);
+	draw_rect({-0.025f, start,  0.05f}, {-0.125f, start, -0.05f}, _foots_color, 0.1250f, 0.500000f, 0.0625f, 0.125000f, false, shader, false, modelStack);
+	draw_rect({-0.125f, start,  0.05f}, {-0.125f,   end, -0.05f}, _foots_color, 0.0000f, 0.953125f, 0.0625f, 0.046875f,  true, shader, false, modelStack);
+	draw_rect({-0.025f, start,  0.05f}, {-0.025f,   end, -0.05f}, _foots_color, 0.1250f, 0.953125f, 0.0625f, 0.046875f, false, shader, false, modelStack);
+	draw_rect({-0.025f, start,  0.05f}, {-0.125f,   end,  0.05f}, _foots_color, 0.0625f, 0.953125f, 0.0625f, 0.046875f,  true, shader, false, modelStack);
+	draw_rect({-0.025f, start, -0.05f}, {-0.125f,   end, -0.05f}, _foots_color, 0.1875f, 0.953125f, 0.0625f, 0.046875f, false, shader, false, modelStack);
 }
