@@ -174,7 +174,7 @@ void	Human::draw_right_arm(ModelStack &modelStack, Shaders &shader, Shaders &col
 		glUseProgram(colorShader.shaderProgram);
 		GLint colorLoc = glGetUniformLocation(colorShader.shaderProgram, "uColor");
 		glUniform3fv(colorLoc, 1, _skin_color);
-		_rightHand->draw(_skin_color, _size, modelStack, colorShader);
+		_rightHand->draw(_skin_color, modelStack, colorShader);
 		glUseProgram(shader.shaderProgram);
 	}
 
@@ -225,7 +225,7 @@ void	Human::draw_left_arm(ModelStack &modelStack, Shaders &shader, Shaders &colo
 		modelStack.rotate(-60.0f + angle, 'X');
 		modelStack.translate(0.0f, (-0.3f * _size * _body_size) + (0.2f * _left_upper_arm_size * _size), 0.05f);
 	} else if (_animation == DISCO_DANCE) {
-		modelStack.translate(0.0f, _discoTranslate * -8 * _size * _body_size, 0.0f);
+		modelStack.translate(0.0f, _discoTranslate * -8.0f * _size * _body_size, 0.0f);
 		modelStack.rotate(_discoAngle * 4.0f, 'Z');
 	}
 
@@ -235,7 +235,7 @@ void	Human::draw_left_arm(ModelStack &modelStack, Shaders &shader, Shaders &colo
 		glUseProgram(colorShader.shaderProgram);
 		GLint colorLoc = glGetUniformLocation(colorShader.shaderProgram, "uColor");
 		glUniform3fv(colorLoc, 1, _skin_color);
-		_leftHand->draw(_skin_color, _size, modelStack, colorShader);
+		_leftHand->draw(_skin_color, modelStack, colorShader);
 		glUseProgram(shader.shaderProgram);
 	}
 	if (_animation) modelStack.pop();

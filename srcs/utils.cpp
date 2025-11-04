@@ -92,14 +92,14 @@ void	draw_rect(const Vec3 &a, const Vec3 &b, const float color[3], const float u
 	glDeleteVertexArrays(1, &VAO);
 }
 
-void draw_paving_shape(const Vec3 &a, const Vec3 &b, const float color[3], const float _size, Shaders &shader, bool colorShader, ModelStack &modelStack)
+void draw_paving_shape(const Vec3 &a, const Vec3 &b, const float color[3], Shaders &shader, bool colorShader, ModelStack &modelStack)
 {
-	draw_rect({a.x, a.y * _size, a.z}, {b.x, b.y * _size, a.z}, color, 0, 0, 0, 0, false, shader, colorShader, modelStack);
-	draw_rect({a.x, a.y * _size, b.z}, {b.x, b.y * _size, b.z}, color, 0, 0, 0, 0, false, shader, colorShader,modelStack);
+	draw_rect({a.x, a.y, a.z}, {b.x, b.y, a.z}, color, 0, 0, 0, 0, false, shader, colorShader, modelStack);
+	draw_rect({a.x, a.y, b.z}, {b.x, b.y, b.z}, color, 0, 0, 0, 0, false, shader, colorShader,modelStack);
 
-	draw_rect({a.x, a.y * _size, a.z}, {a.x, b.y * _size, b.z}, color, 0, 0, 0, 0, false, shader, colorShader, modelStack);
-	draw_rect({b.x, a.y * _size, a.z}, {b.x, b.y * _size, b.z}, color, 0, 0, 0, 0, false, shader, colorShader, modelStack);
+	draw_rect({a.x, a.y, a.z}, {a.x, b.y, b.z}, color, 0, 0, 0, 0, false, shader, colorShader, modelStack);
+	draw_rect({b.x, a.y, a.z}, {b.x, b.y, b.z}, color, 0, 0, 0, 0, false, shader, colorShader, modelStack);
 
-	draw_rect({a.x, a.y * _size, a.z}, {b.x, a.y * _size, b.z}, color, 0, 0, 0, 0, false, shader, colorShader, modelStack);
-	draw_rect({a.x, b.y * _size, a.z}, {b.x, b.y * _size, b.z}, color, 0, 0, 0, 0, false, shader, colorShader, modelStack);
+	draw_rect({a.x, a.y, a.z}, {b.x, a.y, b.z}, color, 0, 0, 0, 0, false, shader, colorShader, modelStack);
+	draw_rect({a.x, b.y, a.z}, {b.x, b.y, b.z}, color, 0, 0, 0, 0, false, shader, colorShader, modelStack);
 }
