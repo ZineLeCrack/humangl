@@ -63,7 +63,22 @@ void	Human::draw(ModelStack &modelStack, Shaders &modelShader, Shaders &colorSha
 			_discoAngle -= 0.5f;
 		if (_discoTranslate >= -0.02f)
 			_discoTranslate += -0.001f;
-		if (_discoAngle <= -10.0f && _discoTranslate <= -0.02f) {_discoStartFinished = true; _rightHand->indexFingerPhalangeAngle[0] = -90.0f; }
+		if (_discoAngle <= -10.0f && _discoTranslate <= -0.02f) {
+			_discoStartFinished = true;
+			_rightHand->indexFingerPhalangeAngle[0] = -90.0f;
+
+			_size					= 1.0f;
+			_head_size				= 1.0f;
+			_body_size				= 1.0f;
+			_left_upper_arm_size	= 1.0f;
+			_right_upper_arm_size	= 1.0f;
+			_left_forearm_size		= 1.0f;
+			_right_forearm_size		= 1.0f;
+			_left_thigh_size		= 1.0f;
+			_right_thigh_size		= 1.0f;
+			_left_lower_leg_size	= 1.0f;
+			_right_lower_leg_size	= 1.0f;
+		}
 	}
 
 	if (_animation == FLY) {
