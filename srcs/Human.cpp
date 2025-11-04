@@ -140,7 +140,7 @@ void	Human::draw_right_arm(ModelStack &modelStack, Shaders &shader, Shaders &col
 	} else if (_animation == SPRINT) {
 		modelStack.translate(0.0f, (0.3f * _size * _body_size) - (0.2f * _right_upper_arm_size * _size), -0.05f);
 		modelStack.rotate(-60.0f - angle, 'X');
-		modelStack.translate(0.0f, (-0.3f * _size * _body_size) - (0.2f * _right_upper_arm_size * _size), 0.05f);
+		modelStack.translate(0.0f, (-0.3f * _size * _body_size) + (0.2f * _right_upper_arm_size * _size), 0.05f);
 	} else if (_animation == DISCO_DANCE) {
 		if (_discoStartFinished) {
 			modelStack.translate(-0.175f, 0.1f * _size, 0.0f);
@@ -180,6 +180,7 @@ void	Human::draw_left_arm(ModelStack &modelStack, Shaders &shader, Shaders &colo
 	} else if (_animation == SPRINT) {
 		modelStack.translate(0.0f, 0.25f * _size * _body_size, 0.0f);
 		modelStack.rotate(angle * 1.5f, 'X');
+		modelStack.translate(0.0f, -0.25f * _size * _body_size, 0.0f);
 	} else if (_animation == FLY) {
 		modelStack.translate(0.15f, 0.25f * _size * _body_size, 0.0f);
 		modelStack.rotate(10 + angle * 0.3f, 'Z');
