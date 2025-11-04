@@ -59,7 +59,7 @@ void Hand::drawThumbFinger(const float _skin_color[3], ModelStack &modelStack, S
 	modelStack.push();
 	if (_attribut == "right") modelStack.translate(0.043f, -0.007f, -0.0382f);
 	else modelStack.translate(-0.043f, -0.007f, -0.0382f);
-	
+
 	modelStack.rotate(thumbFingerPhalangeAngle[0], 'Z');
 
 	if (_attribut == "right") draw_paving_shape({-0.021f, -0.007f, -0.0114f}, {0.007f, 0.007f, 0.0114f}, _skin_color, shader, true, modelStack);
@@ -82,7 +82,7 @@ void Hand::drawIndexFinger(const float _skin_color[3], ModelStack &modelStack, S
 	modelStack.push();
 	if (_attribut == "right") modelStack.translate(0.035f, -0.007f, 0.043f);
 	else modelStack.translate(-0.04f, -0.007f, 0.043f);
-	
+
 	modelStack.rotate(indexFingerPhalangeAngle[0], 'X');
 	draw_paving_shape({-0.01f, -0.007f, -0.0196f}, {0.015f, 0.007f, 0.007f}, _skin_color, shader, true, modelStack);
 
